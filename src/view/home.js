@@ -2,14 +2,14 @@ import React from 'react'
 import {
   View,
   Text,
+  Button,
   StyleSheet,
   AsyncStorage
 } from 'react-native'
-import { goToAuth } from './navigation'
+import { goToAuth } from '../navigation'
 import {Navigation} from 'react-native-navigation';
 
-import { USER_KEY } from './config'
-import { Button,Row,Image, Text} from '@shoutem/ui';
+import { USER_KEY } from '../config'
 
 export default class Home extends React.Component {
   static get options() {
@@ -32,22 +32,12 @@ export default class Home extends React.Component {
   render() {
     console.log('props; ', this.props)
     return (
-      <View >
-        {/* <Text>Hello from Home s222creen.111</Text> */}
-        {/* <Button
+      <View style={styles.container}>
+        <Text>Hello from Home screen.111</Text>
+        <Button
           onPress={this.logout}
           title="Sign Out"
-        /> */}
-        <Button  styleName="full-width">
-            <Text>扫一扫</Text>
-        </Button>
-        <Row styleName="small">
-            <Image
-                styleName="small-avatar"
-                source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-9.png' }}
-            />
-            <Text>Add comment</Text>
-        </Row>
+        />
         {/* <Button
           onPress={() => {
             Navigation.push(this.props.componentId, {

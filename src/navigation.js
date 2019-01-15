@@ -11,7 +11,7 @@ export const goToAuth = () => Navigation.setRoot({
             options: {
               bottomTab: {
                 fontSize: 12,
-                text: 'Sign In',
+                text: '登录',
                 icon: require('./signin.png')
               }
             }
@@ -22,7 +22,7 @@ export const goToAuth = () => Navigation.setRoot({
             name: 'SignUp',
             options: {
               bottomTab: {
-                text: 'Sign Up',
+                text: '注册',
                 fontSize: 12,
                 icon: require('./signup.png')
               }
