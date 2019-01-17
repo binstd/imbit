@@ -10,9 +10,9 @@ export const goToAuth = () => Navigation.setRoot({
             name: 'SignIn',
             options: {
               bottomTab: {
-                fontSize: 12,
+                fontSize: 11,
                 text: '登录',
-                icon: require('./signin.png')
+                icon: require('./img/signin.png')
               }
             }
           },
@@ -23,8 +23,8 @@ export const goToAuth = () => Navigation.setRoot({
             options: {
               bottomTab: {
                 text: '注册',
-                fontSize: 12,
-                icon: require('./signup.png')
+                fontSize: 11,
+                icon: require('./img/signup.png')
               }
             }
           },
@@ -34,7 +34,9 @@ export const goToAuth = () => Navigation.setRoot({
   }
 });
 
-export const goHome = () => Navigation.setRoot({
+
+export const 
+goHome = () => Navigation.setRoot({
   root: {
     stack: {
       id: 'App',
@@ -48,3 +50,15 @@ export const goHome = () => Navigation.setRoot({
     }
   }
 })
+
+
+
+
+export function registerScreens() {
+  Navigation.registerComponent('Home', () => require('./view/Home').default);
+  Navigation.registerComponent('Initializing', () => require('./view/Initialising').default);
+  Navigation.registerComponent('SignIn', () => require('./SignIn').default);
+  Navigation.registerComponent('SignUp', () => require('./SignUp').default);
+  Navigation.registerComponent('Screen2', () => require('./Screen2').default);
+  Navigation.registerComponent('Setting', () => require('./view/Setting').default);
+}

@@ -1,26 +1,27 @@
 import React from 'react'
 import {
-  View,
-  Text,
+//   View,
+//   Text,
+//   Button,
   StyleSheet,
   AsyncStorage
 } from 'react-native'
-import { goToAuth } from './navigation'
+import { goToAuth } from './initNavigation'
 import {Navigation} from 'react-native-navigation';
 
 import { USER_KEY } from './config'
-import { Button,Row,Image, Text} from '@shoutem/ui';
+import { Screen,Overlay, Heading,Title,Subtitle, Button, Icon,Text } from '@shoutem/ui';
 
 export default class Home extends React.Component {
-  static get options() {
-    return {
-      topBar: {
-        title: {
-          text: 'Home'
-        },
-      }
-    };
-  }
+//   static get options() {
+//     return {
+//       topBar: {
+//         title: {
+//           text: 'Home'
+//         },
+//       }
+//     };
+//   }
   logout = async () => {
     try {
       await AsyncStorage.removeItem(USER_KEY)
@@ -32,33 +33,28 @@ export default class Home extends React.Component {
   render() {
     console.log('props; ', this.props)
     return (
-      <View >
-        {/* <Text>Hello from Home s222creen.111</Text> */}
-        {/* <Button
-          onPress={this.logout}
-          title="Sign Out"
-        /> */}
-        <Button  styleName="full-width">
-            <Text>扫一扫</Text>
-        </Button>
-        <Row styleName="small">
-            <Image
-                styleName="small-avatar"
-                source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-9.png' }}
-            />
-            <Text>Add comment</Text>
-        </Row>
-        {/* <Button
-          onPress={() => {
-            Navigation.push(this.props.componentId, {
-              component: {
-                name: 'Screen2',
-              }
-            });
-          }}
-          title="View next screen"
-        /> */}
-      </View>
+        <Screen styleName="full-screen">
+             <Overlay>
+                <Overlay styleName="collapsed"><Heading>-20%</Heading></Overlay>
+                <Title styleName="md-gutter-top">COOL BLACK AND WHITE STYLISH WATCHES</Title>
+                <Subtitle styleName="line-through sm-gutter-top">$280.00</Subtitle>
+                <Heading>$250.00</Heading>
+                <Button styleName="md-gutter-top"   onPress={this.logout}  ><Icon name="cart" /><Text>退出</Text></Button>
+            </Overlay>
+        </Screen>
+       
+    //   <View style={styles.container}>
+    //     <Text>Hello from Home s222creen.111</Text>
+    //     <Button
+    //       onPress={this.logout}
+    //       title="Sign Out"
+    //     />
+    //    {/* <Image
+    //         styleName="medium"
+    //         style={{width:'300px'}}
+    //         source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png'}}
+    //     /> */}
+    //   </View>
     )
   }
 }

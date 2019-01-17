@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react'
 import {
-  View,
-  Button,
-  Text,
-  TextInput,
+//   View,
+//   Button,
+//   Text,
+//   TextInput,
   StyleSheet
 } from 'react-native'
 
+import { Screen, View,TextInput,Button,Text } from '@shoutem/ui';
 export default class SignUp extends React.Component {
   state = {
     username: '', password: '', email: '', phone_number: ''
@@ -25,7 +26,7 @@ export default class SignUp extends React.Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+       <Screen style={styles.container}>
         <TextInput
           style={styles.input}
           placeholder='Username'
@@ -56,23 +57,36 @@ export default class SignUp extends React.Component {
           onChangeText={val => this.onChangeText('phone_number', val)}
         />
         <Button
-          title='Sign Up'
+          title='注册'
           onPress={this.signUp}
         />
-      </View>
+            <Button 
+                styleName="secondary" 
+                style={{
+                    width: 300,
+                    marginTop: 30,
+                }}
+                // onPress={this.signIn}
+            >
+                    <Text>注  册</Text>
+            </Button>
+      </Screen>
     )
   }
 }
 
 const styles = StyleSheet.create({
   input: {
-    width: 350,
-    height: 55,
-    backgroundColor: '#42A5F5',
+    width: 300,
+    // fontSize: 16,
+    // fontWeight: '500',
+    // height: 48,
+    // backgroundColor: '#42A5F5',
     margin: 10,
-    padding: 8,
-    color: 'white',
-    borderRadius: 14,
+    // color: 'white',
+    padding: 10,
+    paddingLeft: 30,
+    // borderRadius: 14
   },
   container: {
     flex: 1,

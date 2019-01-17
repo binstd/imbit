@@ -7,7 +7,7 @@
 // AppRegistry.registerComponent(appName, () => App);
 
 import {Navigation} from 'react-native-navigation';
-import {registerScreens} from './src/screens';
+import {registerScreens} from './src/initNavigation';
 
 registerScreens();
 
