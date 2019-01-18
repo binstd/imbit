@@ -25,6 +25,14 @@ export default class Confirm extends React.Component {
             }
         };
     }
+    constructor(props) {
+        super(props);
+        this.state = {
+            mnemonicList:[],
+            startList:[]
+		};
+    }  
+
     state = {
         username: '', password: ''
     }
@@ -46,67 +54,125 @@ export default class Confirm extends React.Component {
         topBarElevationShadowEnabled: false
     };
 
+    addMnemonic(Mnemonic){
+        let mnemonicList = this.state.mnemonicList;
+
+        const startList = this.state.startList.filter(item => item !== Mnemonic);
+        mnemonicList.push(Mnemonic);
+        console.log('添加之后:',mnemonicList);
+        this.setState({mnemonicList,startList});
+     
+    }
+
+    delMnemonic(Mnemonic){
+        let startList = this.state.startList;
+        //let mnemonicList = this.state.mnemonicList;
+        const mnemonicList = this.state.mnemonicList.filter(item => item !== Mnemonic);
+        startList.push(Mnemonic);
+        this.setState({mnemonicList,startList});
+
+    }
+
+    async componentDidMount() {
+       
+        this.setState({
+            startList:['man','word','kill','woman','englisth','work','home']
+        });
+        
+    }
+
     render() {
+        
+        let {mnemonicList, startList} = this.state;
         return (
             <Screen style={styles.container}>
-
-                <Screen styleName="paper"
-                    style={{
-                        flex: 1,
-                        // justifyContent: 'center',
-                        marginTop: 100,
-                        height: 80,
-                        // marginBottom: 10,
-
-                    }}
-                >
-                    <Text styleName="md-gutter multiline"
+                 <Text styleName="md-gutter multiline"
                         style={{
                             marginTop: 1,
                             marginBottom: 1,
                         }}
                     >
-                        请确认您的周围无人，确保周围没有摄像头的环境下备份。
-                    </Text>
-                    <Text styleName="md-gutter multiline"
-                        style={{
-                            marginTop: 1,
-                            marginBottom: 1,
-                        }}
-                    >
-
-                        因为如果他人获取您的助记词，将会对您的身份下的全部数据和资产造成损害。
-                    </Text>
-                    <Text styleName="md-gutter multiline"
-                        style={{
-                            marginTop: 1,
-                            marginBottom: 1,
-                        }}
-                    >
-                        请抄下助记词，并存在在安全的地方。
-                    </Text>
-                </Screen>
-
+                        请选择正确的助记词,并按顺序点击。
+                </Text>
+               
                 <Divider styleName="line" />
                 <View
                     style={{
-                        flex: 1,
-                        justifyContent: 'center',
-                        marginBottom: 100,
-
+                        width:'90%',
+                        height:150,
+                        margin:10,
+                        marginTop:5,
+                        borderWidth:1,
+                        borderStyle:'dashed',
+                        borderRadius:10,
+                        borderColor:'#4F4F4F',
+                        flexWrap: 'wrap',
+                        padding: 10,
+                        flexDirection: 'row'
                     }}
                 >
-                    <Button
-                        styleName="secondary"
-                        style={{
-                            width: 300,
-                            marginTop: 30,
-                        }}
-                        onPress={goHome}
-                    >
-                        <Text>确认</Text>
-                    </Button>
+                    {mnemonicList.map((word,i) =>
+                            <Button
+                                styleName="secondary"
+                                style={styles.mnemonic}
+                                key={i}
+                                onPress={() => {this.delMnemonic(word)}}
+                            >
+                            <Text>{word}</Text>
+                            </Button>
+                        )}
                 </View>
+                    <View
+                        style={{
+                            width:'90%',
+                            height:100,
+                            margin:10,
+                            // borderWidth:1,
+                            // borderStyle:'dashed',
+                            // borderRadius:10,
+                            // borderColor:'#4F4F4F',
+                            flexWrap: 'wrap',
+                            flexDirection: 'row'
+                        }}
+                    >
+                      
+                        {startList.map((word, i) => 
+                                <Button styleName="secondary"
+                                style={styles.mnemonic}
+                                key={i}
+                                onPress={() => {this.addMnemonic(word)}}
+                            >
+                            <Text>{word}</Text>
+                            </Button>
+                        )}
+                    </View>
+                    {/* <Divider styleName="line" /> */}
+                    <View
+                        style={{
+                                flex: 1,  
+                                justifyContent: 'center',
+                                marginTop: 10,
+                                height:100
+                            }}
+                    >  
+                        <Button 
+                                styleName="secondary" 
+                                style={{
+                                    width: 300,
+                                    // marginTop: 10,
+                                }}
+                                onPress={() => {
+                                    // Navigation.push(this.props.componentId, {
+                                    // component: {
+                                    //     name: 'MnemonicConfirm',
+                                    // }
+                                    // });
+                                }}
+                                // onPress={this.signIn}
+                        >
+                            <Text>确认</Text>
+                        </Button>
+                    </View>
             </Screen>
         )
     }
@@ -114,21 +180,21 @@ export default class Confirm extends React.Component {
 
 const styles = StyleSheet.create({
     input: {
-        width: 300,
-        // fontSize: 16,
-        // fontWeight: '500',
-        // height: 48,
-        // backgroundColor: '#42A5F5',
+        width: 30,
         margin: 10,
-        // color: 'white',
         padding: 10,
         paddingLeft: 30,
-        // borderRadius: 14
     },
     container: {
         backgroundColor: 'white',
         flex: 1,
-        justifyContent: 'center',
+        // justifyContent: 'center',
         alignItems: 'center'
+    },
+    mnemonic: {
+        color: 'white',
+        marginLeft: 10,
+        marginTop:5,
+        height:40,
     }
 })

@@ -58,8 +58,8 @@ export default class Backup extends React.Component {
   }
  
   async componentDidMount() {
-    // let mnemonic = ethers.Wallet.createRandom().mnemonic;
-    let mnemonic = ethers.Wallet.createRandom({ locale: zh_cn }).mnemonic;
+    let mnemonic = ethers.Wallet.createRandom().mnemonic;
+    //let mnemonic = ethers.Wallet.createRandom({ locale: zh_cn }).mnemonic;
     console.log(mnemonic);
     this.setState({
         mnemonic
@@ -123,40 +123,7 @@ export default class Backup extends React.Component {
                             {/* 换 促 贮 显 即 背 寺 何 滨 霉 没 酶 */}
                             {this.state.mnemonic}
                         </Text>
-                        {/* <Text style={styles.mnemonic} >
-                            bold
-                        </Text>
-                        <Text style={styles.mnemonic} >
-                            bold
-                        </Text>
-                        <Text style={styles.mnemonic} >
-                            bold
-                        </Text>
-                        <Text style={styles.mnemonic} >
-                            bold
-                        </Text>
-                        <Text style={styles.mnemonic} >
-                            bold
-                        </Text>
-                        <Text style={styles.mnemonic} >
-                            bold
-                        </Text>
-                        <Text style={styles.mnemonic} >
-                            bold
-                        </Text>
-                        <Text style={styles.mnemonic} >
-                            bold
-                        </Text>
-                        <Text style={styles.mnemonic} >
-                            bold
-                        </Text>
-                        <Text style={styles.mnemonic} >
-                            bold
-                        </Text>
-                        <Text style={styles.mnemonic} >
-                            bold
-                        </Text>
-                   */}
+                      
                 </View>
                      
             <Divider styleName="line" />
