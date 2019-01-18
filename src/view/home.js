@@ -40,6 +40,9 @@ export default class Home extends React.Component {
         title: {
             text: ''
         },
+        navBarNoBorder: true,
+        hideShadow: true,
+        noBorder: true,
         rightButtons: [
           {
             id: 'Setting',
@@ -149,9 +152,9 @@ export default class Home extends React.Component {
         <Button 
                 styleName="secondary" 
                 style={{width: 200}}
-            >
+        >
                 <Text>扫一扫</Text>
-            </Button>
+        </Button>
       </Row>
         
       </Screen>

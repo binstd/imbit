@@ -7,7 +7,7 @@ import {
   StyleSheet,
   AsyncStorage,
 } from 'react-native'
-import { goToAuth } from '../initNavigation'
+import { goToAuth, goMnomonic } from '../initNavigation'
 // import { goToAuth } from './initNavigation'
 // import { Auth } from 'aws-amplify'
 import {Navigation} from 'react-native-navigation';
@@ -29,8 +29,13 @@ export default class Setting extends React.Component {
   static get options() {
     return {
       topBar: {
+        hideShadow: true,
+        noBorder: true,
         title: {
           text: '设置'
+        },
+        background: {
+            translucent: true
         },
         // leftButtons: [
         //     {
@@ -41,6 +46,7 @@ export default class Setting extends React.Component {
         //     }
         // ],
       }
+   
     };
   }
 
@@ -53,6 +59,10 @@ export default class Setting extends React.Component {
       console.log('error signing out...: ', err)
     }
   }
+//   goMnomonic =async () => {
+
+//   }
+
   render() {
     return (
         <Screen >
@@ -72,13 +82,16 @@ export default class Setting extends React.Component {
                     </Button>
                     <Divider styleName="line" />
 
-                    <Button>
+                    <Button
+                        onPress={goMnomonic}
+                    >
                         <Row>
                             <Icon name="folder" />
                             <Text>备份身份</Text>
                             <Icon styleName="disclosure" name="right-arrow" />
                         </Row>
                     </Button>
+                    
                     <Divider styleName="line" />
 
                     <Button

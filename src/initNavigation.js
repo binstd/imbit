@@ -1,64 +1,103 @@
 import { Navigation } from 'react-native-navigation'
 
+const iconColor = '#878787'
+const textColor = '#878787'
+const selectedIconColor = "#030303";
+const selectedTextColor = "#030303";
+
 export const goToAuth = () => Navigation.setRoot({
-  root: {
-    bottomTabs: {
-      id: 'BottomTabsId',
-      children: [
-        {
-          component: {
-            name: 'SignIn',
-            options: {
-              bottomTab: {
-                fontSize: 11,
-                text: '登录',
-                icon: require('./img/signin.png')
-              }
-            }
-          },
-        },
-        {
-          component: {
-            name: 'SignUp',
-            options: {
-              bottomTab: {
-                text: '注册',
-                fontSize: 11,
-                icon: require('./img/signup.png')
-              }
-            }
-          },
-        },
-      ],
+    root: {
+        bottomTabs: {
+            hideShadow: true,
+            noBorder: true,
+            children: [
+                {
+                    component: {
+                        name: 'SignIn',
+                        options: {
+                            bottomTab: {
+                                noBorder: true,
+                                iconColor,
+                                textColor,
+                                selectedIconColor,
+                                selectedTextColor,
+                                fontSize: 11,
+                                text: '登录',
+                                icon: require('./img/signin.png')
+                            }
+                        }
+                    },
+                },
+                {
+                    component: {
+                        name: 'SignUp',
+                        noBorder: true,
+                        options: {
+                            bottomTab: {
+                                noBorder: true,
+                                iconColor,
+                                textColor,
+                                selectedIconColor,
+                                selectedTextColor,
+                                text: '注册',
+                                fontSize: 11,
+                                icon: require('./img/signup.png')
+                            }
+                        }
+                    },
+                },
+            ],
+        }
     }
-  }
 });
 
 
-export const 
-goHome = () => Navigation.setRoot({
-  root: {
-    stack: {
-      id: 'App',
-      children: [
-        {
-          component: {
-            name: 'Home',
-          }
+export const goHome = () => Navigation.setRoot({
+        root: {
+            stack: {
+                id: 'App',
+                children: [
+                    {
+                        component: {
+                            name: 'Home',
+                        }
+                    }
+                ],
+            }
         }
-    ],
-    }
-  }
-})
+    })
 
 
+export const goMnomonic = () => Navigation.setRoot({
+        root: {
+            stack: {
+                id: 'Mnomonic',
+                children: [
+                    {
+                        component: {
+                            name: 'MnemonicConfirm',
+                        },
+                        component: {
+                            name: 'MnemonicBackup',
+                        },
+                        component: {
+                            name: 'MnemonicTold',
+                        }
+                    }
+                ],
+            }
+        }
+})   
 
 
 export function registerScreens() {
-  Navigation.registerComponent('Home', () => require('./view/Home').default);
-  Navigation.registerComponent('Initializing', () => require('./view/Initialising').default);
-  Navigation.registerComponent('SignIn', () => require('./SignIn').default);
-  Navigation.registerComponent('SignUp', () => require('./SignUp').default);
-  Navigation.registerComponent('Screen2', () => require('./Screen2').default);
-  Navigation.registerComponent('Setting', () => require('./view/Setting').default);
+    Navigation.registerComponent('Home', () => require('./view/Home').default);
+    Navigation.registerComponent('Initializing', () => require('./view/Initialising').default);
+    Navigation.registerComponent('SignIn', () => require('./SignIn').default);
+    Navigation.registerComponent('SignUp', () => require('./SignUp').default);
+    Navigation.registerComponent('Screen2', () => require('./Screen2').default);
+    Navigation.registerComponent('Setting', () => require('./view/Setting').default);
+    Navigation.registerComponent('MnemonicTold', () => require('./mnemonic/Told').default);
+    Navigation.registerComponent('MnemonicBackup', () => require('./mnemonic/Backup').default);
+    Navigation.registerComponent('MnemonicConfirm', () => require('./mnemonic/Confirm').default);
 }

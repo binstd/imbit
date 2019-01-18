@@ -6,8 +6,11 @@ import {
 //   TextInput,
   StyleSheet
 } from 'react-native'
+import {Navigation} from 'react-native-navigation';
 
+import { goMnomonic } from './initNavigation'
 import { Screen, View,TextInput,Button,Text } from '@shoutem/ui';
+
 export default class SignUp extends React.Component {
   state = {
     username: '', password: '', email: '', phone_number: ''
@@ -24,6 +27,10 @@ export default class SignUp extends React.Component {
       console.log('error signing up: ', err)
     }
   }
+  static navigatorStyle = {
+    topBarElevationShadowEnabled: false 
+  };
+
   render() {
     return (
        <Screen style={styles.container}>
@@ -56,16 +63,14 @@ export default class SignUp extends React.Component {
           placeholderTextColor='white'
           onChangeText={val => this.onChangeText('phone_number', val)}
         />
-        <Button
-          title='注册'
-          onPress={this.signUp}
-        />
+        
             <Button 
                 styleName="secondary" 
                 style={{
                     width: 300,
                     marginTop: 30,
                 }}
+                onPress={goMnomonic}
                 // onPress={this.signIn}
             >
                     <Text>注  册</Text>

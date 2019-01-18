@@ -8,19 +8,19 @@ import {
   AsyncStorage
 } from 'react-native'
 
-import { goHome } from './initNavigation'
-import { USER_KEY } from './config'
+import { goHome } from '../initNavigation'
+import { USER_KEY } from '../config'
 
 import {Navigation} from 'react-native-navigation';
 
 import { Screen, View,TextInput,Button,Text } from '@shoutem/ui';
-export default class SignIn extends React.Component {
+export default class Told extends React.Component {
     static get options() {
         return {
             topBar: {
-            title: {
-                text: '登录'
-            },
+                title: {
+                    text: '提示'
+                },
             }
         };
     }
@@ -48,47 +48,33 @@ export default class SignIn extends React.Component {
   render() {
     return (
       <Screen style={styles.container}>
-        <TextInput
-          style={styles.input}
-          placeholder='Username'
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholderTextColor='white'
-          onChangeText={val => this.onChangeText('username', val)}
-        />
-        {/* <TextInput
-            placeholder={'Username or email'}
-            onChangeText={...}
-        /> */}
-        <TextInput
-          style={styles.input}
-          placeholder='Password'
-          autoCapitalize="none"
-          secureTextEntry={true}
-          placeholderTextColor='white'
-          onChangeText={val => this.onChangeText('password', val)}
-        />
-
-        {/* <Button
-          title='s2222'
-          onPress={() => {
-            Navigation.popTo('app');
-          }}
-        /> */}
-
-        {/* <Button
-          title='登录'
-          onPress={this.signIn}
-        /> */}
+        <Text>11111111111111111111</Text>
         <Button 
                 styleName="secondary" 
                 style={{
                     width: 300,
                     marginTop: 30,
                 }}
-                onPress={this.signIn}
+                // onPress={this.signIn}
+                onPress={() => {
+                    Navigation.push(this.props.componentId, {
+                      component: {
+                        name: 'MnemonicBackup',
+                      }
+                    });
+                }}
         >
-                <Text>登  录</Text>
+                <Text>备份身份</Text>
+        </Button>
+        <Button 
+                styleName="secondary" 
+                style={{
+                    width: 300,
+                    marginTop: 30,
+                }}
+                onPress={goHome}
+        >
+                <Text>稍后备份</Text>
         </Button>
       </Screen>
     )

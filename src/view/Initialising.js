@@ -12,6 +12,10 @@ import { USER_KEY } from '../config'
 
 export default class Initialising extends React.Component {
   //判断登录
+  static navigatorStyle = {
+    topBarElevationShadowEnabled: false 
+  }
+
   async componentDidMount() {
     try {
       const user = await AsyncStorage.getItem(USER_KEY)
