@@ -26,10 +26,6 @@ import {
   Screen,
 } from '@shoutem/ui';
 
-// import {
-//   NavigationBar,
-// } from '@shoutem/ui/navigation';
-
 
 export default class Home extends React.Component {
   

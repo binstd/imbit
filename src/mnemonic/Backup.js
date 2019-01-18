@@ -10,7 +10,10 @@ import {
 
 import { goHome } from '../initNavigation'
 import { USER_KEY } from '../config'
-
+// import bip39 from 'bip39';
+// var bip39 = require('bip39')
+import { ethers } from 'ethers';
+import { zh_cn } from 'ethers/wordlists';
 import {Navigation} from 'react-native-navigation';
 
 import { Screen, View,TextInput,Button,Text,Divider } from '@shoutem/ui';
@@ -25,12 +28,23 @@ export default class Backup extends React.Component {
             }
         };
     }
-  state = {
-    username: '', password: ''
-  }
-  onChangeText = (key, value) => {
-    this.setState({ [key]: value })
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            mnemonic:'',
+            username:'',
+            password:'',
+		};
+    }  
+
+    state = {
+        username: '', password: ''
+    }
+    onChangeText = (key, value) => {
+        this.setState({ [key]: value })
+    }
+
+
   signIn = async () => {
     const { username, password } = this.state
     try {
@@ -42,21 +56,27 @@ export default class Backup extends React.Component {
       console.log('error:', err)
     }
   }
-  static navigatorStyle = {
-    topBarElevationShadowEnabled: false 
-  };
-  
+ 
+  async componentDidMount() {
+    // let mnemonic = ethers.Wallet.createRandom().mnemonic;
+    let mnemonic = ethers.Wallet.createRandom({ locale: zh_cn }).mnemonic;
+    console.log(mnemonic);
+    this.setState({
+        mnemonic
+    });
+    // var mnemonic = bip39.generateMnemonic()
+    // // var mnemonicS = bip39.generateMnemonic(128, null, bip39.wordlists.chinese_simplified);
+    // console.log(mnemonic);
+  }
+
   render() {
     return (
-      <Screen style={styles.container}>
+      <Screen style={styles.container} >
                     <Screen styleName="paper"
                     style={{
                         flex: 1,
-                        // justifyContent: 'center',
                         marginTop: 100,
                         height: 80,
-                        // marginBottom: 10,
-
                     }}
                 >
                     <Text styleName="md-gutter multiline"
@@ -73,7 +93,6 @@ export default class Backup extends React.Component {
                             marginBottom: 1,
                         }}
                     >
-
                         因为如果他人获取您的助记词，将会对您的身份下的全部数据和资产造成损害。
                     </Text>
                     <Text styleName="md-gutter multiline"
@@ -88,7 +107,6 @@ export default class Backup extends React.Component {
                 <Divider styleName="line" />
                 <View
                     style={{
-                        // weight: 400,
                         width:'90%',
                         height:150,
                         margin:10,
@@ -98,77 +116,75 @@ export default class Backup extends React.Component {
                         borderColor:'#4F4F4F',
                         flexWrap: 'wrap',
                         padding: 10,
-                        // flex: 1,
                         flexDirection: 'row'
                     }}
                 >
-                   
-                        <Text style={{color: 'red',marginLeft: 10,}}>
-                            red
+                        <Text style={styles.mnemonic} >
+                            {/* 换 促 贮 显 即 背 寺 何 滨 霉 没 酶 */}
+                            {this.state.mnemonic}
                         </Text>
-                        <Text style={{color: 'red',marginLeft: 10}}>
+                        {/* <Text style={styles.mnemonic} >
                             bold
                         </Text>
-                        <Text style={{color: 'red',marginLeft: 10}}>
+                        <Text style={styles.mnemonic} >
                             bold
                         </Text>
-                        <Text style={{color: 'red',marginLeft: 10}}>
+                        <Text style={styles.mnemonic} >
                             bold
                         </Text>
-                        <Text style={{color: 'red',marginLeft: 10}}>
+                        <Text style={styles.mnemonic} >
                             bold
                         </Text>
-                        <Text style={{color: 'red',marginLeft: 10}}>
+                        <Text style={styles.mnemonic} >
                             bold
                         </Text>
-                        <Text style={{color: 'red',marginLeft: 10}}>
+                        <Text style={styles.mnemonic} >
                             bold
                         </Text>
-                        <Text style={{color: 'red',marginLeft: 10}}>
+                        <Text style={styles.mnemonic} >
                             bold
                         </Text>
-                        <Text style={{color: 'red',marginLeft: 10}}>
+                        <Text style={styles.mnemonic} >
                             bold
                         </Text>
-                        <Text style={{color: 'red',marginLeft: 10}}>
+                        <Text style={styles.mnemonic} >
                             bold
                         </Text>
-                        <Text style={{color: 'red',marginLeft: 10}}>
+                        <Text style={styles.mnemonic} >
                             bold
                         </Text>
-                        <Text style={{color: 'red',marginLeft: 10}}>
+                        <Text style={styles.mnemonic} >
                             bold
                         </Text>
-                  
+                   */}
                 </View>
                      
-                <Divider styleName="line" />
-                <View
+            <Divider styleName="line" />
+            <View
                 style={{
                         flex: 1,  
                         justifyContent: 'center',
                         marginBottom: 100,
                     }}
-                >  
-                    <Button 
-                            styleName="secondary" 
-                            style={{
-                                width: 300,
-                                marginTop: 30,
-                            }}
-                            onPress={() => {
-                                Navigation.push(this.props.componentId, {
-                                component: {
-                                    name: 'MnemonicConfirm',
-                                }
-                                });
-                            }}
-                            // onPress={this.signIn}
-                    >
-                            <Text>已做安全备份</Text>
-                    </Button>
-             </View>
-       
+            >  
+                <Button 
+                        styleName="secondary" 
+                        style={{
+                            width: 300,
+                            marginTop: 30,
+                        }}
+                        onPress={() => {
+                            Navigation.push(this.props.componentId, {
+                            component: {
+                                name: 'MnemonicConfirm',
+                            }
+                            });
+                        }}
+                        // onPress={this.signIn}
+                >
+                    <Text>已做安全备份</Text>
+                </Button>
+            </View>
       </Screen>
     )
   }
@@ -177,20 +193,19 @@ export default class Backup extends React.Component {
 const styles = StyleSheet.create({
   input: {
     width: 300,
-    // fontSize: 16,
-    // fontWeight: '500',
-    // height: 48,
-    // backgroundColor: '#42A5F5',
     margin: 10,
-    // color: 'white',
     padding: 10,
     paddingLeft: 30,
-    // borderRadius: 14
   },
   container: {
     backgroundColor: 'white',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  mnemonic: {
+    color: 'red',
+    marginLeft: 10,
+    marginTop:5
   }
 })
