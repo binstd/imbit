@@ -8,12 +8,18 @@ import {
     AsyncStorage
 } from 'react-native'
 
-import { goHome } from '../initNavigation'
+// import { goHome } from '../initNavigation'
 import { USER_KEY } from '../config'
 
 import { Navigation } from 'react-native-navigation';
 
 import { Screen, View, TextInput, Button, Text, Divider } from '@shoutem/ui';
+
+import { observer } from 'mobx-react/native';
+import userModel from '../model/userModel';
+
+import { goHome } from '../initNavigation'
+@observer
 export default class Confirm extends React.Component {
     static get options() {
         return {
@@ -59,7 +65,7 @@ export default class Confirm extends React.Component {
 
         const startList = this.state.startList.filter(item => item !== Mnemonic);
         mnemonicList.push(Mnemonic);
-        console.log('添加之后:',mnemonicList);
+        // console.log('添加之后:',mnemonicList);
         this.setState({mnemonicList,startList});
      
     }
@@ -74,11 +80,33 @@ export default class Confirm extends React.Component {
     }
 
     async componentDidMount() {
-       
+        // console.log('userModel.shuffleMnemonic: \n',userModel.shuffleMnemonic)
+        console.log("userModel.getAllData.mnemonic:",userModel.getAllData.mnemonic)
+        let mnemonic = [];
+        mnemonic = Object.values(userModel.mnemonic);
+        // let shuffleMnemonic = mnemonic.sort(() => Math.random() - 0.5)
         this.setState({
-            startList:['man','word','kill','woman','englisth','work','home']
+            startList:mnemonic.sort(() => Math.random() - 0.5)
         });
         
+    }
+
+    verifyMnemonic() {
+        let {mnemonicList} = this.state;
+        let realMnemonic = userModel.getAllData.mnemonic;
+
+        // console.log('verifyMnemonic-userModel ',Object.values(userModel.getAllData.mnemonic));
+        // console.log(Object.values(mnemonicList));
+        // console.log(typeof mnemonicList);
+        // console.log(typeof userModel.getAllData.mnemonic);
+        console.log(Object.values(mnemonicList).join(" "));
+        console.log(Object.values(realMnemonic).join(" "));
+        if(Object.values(realMnemonic).join(" ") == Object.values(mnemonicList).join(" ")) {
+            goHome();
+        } else {
+            console.log('抱歉,你没有备份');
+            
+        }
     }
 
     render() {
@@ -99,7 +127,8 @@ export default class Confirm extends React.Component {
                 <View
                     style={{
                         width:'90%',
-                        height:150,
+                        // height:200,
+                        minHeight:100,
                         margin:10,
                         marginTop:5,
                         borderWidth:1,
@@ -107,7 +136,7 @@ export default class Confirm extends React.Component {
                         borderRadius:10,
                         borderColor:'#4F4F4F',
                         flexWrap: 'wrap',
-                        padding: 10,
+                        padding: 5,
                         flexDirection: 'row'
                     }}
                 >
@@ -156,19 +185,12 @@ export default class Confirm extends React.Component {
                             }}
                     >  
                         <Button 
-                                styleName="secondary" 
-                                style={{
-                                    width: 300,
-                                    // marginTop: 10,
-                                }}
-                                onPress={() => {
-                                    // Navigation.push(this.props.componentId, {
-                                    // component: {
-                                    //     name: 'MnemonicConfirm',
-                                    // }
-                                    // });
-                                }}
-                                // onPress={this.signIn}
+                            styleName="secondary" 
+                            style={{
+                                width: 300,
+                                // marginTop: 10,
+                            }}
+                            onPress={() => {this.verifyMnemonic()}}       
                         >
                             <Text>确认</Text>
                         </Button>

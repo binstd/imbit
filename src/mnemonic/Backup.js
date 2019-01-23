@@ -14,9 +14,14 @@ import { USER_KEY } from '../config'
 // var bip39 = require('bip39')
 import { ethers } from 'ethers';
 import { zh_cn } from 'ethers/wordlists';
-import {Navigation} from 'react-native-navigation';
+import { Navigation } from 'react-native-navigation';
+
+import { observer } from 'mobx-react/native';
+import userModel from '../model/userModel';
 
 import { Screen, View,TextInput,Button,Text,Divider } from '@shoutem/ui';
+
+@observer
 export default class Backup extends React.Component {
     static get options() {
         return {
@@ -59,14 +64,13 @@ export default class Backup extends React.Component {
  
   async componentDidMount() {
     let mnemonic = ethers.Wallet.createRandom().mnemonic;
+   
     //let mnemonic = ethers.Wallet.createRandom({ locale: zh_cn }).mnemonic;
-    console.log(mnemonic);
+    console.log(mnemonic.split(" "));
+    userModel.mnemonicSet(mnemonic.split(" "));
     this.setState({
         mnemonic
     });
-    // var mnemonic = bip39.generateMnemonic()
-    // // var mnemonicS = bip39.generateMnemonic(128, null, bip39.wordlists.chinese_simplified);
-    // console.log(mnemonic);
   }
 
   render() {
@@ -135,19 +139,18 @@ export default class Backup extends React.Component {
                     }}
             >  
                 <Button 
-                        styleName="secondary" 
-                        style={{
-                            width: 300,
-                            marginTop: 30,
-                        }}
-                        onPress={() => {
-                            Navigation.push(this.props.componentId, {
-                            component: {
-                                name: 'MnemonicConfirm',
-                            }
-                            });
-                        }}
-                        // onPress={this.signIn}
+                    styleName="secondary" 
+                    style={{
+                        width: 300,
+                        marginTop: 30,
+                    }}
+                    onPress={() => {
+                        Navigation.push(this.props.componentId, {
+                        component: {
+                            name: 'MnemonicConfirm',
+                        }
+                        });
+                    }}
                 >
                     <Text>已做安全备份</Text>
                 </Button>

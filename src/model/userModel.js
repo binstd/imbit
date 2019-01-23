@@ -7,6 +7,7 @@ class userModel {
     telephone;
     address;
     privatekey;
+    mnemonic;
     pagenum;
     
     get getAllData() {
@@ -16,7 +17,8 @@ class userModel {
             telephone: this.telephone,
             address: this.address,
             privatekey: this.privatekey,
-            pagenum:this.pagenum
+            pagenum:this.pagenum,
+            mnemonic:this.mnemonic,
         };
         return data;
     }
@@ -43,9 +45,10 @@ class userModel {
         if (jsonData['privatekey']) {
             this.privatekey = jsonData['privatekey'];
         }
-        // if (jsonData['pagenum']) {
-        //     this.pagenum = jsonData['pagenum'];
-        // }
+
+        if(jsonData['mnemonic']){
+            this.mnemonic = jsonData['mnemonic'];
+        }
     }
 
     uidSet(uid) {
@@ -72,13 +75,26 @@ class userModel {
         this.pagenum = pagenum;
     }
 
+    mnemonicSet(mnemonic) {
+        console.log("mnemonicSet:",mnemonic);
+       this.mnemonic = mnemonic;     
+    }   
+    
+    // getShuffle() { 
+    //     arr.sort(() => Math.random() - 0.5);
+    // }
+    
+    // get shuffleMnemonic() {
+    //     return this.mnemonic.sort(() => Math.random() - 0.5);
+    // }  
+
     clearAll() {
         this.uid = '';
         this.username = '';
         this.telephone = '';
         this.address = '';
         this.privatekey = '';
-
+        this.mnemonic = '';
     }
 }
 
@@ -96,6 +112,7 @@ decorate(userModel, {
     addressSet: action,
     privatekeySet: action,
     pagenumSet:action,
+    mnemonicSet:action,
     clearAll:action,
     getAllData: computed
 
