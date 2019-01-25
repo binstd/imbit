@@ -101,10 +101,10 @@ export default class Told extends React.Component {
                     }}
                     // onPress={this.signIn}
                     onPress={() => {
-                        Navigation.push(this.props.componentId, {
-                        component: {
-                            name: 'MnemonicBackup',
-                        }
+                            Navigation.push(this.props.componentId, {
+                            component: {
+                                name: 'MnemonicBackup',
+                            }
                         });
                     }}
             >

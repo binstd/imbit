@@ -10,10 +10,10 @@ import {
 
 import { goHome } from '../initNavigation'
 import { USER_KEY } from '../config'
-// import bip39 from 'bip39';
-// var bip39 = require('bip39')
+
+
 import { ethers } from 'ethers';
-import { zh_cn } from 'ethers/wordlists';
+// import { zh_cn } from 'ethers/wordlists';
 import { Navigation } from 'react-native-navigation';
 
 import { observer } from 'mobx-react/native';
@@ -79,7 +79,7 @@ export default class Backup extends React.Component {
                     <Screen styleName="paper"
                     style={{
                         flex: 1,
-                        marginTop: 100,
+                        marginTop: 30,
                         height: 80,
                     }}
                 >
@@ -108,12 +108,13 @@ export default class Backup extends React.Component {
                         请抄下助记词，并存在在安全的地方。
                     </Text>
                 </Screen>
-                <Divider styleName="line" />
+                {/* <Divider styleName="line" /> */}
                 <View
                     style={{
                         width:'90%',
                         height:150,
                         margin:10,
+                        marginTop:20,
                         borderWidth:1,
                         borderStyle:'dashed',
                         borderRadius:10,
@@ -130,7 +131,7 @@ export default class Backup extends React.Component {
                       
                 </View>
                      
-            <Divider styleName="line" />
+            {/* <Divider styleName="line" /> */}
             <View
                 style={{
                         flex: 1,  
@@ -146,9 +147,9 @@ export default class Backup extends React.Component {
                     }}
                     onPress={() => {
                         Navigation.push(this.props.componentId, {
-                        component: {
-                            name: 'MnemonicConfirm',
-                        }
+                            component: {
+                                name: 'MnemonicConfirm',
+                            }
                         });
                     }}
                 >

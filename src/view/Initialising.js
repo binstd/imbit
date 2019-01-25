@@ -19,7 +19,7 @@ export default class Initialising extends React.Component {
   async componentDidMount() {
     try {
       const user = await AsyncStorage.getItem(USER_KEY)
-      console.log('user: ', user)
+      console.log('user::::: ', user)
       if (user) {
         goHome()
       } else {
