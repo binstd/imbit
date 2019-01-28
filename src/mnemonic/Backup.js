@@ -63,13 +63,15 @@ export default class Backup extends React.Component {
   }
  
   async componentDidMount() {
-    let mnemonic = ethers.Wallet.createRandom().mnemonic;
+    // let mnemonic = ethers.Wallet.createRandom().mnemonic;
    
     //let mnemonic = ethers.Wallet.createRandom({ locale: zh_cn }).mnemonic;
-    console.log(mnemonic.split(" "));
-    userModel.mnemonicSet(mnemonic.split(" "));
+    // console.log(mnemonic.split(" "));
+    // userModel.mnemonicSet(mnemonic.split(" "));
+    let mnemonic =  userModel.mnemonic;
+    console.log('备份:',mnemonic);
     this.setState({
-        mnemonic
+        mnemonic:mnemonic.join(" ") 
     });
   }
 

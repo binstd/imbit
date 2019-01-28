@@ -14,6 +14,7 @@ import { USER_KEY } from './config'
 import {Navigation} from 'react-native-navigation';
 
 import { Screen, View,TextInput,Button,Text } from '@shoutem/ui';
+import {asyncStorageSave} from './helpers/asyncStorage';
 export default class SignIn extends React.Component {
     static get options() {
         return {
@@ -34,7 +35,8 @@ export default class SignIn extends React.Component {
     const { username, password } = this.state
     try {
        // login with provider
-       const user = await AsyncStorage.setItem(USER_KEY, username)
+    //    asyncStorageSave
+       const user = await asyncStorageSave(USER_KEY, {username:username});
        console.log('user successfully signed in!', user)
        goHome()
     } catch (err) {

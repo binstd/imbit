@@ -18,7 +18,10 @@ import { Screen, View, TextInput, Button, Text, Divider } from '@shoutem/ui';
 import { observer } from 'mobx-react/native';
 import userModel from '../model/userModel';
 
-import { goHome } from '../initNavigation'
+import { goHome } from '../initNavigation';
+
+import {asyncStorageSave,asyncStorageLoad} from '../helpers/asyncStorage';
+
 @observer
 export default class Confirm extends React.Component {
     static get options() {
@@ -91,7 +94,7 @@ export default class Confirm extends React.Component {
         
     }
 
-    verifyMnemonic() {
+    async verifyMnemonic() {
         let {mnemonicList} = this.state;
         let realMnemonic = userModel.getAllData.mnemonic;
 
@@ -102,10 +105,18 @@ export default class Confirm extends React.Component {
         console.log(Object.values(mnemonicList).join(" "));
         console.log(Object.values(realMnemonic).join(" "));
         if(Object.values(realMnemonic).join(" ") == Object.values(mnemonicList).join(" ")) {
+            // let user = {};
+            // const LoadSto = await asyncStorageLoad(USER_KEY);
+            // if(LoadSto ){
+            //     user = LoadSto;
+            // }
+            // user['Mnemonic'] = realMnemonic; 
+            // console.log('Mnemonic Save:',user);
+            // let saveUser = await asyncStorageSave(USER_KEY, user);
+            // console.log(saveUser);
             goHome();
         } else {
             console.log('抱歉,你没有备份');
-            
         }
     }
 

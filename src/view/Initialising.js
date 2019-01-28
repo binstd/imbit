@@ -9,7 +9,11 @@ import {
 import { goToAuth, goHome } from '../initNavigation'
 
 import { USER_KEY } from '../config'
+import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
+import { observer } from 'mobx-react/native';
+import userModel from '../model/userModel';
 
+@observer
 export default class Initialising extends React.Component {
   //判断登录
   static navigatorStyle = {
@@ -17,10 +21,13 @@ export default class Initialising extends React.Component {
   }
 
   async componentDidMount() {
+    // console.log('asyncStorageLoad: \n',await asyncStorageLoad(USER_KEY));  
     try {
-      const user = await AsyncStorage.getItem(USER_KEY)
-      console.log('user::::: ', user)
+      const user = await asyncStorageLoad(USER_KEY);
+    //   const user = await AsyncStorage.getItem(USER_KEY)
+      console.log('user=>', user)
       if (user) {
+        userModel.allSet(user);
         goHome()
       } else {
         goToAuth()

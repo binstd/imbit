@@ -73,7 +73,7 @@ export default class SignUp extends React.Component {
                 onPress={goMnomonic}
                 // onPress={this.signIn}
             >
-                    <Text>注  册</Text>
+                <Text>注  册</Text>
             </Button>
       </Screen>
     )

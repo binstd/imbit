@@ -7,10 +7,13 @@ import {
   AsyncStorage
 } from 'react-native'
 // import { goToAuth } from '../initNavigation'
-import {Navigation} from 'react-native-navigation';
+import { Navigation } from 'react-native-navigation';
 
 import { USER_KEY } from '../config'
+import { observer } from 'mobx-react/native';
+import userModel from '../model/userModel';
 
+// import { Navigation } from 'react-native-navigation';
 import {
   ScrollView,
   Icon,
@@ -27,6 +30,7 @@ import {
 } from '@shoutem/ui';
 
 
+@observer
 export default class Home extends React.Component {
   
   static options(passProps) {
@@ -75,6 +79,10 @@ export default class Home extends React.Component {
     } catch (err) {
       console.log('error signing out...: ', err)
     }
+  }
+
+  async componentDidMount() {
+    console.log("home userModel",userModel.getAllData); 
   }
 
   render() {
@@ -146,8 +154,15 @@ export default class Home extends React.Component {
         }}
       >
         <Button 
-                styleName="secondary" 
-                style={{width: 200}}
+            styleName="secondary" 
+            style={{width: 200}}
+            onPress={() => {
+                Navigation.push(this.props.componentId, {
+                    component: {
+                        name: 'QRCodeScannerScreen',
+                    }
+                });
+            }}
         >
                 <Text>扫一扫</Text>
         </Button>

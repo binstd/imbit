@@ -47,6 +47,7 @@ class userModel {
         }
 
         if(jsonData['mnemonic']){
+            console.log(jsonData['mnemonic']);
             this.mnemonic = jsonData['mnemonic'];
         }
     }
@@ -71,23 +72,15 @@ class userModel {
     }
 
     pagenumSet(pagenum) {
-        console.log("还能无效嘛?:",pagenum);
+        // console.log("还能无效嘛?:",pagenum);
         this.pagenum = pagenum;
     }
 
     mnemonicSet(mnemonic) {
-        console.log("mnemonicSet:",mnemonic);
+        // console.log("mnemonicSet:",mnemonic);
        this.mnemonic = mnemonic;     
     }   
     
-    // getShuffle() { 
-    //     arr.sort(() => Math.random() - 0.5);
-    // }
-    
-    // get shuffleMnemonic() {
-    //     return this.mnemonic.sort(() => Math.random() - 0.5);
-    // }  
-
     clearAll() {
         this.uid = '';
         this.username = '';

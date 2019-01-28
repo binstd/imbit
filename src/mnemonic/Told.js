@@ -12,8 +12,16 @@ import { goHome } from '../initNavigation'
 import { USER_KEY } from '../config'
 
 import {Navigation} from 'react-native-navigation';
+import { ethers } from 'ethers';
+// import { zh_cn } from 'ethers/wordlists';
+import { observer } from 'mobx-react/native';
+import userModel from '../model/userModel';
 
 import { Screen, View, TextInput, Button, Text, Divider } from '@shoutem/ui';
+
+import {asyncStorageSave,asyncStorageLoad} from '../helpers/asyncStorage';
+
+@observer
 export default class Told extends React.Component {
     static get options() {
         return {
@@ -46,6 +54,23 @@ export default class Told extends React.Component {
     topBarElevationShadowEnabled: false 
   };
   
+  async componentDidMount() {
+    if(!userModel.mnemonic) {
+        let mnemonic = ethers.Wallet.createRandom().mnemonic;
+        // console.log('setting mnemonic',mnemonic.split(" "));
+        userModel.mnemonicSet(mnemonic.split(" "));
+        let user = {};
+        const LoadSto = await asyncStorageLoad(USER_KEY);
+        if(LoadSto ){
+            user = LoadSto;
+        }
+        user['mnemonic'] = mnemonic.split(" ")
+        console.log('told Mnemonic Save:',user);
+        let saveUser = await asyncStorageSave(USER_KEY, user);
+        // console.log(saveUser);
+    } 
+  }
+
   render() {
     return (
       <Screen style={styles.container}>
@@ -73,8 +98,7 @@ export default class Told extends React.Component {
                 marginBottom: 1,
             }}
             >
-            
-                因为如果他人获取您的助记词，将会对您的身份下的全部数据和资产造成损害。
+               因为如果他人获取您的助记词，将会对您的身份下的全部数据和资产造成损害。
             </Text>
             <Text styleName="md-gutter multiline" 
              style={{
