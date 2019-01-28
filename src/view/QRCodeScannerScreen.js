@@ -25,10 +25,6 @@ class QRCodeScannerScreen extends Component {
     if (uri && typeof uri === 'string') {
     //   await walletConnectNewSession(uri);
     }
-
-    // setTimeout(() => {
-    //   this.qrCodeScanner.reactivate();
-    // }, 1000);
   };
   
   render() {
