@@ -109,7 +109,7 @@ export default class Home extends React.Component {
             {/* <Text styleName="md-gutter multiline">434343</Text> */}
             <Divider styleName="line" />
 
-            <Row>
+            {/* <Row>
               <Icon name="laptop" />
               <View styleName="vertical">
                 <Subtitle>Visit webpage</Subtitle>
@@ -117,25 +117,25 @@ export default class Home extends React.Component {
               </View>
             </Row>
 
-            <Divider styleName="line" />
+            <Divider styleName="line" /> */}
 
             <Row>
               <Icon name="pin" />
               <View styleName="vertical">
-                <Subtitle>Address</Subtitle>
+                <Subtitle>钱包地址</Subtitle>
                 <Text numberOfLines={1}>43434343</Text>
               </View>
             </Row>
            
             <Divider styleName="line" />
 
-            <Row>
+            {/* <Row>
               <Icon name="email" />
               <View styleName="vertical">
                 <Subtitle>Email</Subtitle>
                 <Text numberOfLines={1}>3232323</Text>
               </View>
-            </Row>
+            </Row> */}
 
             <Divider styleName="line" />
             </ScrollView>
