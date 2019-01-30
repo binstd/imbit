@@ -83,6 +83,7 @@ export default class Home extends React.Component {
 
   async componentDidMount() {
     console.log("home userModel",userModel.getAllData); 
+
   }
 
   render() {
@@ -123,7 +124,7 @@ export default class Home extends React.Component {
               <Icon name="pin" />
               <View styleName="vertical">
                 <Subtitle>钱包地址</Subtitle>
-                <Text numberOfLines={1}>43434343</Text>
+                <Text numberOfLines={1}>{userModel.address}</Text>
               </View>
             </Row>
            

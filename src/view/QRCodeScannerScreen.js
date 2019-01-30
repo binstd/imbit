@@ -32,7 +32,7 @@ class QRCodeScannerScreen extends Component {
     return (
       <Container>
         <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-          <StyledText color="#777">{'Scan a WalletConnect QR code'}</StyledText>
+          <StyledText color="#777">{'扫码操作'}</StyledText>
         </View>
         <QRCodeScanner
           topViewStyle={{ flex: 0, height: 0 }}

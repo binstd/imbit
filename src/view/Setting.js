@@ -73,7 +73,15 @@ export default class Setting extends React.Component {
                {/* <Screen styleName="paper"> */}
                     {/* <Button styleName="md-gutter-top"  onPress={() => Navigation.pop(this.props.componentId)}  onPress={this.logout}  >
                     </Button> */}
-                     <Button>
+                     <Button
+                        onPress={() => {
+                            Navigation.push(this.props.componentId, {
+                            component: {
+                                name: 'SettingUserInfo',
+                            }
+                            });
+                        }}
+                     >
                         <Row>
                             <Image
                                 styleName=" small"

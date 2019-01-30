@@ -12,6 +12,7 @@ import { USER_KEY } from '../config'
 import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
 import { observer } from 'mobx-react/native';
 import userModel from '../model/userModel';
+import { ethers } from 'ethers';
 
 @observer
 export default class Initialising extends React.Component {
@@ -24,7 +25,6 @@ export default class Initialising extends React.Component {
     // console.log('asyncStorageLoad: \n',await asyncStorageLoad(USER_KEY));  
     try {
       const user = await asyncStorageLoad(USER_KEY);
-    //   const user = await AsyncStorage.getItem(USER_KEY)
       console.log('user=>', user)
       if (user) {
         userModel.allSet(user);

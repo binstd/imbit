@@ -56,15 +56,18 @@ export default class Told extends React.Component {
   
   async componentDidMount() {
     if(!userModel.mnemonic) {
-        let mnemonic = ethers.Wallet.createRandom().mnemonic;
+        let wallet = ethers.Wallet.createRandom();
+        mnemonic = wallet.mnemonic;
         // console.log('setting mnemonic',mnemonic.split(" "));
         userModel.mnemonicSet(mnemonic.split(" "));
+        userModel.addressSet(wallet.address);
         let user = {};
         const LoadSto = await asyncStorageLoad(USER_KEY);
         if(LoadSto ){
             user = LoadSto;
         }
         user['mnemonic'] = mnemonic.split(" ")
+        user['address'] = wallet.address; 
         console.log('told Mnemonic Save:',user);
         let saveUser = await asyncStorageSave(USER_KEY, user);
         // console.log(saveUser);
