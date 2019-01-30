@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import Container from '../components/Container';
 import Text from '../components/Text';
-// import { walletConnectNewSession } from '../helpers/walletconnect';
+import { walletConnectNewSession } from '../helpers/walletconnect';
 
 const StyledText = styled(Text)`
   flex-wrap: wrap;
@@ -23,7 +23,7 @@ class QRCodeScannerScreen extends Component {
     // url传入
     console.log('URI', uri);
     if (uri && typeof uri === 'string') {
-    //   await walletConnectNewSession(uri);
+         await walletConnectNewSession(uri);
     }
   };
   

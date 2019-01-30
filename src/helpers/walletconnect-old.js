@@ -1,6 +1,6 @@
 import RNWalletConnect from 'rn-walletconnect-wallet';
 // import { loadAddress } from './wallet';
-// import { getFCMToken } from './firebase';
+import { getFCMToken } from './firebase';
 import { asyncStorageLoadSessions, asyncStorageSaveSession, asyncStorageDeleteSession } from './asyncStorage';
 
 const walletConnectors = {};
@@ -17,25 +17,25 @@ function getWalletConnector(sessionId) {
 
 //创建
 async function generateWalletConnector(session) {
-//   const pushType = 'fcm';
+  const pushType = 'fcm';
   //获取firebase token
-//   const pushToken = await getFCMToken();
-//   const pushWebhook = 'https://us-central1-walletconnect-app.cloudfunctions.net/push';
+  const pushToken = await getFCMToken();
+  const pushWebhook = 'https://us-central1-walletconnect-app.cloudfunctions.net/push';
 
-//   const push = {
-//     type: pushType,
-//     token: pushToken,
-//     webhook: pushWebhook,
-//   };
- 
-  console.log('session::',session); 
-  const walletConnector = new RNWalletConnect({ ...session });
+  const push = {
+    type: pushType,
+    token: pushToken,
+    webhook: pushWebhook,
+  };
+
+  const walletConnector = new RNWalletConnect({ ...session, push });
+
   return walletConnector;
 }
 
 export async function walletConnectNewSession(uri) {
   //uri为扫码获取的数据
-  console.log('uri => ', uri);
+  console.log('uri', uri);
 
   const walletConnector = await generateWalletConnector({ uri });
 
@@ -131,7 +131,7 @@ export function walletConnectGetSessionData(sessionId) {
 
 //处理
 export async function walletConnectApproveSession(sessionId) {
-  const address = 'luz32324n34354545454545liang'//await loadAddress();
+  const address = 'luz3232njbh54545454545' //await loadAddress();
 
   const walletConnector = getWalletConnector(sessionId);
   try {
