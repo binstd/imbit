@@ -22,7 +22,7 @@ export default class Initialising extends React.Component {
   }
 
   async componentDidMount() {
-    // console.log('asyncStorageLoad: \n',await asyncStorageLoad(USER_KEY));  
+
     try {
       const user = await asyncStorageLoad(USER_KEY);
       console.log('user=>', user)

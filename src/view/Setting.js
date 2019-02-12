@@ -14,6 +14,7 @@ import {Navigation} from 'react-native-navigation';
 import { USER_KEY } from '../config'
 import { observer } from 'mobx-react/native';
 import userModel from '../model/userModel';
+import Blockies from 'react-native-blockies';
 
 import {
     Button,
@@ -67,6 +68,7 @@ export default class Setting extends React.Component {
 //   }
 
   render() {
+    const address = userModel.address;
     return (
         <Screen >
               <ScrollView>
@@ -83,10 +85,16 @@ export default class Setting extends React.Component {
                         }}
                      >
                         <Row>
-                            <Image
+                            <Blockies
+                                blockies={address} //string content to generate icon
+                                size={40} // blocky icon size
+                                style={{width:40, height:40,marginRight: 10,}} // style of the view will wrap the icon
+                            />
+
+                            {/* <Image
                                 styleName=" small"
                                 source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-9.png' }}
-                            />
+                            /> */}
                             <Text>完善身份信息</Text>
                             <Icon styleName="disclosure" name="right-arrow" />
                         </Row>
@@ -109,7 +117,7 @@ export default class Setting extends React.Component {
                         onPress={() => {
                             Navigation.push(this.props.componentId, {
                             component: {
-                                name: 'Screen2',
+                                name: 'Translate',
                             }
                             });
                         }}
@@ -126,14 +134,14 @@ export default class Setting extends React.Component {
                         onPress={() => {
                             Navigation.push(this.props.componentId, {
                             component: {
-                                name: 'Screen2',
+                                name: 'About',
                             }
                             });
                         }}
                     >
                     <Row>
                         <Icon name="about" />
-                        <Text  >关于我们</Text>
+                        <Text >关于我们</Text>
                         <Icon styleName="disclosure" name="right-arrow" />
                     </Row>
                     </Button>

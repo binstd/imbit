@@ -13,15 +13,7 @@ import { USER_KEY } from './config'
 import { Screen,Overlay, Heading,Title,Subtitle, Button, Icon,Text } from '@shoutem/ui';
 
 export default class Home extends React.Component {
-//   static get options() {
-//     return {
-//       topBar: {
-//         title: {
-//           text: 'Home'
-//         },
-//       }
-//     };
-//   }
+
   logout = async () => {
     try {
       await AsyncStorage.removeItem(USER_KEY)

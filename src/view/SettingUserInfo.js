@@ -6,7 +6,6 @@ import {
 // import { goMnomonic } from '../initNavigation'
 import { Screen, View, TextInput,Button,Text } from '@shoutem/ui';
 
-
 import { observer } from 'mobx-react/native';
 import userModel from '../model/userModel';
 

@@ -39,7 +39,7 @@ export const goToAuth = () => Navigation.setRoot({
                                 textColor,
                                 selectedIconColor,
                                 selectedTextColor,
-                                text: '注册',
+                                text: '新用户',
                                 fontSize: 11,
                                 icon: require('./img/signup.png')
                             }
@@ -95,7 +95,8 @@ export function registerScreens() {
     Navigation.registerComponent('Initializing', () => require('./view/Initialising').default);
     Navigation.registerComponent('SignIn', () => require('./SignIn').default);
     Navigation.registerComponent('SignUp', () => require('./SignUp').default);
-    Navigation.registerComponent('Screen2', () => require('./Screen2').default);
+    Navigation.registerComponent('About', () => require('./About').default);
+    Navigation.registerComponent('Translate', () => require('./Translate').default);
     Navigation.registerComponent('SettingUserInfo', () => require('./view/SettingUserInfo').default);
     Navigation.registerComponent('Setting', () => require('./view/Setting').default);
     Navigation.registerComponent('QRCodeScannerScreen', () => require('./view/QRCodeScannerScreen').default);
