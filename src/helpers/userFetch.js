@@ -1,3 +1,4 @@
+import 'ethers/dist/shims.js';
 import { ethers } from 'ethers';
 import { USER_KEY, SERVER_URL } from '../config'
 import userModel from '../model/userModel';

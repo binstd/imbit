@@ -12,7 +12,7 @@ import { goHome } from '../initNavigation'
 import { USER_KEY } from '../config'
 
 
-import { ethers } from 'ethers';
+// import { ethers } from 'ethers';
 // import { zh_cn } from 'ethers/wordlists';
 import { Navigation } from 'react-native-navigation';
 

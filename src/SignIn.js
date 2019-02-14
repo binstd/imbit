@@ -2,7 +2,8 @@ import React, { Fragment } from 'react'
 import {
 
   StyleSheet,
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from 'react-native'
 
 import { goHome } from './initNavigation'
@@ -12,8 +13,9 @@ import {Navigation} from 'react-native-navigation';
 
 import { Screen, View,TextInput,Button,Text } from '@shoutem/ui';
 import {asyncStorageSave} from './helpers/asyncStorage';
-
+import 'ethers/dist/shims.js';
 import { ethers } from 'ethers';
+
 export default class SignIn extends React.Component {
     static get options() {
         return {
@@ -32,27 +34,33 @@ export default class SignIn extends React.Component {
   }
 
   signIn = async () => {
-    const { mnemonic } = this.state;
-    console.log('mnemonic: \n', mnemonic);
-
-    let wallet = ethers.Wallet.fromMnemonic(mnemonic);
-    userModel.mnemonicSet(mnemonic.split(" "));
-    userModel.addressSet(wallet.address);
-    let user = {};
+    let { mnemonic } = this.state;
     
-    user['mnemonic'] = mnemonic.split(" ")
-    user['address'] = wallet.address; 
-    console.log('told Mnemonic Save:',user);
-    let saveUser = await asyncStorageSave(USER_KEY, user);
-    console.log('user successfully signed in!', user)
-    goHome();
-    // try {
-    //    const user = await asyncStorageSave(USER_KEY, {username:username});
-    //    console.log('user successfully signed in!', user)
-    //    goHome()
-    // } catch (err) {
-    //   console.log('error:', err)
-    // }
+    if(mnemonic.length != 0) {
+       
+        let wallet = ethers.Wallet.fromMnemonic(mnemonic);
+        Alert.alert(
+            '测试2222',
+            wallet.address,
+            [
+              {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            { cancelable: false }
+        )
+        userModel.mnemonicSet(mnemonic.split(" "));
+        userModel.addressSet(wallet.address);
+        let user = {};
+        
+        user['mnemonic'] = mnemonic.split(" ")
+        user['address'] = wallet.address; 
+        
+        asyncStorageSave(USER_KEY, user);
+       
+        goHome();
+    }
+   
+  
   }
   static navigatorStyle = {
     topBarElevationShadowEnabled: false 
@@ -77,7 +85,7 @@ export default class SignIn extends React.Component {
                     width: 300,
                     marginTop: 30,
                 }}
-                onPress={this.signIn}
+                onPress={() => this.signIn() }
         >
                 <Text>登陆身份</Text>
         </Button>
