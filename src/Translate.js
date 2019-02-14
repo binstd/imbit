@@ -80,27 +80,15 @@ export default class Translate extends React.Component {
           style={{height:30}}
         />
         
-        <Text styleName="md-gutter-horizontal">
+        {/* <Text styleName="md-gutter-horizontal">
           {selectedLang ?
             selectedLang.models.description :
             this.state.lang[0].models.description}
-        </Text>
+        </Text> */}
+        
       </Screen>
     );
-    // return (
-    //   <View style={styles.container}>
-    //     <Text>Screen 2</Text>
-    //     {/* <Html
-    //         body={htmlcontent}
-    //         style={{marginTop: 20,}}
-    //     /> */}
-    //     <Button
-    //       onPress={() => Navigation.pop(this.props.componentId)}
-    //       title="返回"
-    //     />
-    //   </View>
-      
-    // )
+   
   }
 }
 

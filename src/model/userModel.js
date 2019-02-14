@@ -3,6 +3,7 @@ import { decorate, observable, action, computed } from "mobx";
 class userModel {
     id = Math.random();
     uid;
+    email;
     username;
     telephone;
     address;
@@ -19,6 +20,7 @@ class userModel {
             privatekey: this.privatekey,
             pagenum:this.pagenum,
             mnemonic:this.mnemonic,
+            email:this.email,
         };
         return data;
     }
@@ -50,6 +52,11 @@ class userModel {
             console.log(jsonData['mnemonic']);
             this.mnemonic = jsonData['mnemonic'];
         }
+
+        if(jsonData['email']){
+            console.log(jsonData['email']);
+            this.email = jsonData['email'];
+        }
     }
 
     uidSet(uid) {
@@ -58,6 +65,10 @@ class userModel {
 
     usernameSet(username) {
         this.username = username;
+    }
+
+    emailSet(email) {
+        this.email = email;
     }
 
     telephoneSet(telephone) {

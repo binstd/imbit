@@ -10,7 +10,7 @@ import {Navigation} from 'react-native-navigation';
 
 import { goMnomonic } from './initNavigation'
 import { Screen, View,TextInput,Button,Text } from '@shoutem/ui';
-
+import {CreateUser} from './helpers/userFetch';
 export default class SignUp extends React.Component {
   state = {
     username: '', password: '', email: '', phone_number: ''
@@ -20,12 +20,19 @@ export default class SignUp extends React.Component {
   }
   signUp = async () => {
     const { username, password, email, phone_number } = this.state
+    //username, email, telephone
     try {
       // here place your signup logic
-      console.log('user successfully signed up!: ', success)
+      if(username != ''&& phone_number != '') {
+        CreateUser({username,email,telephone:phone_number});
+      }
+
+    //   goMnomonic();  
+  
     } catch (err) {
       console.log('error signing up: ', err)
     }
+    
   }
   static navigatorStyle = {
     topBarElevationShadowEnabled: false 
@@ -41,14 +48,7 @@ export default class SignUp extends React.Component {
           placeholderTextColor='white'
           onChangeText={val => this.onChangeText('username', val)}
         />
-        <TextInput
-          style={styles.input}
-          placeholder='Password'
-          secureTextEntry={true}
-          autoCapitalize="none"
-          placeholderTextColor='white'
-          onChangeText={val => this.onChangeText('password', val)}
-        />
+        
         <TextInput
           style={styles.input}
           placeholder='Email'
@@ -70,8 +70,7 @@ export default class SignUp extends React.Component {
                     width: 300,
                     marginTop: 30,
                 }}
-                onPress={goMnomonic}
-                // onPress={this.signIn}
+                onPress={this.signUp}
             >
                 <Text>注  册</Text>
             </Button>

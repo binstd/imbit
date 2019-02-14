@@ -91,15 +91,12 @@ export default class Setting extends React.Component {
                                 style={{width:40, height:40,marginRight: 10,}} // style of the view will wrap the icon
                             />
 
-                            {/* <Image
-                                styleName=" small"
-                                source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-9.png' }}
-                            /> */}
                             <Text>完善身份信息</Text>
                             <Icon styleName="disclosure" name="right-arrow" />
                         </Row>
                     </Button>
-                    <Divider styleName="line" />
+
+                    {/* <Divider styleName="line" /> */}
 
                     <Button
                         onPress={goMnomonic}
@@ -111,7 +108,7 @@ export default class Setting extends React.Component {
                         </Row>
                     </Button>
                     
-                    <Divider styleName="line" />
+                    {/* <Divider styleName="line" /> */}
 
                     <Button
                         onPress={() => {
@@ -122,13 +119,14 @@ export default class Setting extends React.Component {
                             });
                         }}
                     >
-                    <Row>
-                        <Icon name="web" />
-                        <Text>语言切换</Text>
-                        <Icon styleName="disclosure" name="right-arrow" />
-                    </Row>
+                        <Row>
+                            <Icon name="web" />
+                            <Text>语言切换</Text>
+                            <Icon styleName="disclosure" name="right-arrow" />
+                        </Row>
                     </Button>
-                    <Divider styleName="line" />
+
+                    {/* <Divider styleName="line" /> */}
 
                     <Button
                         onPress={() => {
@@ -139,14 +137,17 @@ export default class Setting extends React.Component {
                             });
                         }}
                     >
+
                     <Row>
                         <Icon name="about" />
                         <Text >关于我们</Text>
                         <Icon styleName="disclosure" name="right-arrow" />
                     </Row>
+
                     </Button>
 
-                    <Divider styleName="line" />
+                    {/* <Divider styleName="line" /> */}
+
                     <Button
                         onPress={this.logout}
                     >
@@ -162,13 +163,7 @@ export default class Setting extends React.Component {
             {/* </Screen> */}
             </ScrollView>
         </Screen>
-    //   <View style={styles.container}>
-    //     <Text>设置</Text>
-    //     <Button
-    //       onPress={() => Navigation.pop(this.props.componentId)}
-    //       title="Go Back"
-    //     />
-    //   </View>
+
     )
   }
 }

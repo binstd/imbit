@@ -17,16 +17,6 @@ function getWalletConnector(sessionId) {
 
 //创建
 async function generateWalletConnector(session) {
-//   const pushType = 'fcm';
-  //获取firebase token
-//   const pushToken = await getFCMToken();
-//   const pushWebhook = 'https://us-central1-walletconnect-app.cloudfunctions.net/push';
-
-//   const push = {
-//     type: pushType,
-//     token: pushToken,
-//     webhook: pushWebhook,
-//   };
  
   console.log('session::',session); 
   const walletConnector = new RNWalletConnect({ ...session });

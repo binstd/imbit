@@ -44,12 +44,9 @@ export default class About extends React.Component {
         {/* <Text>Screen 2</Text> */}
         <Html
             body={htmlcontent}
-            style={{marginTop: 20,}}
+            style={{marginTop: 30,}}
         />
-        <Button
-          onPress={() => Navigation.pop(this.props.componentId)}
-          title="返回"
-        />
+      
       </View>
     )
   }

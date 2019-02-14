@@ -9,6 +9,8 @@ import { Screen, View, TextInput,Button,Text } from '@shoutem/ui';
 import { observer } from 'mobx-react/native';
 import userModel from '../model/userModel';
 
+import { USER_KEY,SERVER_URL } from '../config'
+import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
 @observer
 export default class SettingUserInfo extends React.Component {
     static get options() {
@@ -46,20 +48,57 @@ export default class SettingUserInfo extends React.Component {
   }
 
   commit = async () => {
+    let postData = {};
+    // user['publicAddress'] = userModel.address;
+    postData['username'] = this.state.username;
+    postData['email'] = this.state.email;
+    postData['telephone'] = this.state.phone_number;  
+    let user = await asyncStorageLoad(USER_KEY);
+    fetch(`${SERVER_URL}api/users/${userModel.uid}`, {
+        body: JSON.stringify(postData),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'patch'
+    }).then(response => response.json()).then( data => {
+        console.log('修改后的:\n',data);
 
+        user['username'] = this.state.username;
+        user['email'] = this.state.email;
+        user['telephone'] = this.state.phone_number;  
+        asyncStorageSave(USER_KEY, user);
+        userModel.allSet(user);
+    });
   }
 
   static navigatorStyle = {
     topBarElevationShadowEnabled: false 
   };
 
+
+  async componentDidMount() {
+    const user = await asyncStorageLoad(USER_KEY);
+    userModel.allSet(user);
+    this.setState({
+        username:user.username,
+        email:user.email,
+        phone_number:user.telephone
+    });
+    console.log('user=>', user)
+    // if (user) {
+    //   userModel.allSet(user);
+  }
+
+
   render() {
+    const { username, email, phone_number } = this.state
     return (
        <Screen style={styles.container}>
         <Screen style={styles.containerData}>
             <TextInput
             style={styles.input}
             placeholder='用户名'
+            value = {username}
             autoCapitalize="none"
             placeholderTextColor='white'
             onChangeText={val => this.onChangeText('username', val)}
@@ -67,7 +106,8 @@ export default class SettingUserInfo extends React.Component {
            
             <TextInput
                 style={styles.input}
-                placeholder='Email'
+                placeholder='email'
+                value = {email}
                 autoCapitalize="none"
                 placeholderTextColor='white'
                 onChangeText={val => this.onChangeText('email', val)}
@@ -75,6 +115,7 @@ export default class SettingUserInfo extends React.Component {
             <TextInput
                 style={styles.input}
                 placeholder='手机号'
+                value = {phone_number}
                 autoCapitalize="none"
                 placeholderTextColor='white'
                 onChangeText={val => this.onChangeText('phone_number', val)}

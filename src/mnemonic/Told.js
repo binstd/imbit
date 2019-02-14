@@ -70,7 +70,6 @@ export default class Told extends React.Component {
         user['address'] = wallet.address; 
         console.log('told Mnemonic Save:',user);
         let saveUser = await asyncStorageSave(USER_KEY, user);
-        // console.log(saveUser);
     } 
   }
 
