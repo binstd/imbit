@@ -1,14 +1,9 @@
 import React, { Fragment } from 'react'
 import {
-//   View,
-//   Button,
-//   Text,
-//   TextInput,
   StyleSheet
 } from 'react-native'
 import {Navigation} from 'react-native-navigation';
 
-import { goMnomonic } from './initNavigation'
 import { Screen, View,TextInput,Button,Text } from '@shoutem/ui';
 import {CreateUser} from './helpers/userFetch';
 export default class SignUp extends React.Component {
@@ -25,10 +20,7 @@ export default class SignUp extends React.Component {
       // here place your signup logic
       if(username != ''&& phone_number != '') {
         CreateUser({username,email,telephone:phone_number});
-      }
-
-    //   goMnomonic();  
-  
+      } 
     } catch (err) {
       console.log('error signing up: ', err)
     }

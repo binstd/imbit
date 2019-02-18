@@ -1,6 +1,7 @@
 import RNWalletConnect from 'rn-walletconnect-wallet';
-// import { loadAddress } from './wallet';
-// import { getFCMToken } from './firebase';
+
+import { Alert } from 'react-native'
+
 import { asyncStorageLoadSessions, asyncStorageSaveSession, asyncStorageDeleteSession } from './asyncStorage';
 
 const walletConnectors = {};
@@ -17,7 +18,6 @@ function getWalletConnector(sessionId) {
 
 //创建
 async function generateWalletConnector(session) {
- 
   console.log('session::',session); 
   const walletConnector = new RNWalletConnect({ ...session });
   return walletConnector;
@@ -25,23 +25,17 @@ async function generateWalletConnector(session) {
 
 export async function walletConnectNewSession(uri) {
   //uri为扫码获取的数据
-  console.log('uri => ', uri);
 
+  // 创建 RNWalletConnect :: generateWalletConnector
   const walletConnector = await generateWalletConnector({ uri });
 
   const { sessionId } = walletConnector;
+
   setWalletConnector(sessionId, walletConnector);
 
+  //address 信息在此处修改
   const session = await walletConnectApproveSession(sessionId);
-
-  console.log('session', session);
-  try {
-    await asyncStorageSaveSession(session);
-    await asyncStorageSaveSession(session);
-  } catch (err) {
-    console.error(err);
-    console.log('Error: Async Storage Save Session Failed', err);
-  }
+  
   return session;
 }
 
@@ -77,7 +71,6 @@ export async function walletConnectGetLiveSessions() {
             console.log('过期就删除 ');
             await asyncStorageDeleteSession(session);
           } catch (err) {
-            console.error(err);
             console.log('Error: Async Storage Delete Session Failed', err);
           }
         }
@@ -122,16 +115,16 @@ export function walletConnectGetSessionData(sessionId) {
 //处理
 export async function walletConnectApproveSession(sessionId) {
   const address = 'luz32324n34354545454545liang'//await loadAddress();
-
   const walletConnector = getWalletConnector(sessionId);
   try {
-    const result = await walletConnector.approveSession({ accounts: [address] });
-    console.log('approveSession ??', result);
+    const result = await walletConnector.approveSession({ accounts:[address] });
+    // console.log('approveSession ??', result);
     return result;
   } catch (err) {
-    console.log('Error: Approve WalletConnect Session Failed', err);
+    // console.log('Error: Approve WalletConnect Session Failed', err);
   }
 }
+
 
 export async function walletConnectGetCallRequest(sessionId, callId) {
   const walletConnector = getWalletConnector(sessionId);

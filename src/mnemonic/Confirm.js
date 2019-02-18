@@ -20,7 +20,7 @@ import userModel from '../model/userModel';
 
 import { goHome } from '../initNavigation';
 
-import {asyncStorageSave,asyncStorageLoad} from '../helpers/asyncStorage';
+import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
 
 @observer
 export default class Confirm extends React.Component {

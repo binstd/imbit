@@ -39,15 +39,7 @@ export default class Setting extends React.Component {
         },
         background: {
             translucent: true
-        },
-        // leftButtons: [
-        //     {
-        //         id: 'return',
-        //         text: '',
-        //         color: '#4F4F4F',
-                
-        //     }
-        // ],
+        },    
       }
    
     };
@@ -63,9 +55,6 @@ export default class Setting extends React.Component {
       console.log('error signing out...: ', err)
     }
   }
-//   goMnomonic =async () => {
-
-//   }
 
   render() {
     const address = userModel.address;
@@ -131,9 +120,9 @@ export default class Setting extends React.Component {
                     <Button
                         onPress={() => {
                             Navigation.push(this.props.componentId, {
-                            component: {
-                                name: 'About',
-                            }
+                                component: {
+                                    name: 'About',
+                                }
                             });
                         }}
                     >

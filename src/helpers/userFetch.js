@@ -1,5 +1,5 @@
 import 'ethers/dist/shims.js';
-import { ethers } from 'ethers';
+import {ethers}  from 'ethers';
 import { USER_KEY, SERVER_URL } from '../config'
 import userModel from '../model/userModel';
 import {asyncStorageSave,asyncStorageLoad} from '../helpers/asyncStorage';
@@ -32,21 +32,19 @@ export async function CreateUser({ username, email, telephone}) {
         // console.log("user:\n",user);
         // const postData = user;
         // user
-        fetch(`${SERVER_URL}api/users`, {
+        let data = await fetch(`${SERVER_URL}api/users`, {
             body: JSON.stringify(user),
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'POST'
-        }).then(response => response.json()).then( data => {
-            user['mnemonic'] = mnemonic.split(" ")
-            user['address']  = wallet.address.toLowerCase()
-            user['uid'] = data.id
-            asyncStorageSave(USER_KEY, user);
-            goMnomonic();  
-        });
-
-       
+        }).then(response => response.json());
+        user['mnemonic'] = mnemonic.split(" ")
+        user['address']  = wallet.address.toLowerCase()
+        user['uid'] = data.id
+     
+        await asyncStorageSave(USER_KEY, user);
+        goMnomonic();  
     } 
 
 }

@@ -4,15 +4,18 @@
 // //   "plugins": ["transform-decorators-legacy"]
 //   "plugins": ["transform-decorators-legacy"]
 // }
-
+// export REACT_EDITOR=atom
 {
     "presets": ["module:metro-react-native-babel-preset"],
     "plugins": [
-      [
-        "@babel/plugin-proposal-decorators",
-        {
-          "legacy": true
-        }
-      ]
+        [
+        "@babel/plugin-transform-flow-strip-types"
+        ],
+        [
+            "@babel/plugin-proposal-decorators",
+            {
+            "legacy": true
+            }
+        ]
     ]
 }

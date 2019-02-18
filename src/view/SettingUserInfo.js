@@ -11,6 +11,7 @@ import userModel from '../model/userModel';
 
 import { USER_KEY,SERVER_URL } from '../config'
 import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
+
 @observer
 export default class SettingUserInfo extends React.Component {
     static get options() {

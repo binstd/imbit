@@ -9,7 +9,7 @@ import { goToAuth } from './initNavigation'
 
 import {
     Html,Screen,DropDownMenu,Title,Image,Text
-  } from '@shoutem/ui';
+} from '@shoutem/ui';
 
 import {Navigation} from 'react-native-navigation';
 
@@ -85,7 +85,7 @@ export default class Translate extends React.Component {
             selectedLang.models.description :
             this.state.lang[0].models.description}
         </Text> */}
-        
+
       </Screen>
     );
    

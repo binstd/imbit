@@ -13,7 +13,7 @@ import { USER_KEY } from '../config'
 
 import {Navigation} from 'react-native-navigation';
 import 'ethers/dist/shims.js';
-import { ethers } from 'ethers';
+import {ethers}  from 'ethers';
 // import { zh_cn } from 'ethers/wordlists';
 import { observer } from 'mobx-react/native';
 import userModel from '../model/userModel';

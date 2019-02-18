@@ -1,0 +1,29 @@
+undefined is not an object (evaluating 'RNRandomBytes.seed')
+init
+    lodash.js:1479:8
+<unknown>
+    lodash.js:1653:8
+loadModuleImplementation
+    require.js:320:6
+guardedLoadModule
+    require.js:214:36
+metroRequire
+    require.js:136:24
+<unknown>
+    lodash.js:1277:8
+loadModuleImplementation
+    require.js:320:6
+guardedLoadModule
+    require.js:214:36
+metroRequire
+    require.js:136:24
+<unknown>
+    index.js:14
+loadModuleImplementation
+    require.js:320:6
+guardedLoadModule
+    require.js:207:45
+metroRequire
+    require.js:136:24
+global code
+    

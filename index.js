@@ -6,6 +6,9 @@
 
 // AppRegistry.registerComponent(appName, () => App);
 
+import './shim.js';
+// import crypto from 'crypto';
+
 import {Navigation} from 'react-native-navigation';
 import {registerScreens} from './src/initNavigation';
 

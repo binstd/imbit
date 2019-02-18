@@ -12,7 +12,7 @@ import { Navigation } from 'react-native-navigation';
 import { USER_KEY } from '../config'
 import { observer } from 'mobx-react/native';
 import userModel from '../model/userModel';
-
+import { asyncStorageLoad } from '../helpers/asyncStorage';
 // import { Navigation } from 'react-native-navigation';
 import {
     ScrollView,
@@ -21,11 +21,9 @@ import {
     Subtitle,
     Text,
     Button,
-    Title,
     View,
-    ImageBackground,
     Divider,
-    Tile,
+
     Screen,
 } from '@shoutem/ui';
 
@@ -59,6 +57,10 @@ export default class Home extends React.Component {
     }
     constructor(props) {
         super(props);
+    
+        this.state = {
+            address:''
+        };
         Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
     }
 
@@ -83,12 +85,19 @@ export default class Home extends React.Component {
     }
 
     async componentDidMount() {
-        console.log("home userModel", userModel.getAllData);
-
+        const user = await asyncStorageLoad(USER_KEY);
+        if (user) {
+            userModel.allSet(user);
+            this.setState({
+                address:user.address
+            })
+        }
     }
 
     render() {
         console.log('props; ', this.props)
+        const {address} = this.state;
+        console.log(address);
         return (
             <Screen styleName="paper full-screen"
                 style={{
@@ -108,38 +117,35 @@ export default class Home extends React.Component {
                 >
                     <ScrollView>
 
-                        {/* <Text styleName="md-gutter multiline">434343</Text> */}
                         <Divider styleName="line" />
 
-                        {/* <Row>
-              <Icon name="laptop" />
-              <View styleName="vertical">
-                <Subtitle>Visit webpage</Subtitle>
-                <Text numberOfLines={1}>434343</Text>
-              </View>
-            </Row>
 
-            <Divider styleName="line" /> */}
 
-                        <Row>
-                            {/* <Icon name="pin" /> */}
-                            <Blockies
-                                blockies={userModel.address} //string content to generate icon
-                                size={50} // blocky icon size
-                                style={{ width: 50, height: 50, marginRight: 10, }} // style of the view will wrap the icon
-                                color="#dfe" 
-                                bgColor="#ffe" 
-                                spotColor="#abc"   
-                            />
-                            <View styleName="vertical">
-                                <Subtitle>钱包地址:</Subtitle>
-                                <Text
-                                // numberOfLines={1}
-                                >
-                                    {userModel.address}
-                                </Text>
-                            </View>
-                        </Row>
+                            {address?
+                              <Row>
+                                    <Blockies
+                                        blockies={address} //string content to generate icon
+                                        size={50} // blocky icon size
+                                        style={{ width: 50, height: 50, marginRight: 10, }} // style of the view will wrap the icon
+                                        color="#dfe" 
+                                        bgColor="#ffe" 
+                                        spotColor="#abc"   
+                                    />
+                                    <View styleName="vertical">
+                                        <Subtitle>钱包地址:</Subtitle>
+                                        <Text>
+                                            {address}
+                                        </Text>
+                                    </View>
+                                </Row>
+                            :
+                            <Row>  
+
+                            </Row>
+                        }
+                            
+                            
+                       
 
                         <Divider styleName="line" />
 
