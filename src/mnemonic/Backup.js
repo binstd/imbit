@@ -1,19 +1,12 @@
 import React, { Fragment } from 'react'
 import {
-//   View,
-//   Text,
   StyleSheet,
-//   TextInput,
-//   Button,
   AsyncStorage
 } from 'react-native'
 
 import { goHome } from '../initNavigation'
 import { USER_KEY } from '../config'
 
-
-// import { ethers } from 'ethers';
-// import { zh_cn } from 'ethers/wordlists';
 import { Navigation } from 'react-native-navigation';
 
 import { observer } from 'mobx-react/native';
@@ -63,11 +56,6 @@ export default class Backup extends React.Component {
   }
  
   async componentDidMount() {
-    // let mnemonic = ethers.Wallet.createRandom().mnemonic;
-   
-    //let mnemonic = ethers.Wallet.createRandom({ locale: zh_cn }).mnemonic;
-    // console.log(mnemonic.split(" "));
-    // userModel.mnemonicSet(mnemonic.split(" "));
     let mnemonic =  userModel.mnemonic;
     console.log('备份:',mnemonic);
     this.setState({

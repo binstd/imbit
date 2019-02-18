@@ -25,7 +25,7 @@
     "domain-browser": "^1.2.0",
     "ethereumjs-util": "^6.0.0",
     "ethereumjs-wallet": "^0.6.3",
-    "ethers": "^4.0.25",
+    "ethers": "^3.0.7",
     "https-browserify": "0.0.1",
     "mobx": "^4.5.0",
     "mobx-react": "^5.2.8",

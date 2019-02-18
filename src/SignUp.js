@@ -13,19 +13,15 @@ export default class SignUp extends React.Component {
   onChangeText = (key, val) => {
     this.setState({ [key]: val })
   }
-  signUp = async () => {
-    const { username, password, email, phone_number } = this.state
+
+  signUp = () => {
+    const { username,  email, phone_number } = this.state;
     //username, email, telephone
-    try {
-      // here place your signup logic
-      if(username != ''&& phone_number != '') {
+    if(username != ''&& phone_number != '') {
         CreateUser({username,email,telephone:phone_number});
-      } 
-    } catch (err) {
-      console.log('error signing up: ', err)
-    }
-    
+    } 
   }
+
   static navigatorStyle = {
     topBarElevationShadowEnabled: false 
   };

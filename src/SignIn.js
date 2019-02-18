@@ -1,19 +1,17 @@
 import React, { Fragment } from 'react'
 import {
     StyleSheet,
-    AsyncStorage,
-    Alert
 } from 'react-native'
 
 import { goHome } from './initNavigation'
 import { USER_KEY } from './config'
 
 
-import { Screen, View, TextInput, Button, Text } from '@shoutem/ui';
+import { Screen, TextInput, Button, Text } from '@shoutem/ui';
 import { asyncStorageSave } from './helpers/asyncStorage';
 
-import 'ethers/dist/shims.js';
-import {ethers}  from 'ethers';
+import ethers  from 'ethers';
+import userModel from './model/userModel';
 
 export default class SignIn extends React.Component {
     static get options() {
@@ -36,9 +34,12 @@ export default class SignIn extends React.Component {
         let { mnemonic } = this.state;
         if (mnemonic.length != 0) {
             let wallet = ethers.Wallet.fromMnemonic(mnemonic);
+            // console.log();
             let user = {};
             user['mnemonic'] = mnemonic.split(" ")
             user['address'] = wallet.address;
+            userModel.mnemonicSet(mnemonic.split(" "));
+            userModel.addressSet(wallet.address.toLowerCase());
             await asyncStorageSave(USER_KEY, user);
             goHome();
         }

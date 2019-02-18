@@ -1,17 +1,13 @@
 import React, { Fragment } from 'react'
 import {
-    //   View,
-    //   Text,
     StyleSheet,
-    //   TextInput,
-    //   Button,
     AsyncStorage
 } from 'react-native'
 
 // import { goHome } from '../initNavigation'
 import { USER_KEY } from '../config'
 
-import { Navigation } from 'react-native-navigation';
+// import { Navigation } from 'react-native-navigation';
 
 import { Screen, View, TextInput, Button, Text, Divider } from '@shoutem/ui';
 

@@ -91,6 +91,10 @@ export default class Home extends React.Component {
             this.setState({
                 address:user.address
             })
+        } else {
+            this.setState({
+                address:userModel.address
+            })
         }
     }
 
