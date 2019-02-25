@@ -8,24 +8,24 @@ import {
 import { goToAuth } from './initNavigation'
 
 import {
-    Html
+    Html,
+    ScrollView
   } from '@shoutem/ui';
 // import { Auth } from 'aws-amplify'
 import {Navigation} from 'react-native-navigation';
 
 // import { USER_KEY } from './config'
-const htmlcontent = `<h4>作为开发者或许你有如下困扰：</h4>
-<ol start="1"><li> 智能合约是什么？什么是公链，联盟链？搞区块链的都是骗子？dapp的项目开发流程和传统流程一致嘛？精通世界上最好的语言，为什么不能做区块链项目？人生苦短想学区块链？如何在自己的技能包里增加区块链技能呢？
-</li></ol>
+const htmlcontent = `<p>IMbit是Web3.0时代数字身份系统,可自主控制授权你的身份数据。</p>
 
-<ol start="2"><li> 你精通智能合约，共识算法，能做钱包，能写区块链浏览器，开发共链。但是在平台接不到区块链单？得不得用人单位，需求方认可？
-</li></ol>
+<h2>自主掌控身份授权</h2>
+<p><img src='https://blockluz-1253389096.cos.ap-beijing.myqcloud.com/blockman/032916.jpg'></p>
 
-<h4>不管你有没有考虑？</h4>
-<ol start="1"><li>成立一个优质的区块链开发者社群（想加入？需要扫描文章末尾的二维码，填写申请表额），解决你的一个困扰。
-</li></ol>
-<ol start="2"><li>  解锁专属区块链技能认证，我们将从社群里挖掘出优质开发者，成为首批解锁认证区块链技能包的开发者。
-</li></ol>`;
+<p>IMbit将个人身份归还给个人掌控，以区块链技术为核心，用户自己管理隐私数字，只授权自己想授权。迎接Web3.0,支持身份登陆授权,认证，数据授权，批准交易等自主控制功能。</p>
+
+<h2>扫码&深度链接</h2>
+<p><img src='https://blockluz-1253389096.cos.ap-beijing.myqcloud.com/blockman/032648.jpg'></p>
+
+<p>通过扫二维码，使用walletconnect协议,将pc上的Dapps连接到移动imbit客户端,不同app之间支持深度链接跳转app确认授权。用户可以与任何Dapp交互而不包括其私钥，所有授权都通过手机确认。</p>`;
 
 export default class About extends React.Component {
   static get options() {
@@ -40,14 +40,14 @@ export default class About extends React.Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         {/* <Text>Screen 2</Text> */}
         <Html
             body={htmlcontent}
             style={{marginTop: 30,}}
         />
       
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -57,6 +57,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     // justifyContent: 'center',
-    alignItems: 'center'
+    // alignItems: 'center'
   }
 })

@@ -6,7 +6,6 @@ import {asyncStorageSave,asyncStorageLoad} from '../helpers/asyncStorage';
 
 import { goMnomonic } from '../initNavigation'
 
-
 // 生成密钥保存个人信息
 export async function CreateUser({ username, email, telephone}) {
     //publicAddress 

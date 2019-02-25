@@ -18,8 +18,8 @@ import { goHome } from '../initNavigation';
 
 import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
 
-@observer
-export default class Confirm extends React.Component {
+// @observer
+export default observer(class Confirm extends React.Component {
     static get options() {
         return {
             topBar: {
@@ -161,12 +161,8 @@ export default class Confirm extends React.Component {
                     <View
                         style={{
                             width:'90%',
-                            height:100,
+                            // height:100,
                             margin:10,
-                            // borderWidth:1,
-                            // borderStyle:'dashed',
-                            // borderRadius:10,
-                            // borderColor:'#4F4F4F',
                             flexWrap: 'wrap',
                             flexDirection: 'row'
                         }}
@@ -178,7 +174,7 @@ export default class Confirm extends React.Component {
                                 key={i}
                                 onPress={() => {this.addMnemonic(word)}}
                             >
-                            <Text>{word}</Text>
+                                <Text>{word}</Text>
                             </Button>
                         )}
                     </View>
@@ -205,7 +201,7 @@ export default class Confirm extends React.Component {
             </Screen>
         )
     }
-}
+});
 
 const styles = StyleSheet.create({
     input: {

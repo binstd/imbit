@@ -12,8 +12,8 @@ import userModel from '../model/userModel';
 import { USER_KEY,SERVER_URL } from '../config'
 import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
 
-@observer
-export default class SettingUserInfo extends React.Component {
+// @observer
+export default observer(class SettingUserInfo extends React.Component {
     static get options() {
         return {
                 topBar: {
@@ -137,7 +137,7 @@ export default class SettingUserInfo extends React.Component {
       </Screen>
     )
   }
-}
+});
 
 const styles = StyleSheet.create({
   input: {

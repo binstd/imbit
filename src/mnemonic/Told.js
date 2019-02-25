@@ -22,8 +22,8 @@ import { Screen, View, TextInput, Button, Text, Divider } from '@shoutem/ui';
 
 import {asyncStorageSave,asyncStorageLoad} from '../helpers/asyncStorage';
 
-@observer
-export default class Told extends React.Component {
+// @observer
+export default observer( class Told extends React.Component {
     static get options() {
         return {
             topBar: {
@@ -152,7 +152,7 @@ export default class Told extends React.Component {
       </Screen>
     )
   }
-}
+});
 
 const styles = StyleSheet.create({
   container: {

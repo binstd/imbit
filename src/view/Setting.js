@@ -27,8 +27,8 @@ import {
     ScrollView
   } from '@shoutem/ui';
 
-@observer
-export default class Setting extends React.Component {
+// @observer
+export default observer( class Setting extends React.Component {
   static get options() {
     return {
       topBar: {
@@ -155,7 +155,7 @@ export default class Setting extends React.Component {
 
     )
   }
-}
+});
 
 const styles = StyleSheet.create({
   container: {

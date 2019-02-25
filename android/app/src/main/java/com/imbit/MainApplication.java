@@ -3,6 +3,7 @@ package com.imbit;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.crypho.scrypt.RNScryptPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
 // import com.bitgo.randombytes.RandomBytesPackage;
 import com.reactnative.photoview.PhotoViewPackage;
@@ -58,7 +59,8 @@ public class MainApplication extends NavigationApplication {
         return Arrays.<ReactPackage>asList(
             // eg. new VectorIconsPackage()
                 new RandomBytesPackage(),
-                new RNCameraPackage()
+                new RNCameraPackage(),
+                new RNScryptPackage()
         );
     }
   

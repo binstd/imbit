@@ -162,6 +162,7 @@ android {
 
 
 dependencies {
+    compile project(':react-native-scrypt')
     compile project(':react-native-randombytes')
     // compile project(':react-native-randombytes')
     compile project(':react-native-photo-view')

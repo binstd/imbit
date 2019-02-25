@@ -14,8 +14,8 @@ import userModel from '../model/userModel';
 
 import { Screen, View,TextInput,Button,Text,Divider } from '@shoutem/ui';
 
-@observer
-export default class Backup extends React.Component {
+// @observer
+export default observer(class Backup extends React.Component {
     static get options() {
         return {
             topBar: {
@@ -149,7 +149,7 @@ export default class Backup extends React.Component {
       </Screen>
     )
   }
-}
+});
 
 const styles = StyleSheet.create({
   input: {

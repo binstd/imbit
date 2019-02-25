@@ -23,14 +23,14 @@ import {
     Button,
     View,
     Divider,
-
+    Spinner,
     Screen,
 } from '@shoutem/ui';
 
 import Blockies from 'react-native-blockies';
 
-@observer
-export default class Home extends React.Component {
+
+export default observer( class Home extends React.Component {
 
     static options(passProps) {
         return {
@@ -59,7 +59,8 @@ export default class Home extends React.Component {
         super(props);
     
         this.state = {
-            address:''
+            address:'',
+            loading: false
         };
         Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
     }
@@ -123,8 +124,6 @@ export default class Home extends React.Component {
 
                         <Divider styleName="line" />
 
-
-
                             {address?
                               <Row>
                                     <Blockies
@@ -144,16 +143,12 @@ export default class Home extends React.Component {
                                 </Row>
                             :
                             <Row>  
-
+                                 <Spinner /> 
                             </Row>
                         }
                             
                             
-                       
-
                         <Divider styleName="line" />
-
-                  
 
                         <Divider styleName="line" />
                     </ScrollView>
@@ -205,7 +200,7 @@ export default class Home extends React.Component {
             </View> */
         )
     }
-}
+});
 
 const styles = StyleSheet.create({
     container: {

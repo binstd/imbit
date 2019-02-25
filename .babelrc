@@ -5,17 +5,21 @@
 //   "plugins": ["transform-decorators-legacy"]
 // }
 // export REACT_EDITOR=atom
+
+// {
+//     "presets": ["module:metro-react-native-babel-preset"],
+//     "plugins": [
+//         [
+//         "@babel/plugin-transform-flow-strip-types"
+//         ],
+//         [
+//             "@babel/plugin-proposal-decorators",
+//             {
+//             "legacy": true
+//             }
+//         ]
+//     ]
+// }
 {
-    "presets": ["module:metro-react-native-babel-preset"],
-    "plugins": [
-        [
-        "@babel/plugin-transform-flow-strip-types"
-        ],
-        [
-            "@babel/plugin-proposal-decorators",
-            {
-            "legacy": true
-            }
-        ]
-    ]
+    "presets": ["module:metro-react-native-babel-preset"]
 }
