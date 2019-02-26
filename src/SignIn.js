@@ -1,21 +1,22 @@
 import React, { Fragment } from 'react'
 import {
-    StyleSheet,
+    StyleSheet
 } from 'react-native'
 
+import { Navigation } from 'react-native-navigation';
 import { goHome } from './initNavigation'
 import { USER_KEY } from './config'
 
 
-import { Screen, TextInput, Button, Text, Spinner } from '@shoutem/ui';
+import { Screen, TextInput, Text, Spinner, Button } from '@shoutem/ui';
 import { asyncStorageSave, asyncStorageLoad } from './helpers/asyncStorage';
 
-import ethers from 'ethers';
-// let HDNode = ethers.HDNode;
-// import bip39 from 'react-native-bip39';
-// var hdkey = require('ethereumjs-wallet/hdkey')
-// import util from 'ethereumjs-util';
+// import ethers from 'ethers';
+import {hasAddress} from './helpers/userFetch';
+import {loadWallet} from './helpers/wallet';
+
 import userModel from './model/userModel';
+import { goUserInfo } from './initNavigation';
 
 export default class SignIn extends React.Component {
     static get options() {
@@ -27,62 +28,59 @@ export default class SignIn extends React.Component {
             }
         };
     }
-    state = {
-        mnemonic: '',
-        loading: false
-    }
+    constructor(props) {
+		super(props);
+		this.state = {
+            mnemonic: '',
+            isLoading: false
+		};
+	}
+   
     onChangeText = (key, value) => {
         this.setState({ [key]: value })
     }
 
-    signIn = () => {
-        this.setState({ loading: true });
+    async signIn (){
         let { mnemonic } = this.state;
+        this.setState({ isLoading: true });
         if (mnemonic.length != 0) {
-            let user = {};
-            let wallet = ethers.Wallet.fromMnemonic(mnemonic);
-            if (wallet) {
-                this.setState({ loading: false });
-            }
-            user['mnemonic'] = mnemonic.split(" ")
-            user['address'] = wallet.address.toLowerCase();
-            userModel.allSet(user);
-            asyncStorageSave(USER_KEY, user);
+            setTimeout(() => {
+               this.saveWallet(mnemonic);
+            }, 500);
+        } else {
+            this.setState({ isLoading: false });
+        } 
+    }
+
+    async saveWallet(mnemonic){
+        let wallet = await loadWallet(mnemonic);
+        let result = await hasAddress(wallet.address);
+        if(result){
+            this.setState({
+                isLoading: false,
+              });
             goHome();
+        } else {
+            this.setState({
+                isLoading: false,
+            });
+            goUserInfo();
         }
     }
 
-    getWalletStorage = async (mnemonic) => {
+  
 
-        const user = await asyncStorageLoad(USER_KEY);
-        let wallet = ethers.Wallet.fromMnemonic(mnemonic);
-        console.log(wallet.address);
-        console.log(wallet.privateKey);
-        // let privatekey = this.generateKeyFromSeed(mnemonic);
-        // console.log('\n privateKey => \n',privateKey);
-        user['address'] = wallet.address.toLowerCase();
-        asyncStorageSave(USER_KEY, user);
-        userModel.allSet(user);
-    }
-
-    // generateKeyFromSeed (value) {
-    //     let masterNode = ethers.HDNode.fromMnemonic(value);
-    //     let standardEthereum = masterNode.derivePath("m/44'/60'/0'/0/0");
-    //     // const seed = ethers.utils.toUtf8Bytes(value);
-    //     // const node = ethers.HDNode.fromSeed(seed);
-    //     return masterNode.privateKey;
-    // }
-
+ 
     static navigatorStyle = {
         topBarElevationShadowEnabled: false
     };
 
     render() {
-        const { loading } = this.state;
+        // const { isLoading } = this.state;
 
         return (
             <Screen style={styles.container}>
-                {loading ?
+                {this.state.isLoading ?
                     <Spinner /> :
                     <Screen style={styles.container} >
                         <TextInput
@@ -101,7 +99,9 @@ export default class SignIn extends React.Component {
                                 width: 300,
                                 marginTop: 30,
                             }}
+                            // onPressIn={() => this.setState({isLoading:true})}
                             onPress={() => this.signIn()}
+                            // title="登陆身份"
                         >
                             <Text>登陆身份</Text>
                         </Button>

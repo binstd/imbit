@@ -90,11 +90,27 @@ export const goMnomonic = () => Navigation.setRoot({
 })   
 
 
+export const goUserInfo = () => Navigation.setRoot({
+    root: {
+        stack: {
+            id: 'UserInfo',
+            children: [
+                {
+                    component: {
+                        name: 'Register',
+                    }
+                }
+            ],
+        }
+    }
+});  
+
 export function registerScreens() {
     Navigation.registerComponent('Home', () => require('./view/Home').default);
     Navigation.registerComponent('Initializing', () => require('./view/Initialising').default);
     Navigation.registerComponent('SignIn', () => require('./SignIn').default);
     Navigation.registerComponent('SignUp', () => require('./SignUp').default);
+    Navigation.registerComponent('Register', () => require('./Register').default); 
     Navigation.registerComponent('About', () => require('./About').default);
     Navigation.registerComponent('Translate', () => require('./Translate').default);
     Navigation.registerComponent('SettingUserInfo', () => require('./view/SettingUserInfo').default);
@@ -103,4 +119,5 @@ export function registerScreens() {
     Navigation.registerComponent('MnemonicTold', () => require('./mnemonic/Told').default);
     Navigation.registerComponent('MnemonicBackup', () => require('./mnemonic/Backup').default);
     Navigation.registerComponent('MnemonicConfirm', () => require('./mnemonic/Confirm').default);
+
 }

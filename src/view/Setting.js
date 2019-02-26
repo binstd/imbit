@@ -41,7 +41,6 @@ export default observer( class Setting extends React.Component {
             translucent: true
         },    
       }
-   
     };
   }
 
