@@ -86,8 +86,6 @@ export default observer(class SettingUserInfo extends React.Component {
         phone_number:user.telephone
     });
     console.log('user=>', user)
-    // if (user) {
-    //   userModel.allSet(user);
   }
 
 
@@ -96,13 +94,14 @@ export default observer(class SettingUserInfo extends React.Component {
     return (
        <Screen style={styles.container}>
         <Screen style={styles.containerData}>
+
             <TextInput
-            style={styles.input}
-            placeholder='用户名'
-            value = {username}
-            autoCapitalize="none"
-            placeholderTextColor='white'
-            onChangeText={val => this.onChangeText('username', val)}
+                style={styles.input}
+                placeholder='用户名'
+                value = {username}
+                autoCapitalize="none"
+                placeholderTextColor='white'
+                onChangeText={val => this.onChangeText('username', val)}
             />
            
             <TextInput
@@ -113,6 +112,7 @@ export default observer(class SettingUserInfo extends React.Component {
                 placeholderTextColor='white'
                 onChangeText={val => this.onChangeText('email', val)}
             />
+
             <TextInput
                 style={styles.input}
                 placeholder='手机号'
@@ -122,16 +122,15 @@ export default observer(class SettingUserInfo extends React.Component {
                 onChangeText={val => this.onChangeText('phone_number', val)}
             />
             
-                <Button 
-                    styleName="secondary" 
-                    style={{
-                        width: 300,
-                        marginTop: 30,
-                    }}
-                    onPress={this.commit}
-                    // onPress={this.signIn}
-                >
-                    <Text>保存</Text>
+            <Button 
+                styleName="secondary" 
+                style={{
+                    width: 300,
+                    marginTop: 30,
+                }}
+                onPress={this.commit}
+            >
+                <Text>保存</Text>
                 </Button>
             </Screen>
       </Screen>

@@ -26,7 +26,6 @@ class QRCodeScannerScreen extends Component {
     if (uri && typeof uri === 'string') {
          console.log('uri::',uri);
          await walletConnectNewSession(uri);
-        //  await walletConnectOnSessionRequest(uri,'0x86A343K43545454545');
     }
   };
   

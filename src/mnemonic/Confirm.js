@@ -18,6 +18,8 @@ import { goHome } from '../initNavigation';
 
 import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
 
+import validator from 'validator';
+import Toast, {DURATION} from 'react-native-easy-toast';
 // @observer
 export default observer(class Confirm extends React.Component {
     static get options() {
@@ -101,18 +103,10 @@ export default observer(class Confirm extends React.Component {
         console.log(Object.values(mnemonicList).join(" "));
         console.log(Object.values(realMnemonic).join(" "));
         if(Object.values(realMnemonic).join(" ") == Object.values(mnemonicList).join(" ")) {
-            // let user = {};
-            // const LoadSto = await asyncStorageLoad(USER_KEY);
-            // if(LoadSto ){
-            //     user = LoadSto;
-            // }
-            // user['Mnemonic'] = realMnemonic; 
-            // console.log('Mnemonic Save:',user);
-            // let saveUser = await asyncStorageSave(USER_KEY, user);
-            // console.log(saveUser);
             goHome();
         } else {
-            console.log('抱歉,你没有备份');
+            this.refs.toast.show('助记词确认错误，请仔细的把正确的助记词抄写下来')
+            // console.log('抱歉,你没有备份');
         }
     }
 
@@ -198,6 +192,11 @@ export default observer(class Confirm extends React.Component {
                             <Text>确认</Text>
                         </Button>
                     </View>
+                    <Toast 
+                        ref="toast"  
+                        position='center'
+                        positionValue={5} 
+                    /> 
             </Screen>
         )
     }

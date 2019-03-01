@@ -4,9 +4,9 @@ import {
 } from 'react-native'
 
 // import {Navigation} from 'react-native-navigation';
-import { goHome } from './initNavigation'
+import { goHome } from '../initNavigation'
 import { Screen, TextInput,Button,Text } from '@shoutem/ui';
-import {RegisterUserInfo} from './helpers/userFetch';
+import {RegisterUserInfo} from '../helpers/userFetch';
 export default class Register extends React.Component {
     static get options() {
         return {
@@ -37,10 +37,6 @@ export default class Register extends React.Component {
         goHome();
     } 
   }
-
-//   static navigatorStyle = {
-//     topBarElevationShadowEnabled: false;
-//   };
 
   render() {
     return (

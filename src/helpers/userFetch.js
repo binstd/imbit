@@ -35,6 +35,9 @@ export async function CreateUser({ username, email, telephone}) {
             user['uid'] = data.id
             await asyncStorageSave(USER_KEY, user);
             goMnomonic();  
+            return 1;
+        } else {
+            return 0;
         }
     } 
 }

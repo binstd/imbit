@@ -5,22 +5,24 @@ import {
   StyleSheet
 } from 'react-native'
 
-import { goToAuth, goHome } from '../initNavigation'
+import { goToAuth, goHome } from './initNavigation'
 
-import { USER_KEY } from '../config'
-import { asyncStorageLoad } from '../helpers/asyncStorage';
+import { USER_KEY } from './config'
+import { asyncStorageLoad } from './helpers/asyncStorage';
 import { observer } from 'mobx-react/native';
-import userModel from '../model/userModel';
+import userModel from './model/userModel';
 
+import Reactotron from 'reactotron-react-native';
 // @observer
 export default observer(class Initialising extends React.Component {
+
   //判断登录
   static navigatorStyle = {
     topBarElevationShadowEnabled: false 
   }
 
   async componentDidMount() {
-
+    Reactotron.log('hello rendering world');
     try {
       const user = await asyncStorageLoad(USER_KEY);
       if (user) {

@@ -55,6 +55,7 @@ export default observer( class Home extends React.Component {
             }
         };
     }
+
     constructor(props) {
         super(props);
     
@@ -102,58 +103,50 @@ export default observer( class Home extends React.Component {
     render() {
         console.log('props; ', this.props)
         const {address} = this.state;
-        console.log(address);
+        // console.log(address);
         return (
             <Screen styleName="paper full-screen"
                 style={{
-                    // flex: 1,  
-                    // justifyContent: 'center',
-                    // alignItems: 'center'
+                    flex: 1,  
+                    justifyContent: 'center',
+                    alignItems: 'center'
                 }}
             >
+             {address?
+                    <Row
+                        style={{
+                            // flex: 1,  
+                            // justifyContent: 'center',
+                            marginTop: 100,
+                            height: 100
 
-                <Screen styleName="paper"
-                    style={{
-                        flex: 1,
-                        justifyContent: 'center',
-                        marginTop: 200,
-                        height: 300,
-                    }}
-                >
-                    <ScrollView>
+                        }}
+                    >
+                        <Blockies
+                            blockies={address} //string content to generate icon
+                            size={50} // blocky icon size
+                            style={{ width: 50, height: 50, marginRight: 10, }} // style of the view will wrap the icon
+                            color="#dfe" 
+                            bgColor="#ffe" 
+                            spotColor="#abc"   
+                        />
 
-                        <Divider styleName="line" />
-
-                            {address?
-                              <Row>
-                                    <Blockies
-                                        blockies={address} //string content to generate icon
-                                        size={50} // blocky icon size
-                                        style={{ width: 50, height: 50, marginRight: 10, }} // style of the view will wrap the icon
-                                        color="#dfe" 
-                                        bgColor="#ffe" 
-                                        spotColor="#abc"   
-                                    />
-                                    <View styleName="vertical">
-                                        <Subtitle>钱包地址:</Subtitle>
-                                        <Text>
-                                            {address}
-                                        </Text>
-                                    </View>
-                                </Row>
-                            :
-                            <Row>  
-                                 <Spinner /> 
-                            </Row>
-                        }
-                            
-                            
-                        <Divider styleName="line" />
-
-                        <Divider styleName="line" />
-                    </ScrollView>
-                </Screen>
-
+                        <View >
+                            <Subtitle>钱包地址:</Subtitle>
+                            <Text>
+                                {address}
+                            </Text>
+                        </View>
+                     
+                    </Row>   
+                    
+                 :
+                    <Row>  
+                      <Spinner /> 
+                    </Row>
+                } 
+                  <Divider styleName="line" />
+           
               
                 <Row
                     style={{
@@ -180,24 +173,7 @@ export default observer( class Home extends React.Component {
                 </Row>
 
             </Screen>
-            /* <View style={styles.container}>
-              <Text>Hello from Home screen.111</Text>
-              <Button
-                onPress={this.logout}
-                title="Sign Out"
-              />
-              <Button
-                onPress={() => {
-                  Navigation.push(this.props.componentId, {
-                    component: {
-                      name: 'Screen2',
-                    }
-                  });
-                }}
-                
-                title="View next screen"
-              />
-            </View> */
+            
         )
     }
 });

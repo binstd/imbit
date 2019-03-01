@@ -6,6 +6,7 @@ import { USER_KEY } from '../config'
 export async function loadWallet(mnemonic) {
     let wallet = ethers.Wallet.fromMnemonic(mnemonic);
     let user = {};
+    
     user['mnemonic'] = mnemonic.split(" ");
     user['address'] = wallet.address.toLowerCase();
     userModel.allSet(user);

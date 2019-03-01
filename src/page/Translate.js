@@ -5,7 +5,7 @@ import {
   Button,
   StyleSheet,
 } from 'react-native'
-import { goToAuth } from './initNavigation'
+import { goToAuth } from '../initNavigation'
 
 import {
     Html,Screen,DropDownMenu,Title,Image,Text
