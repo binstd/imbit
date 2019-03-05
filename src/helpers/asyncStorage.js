@@ -15,13 +15,13 @@ export async function asyncStorageLoad(key) {
   try {
     const data = await AsyncStorage.getItem(key);
     if (data) {
-      console.log(`AsyncStorage: loaded value for key: ${key}`);
+    //   console.log(`AsyncStorage: loaded value for key: ${key}`);
       const jsonValue = JSON.parse(data);
       return jsonValue;
     }
-    console.log(`AsyncStorage: value does not exist for key: ${key}`);
+    // console.log(`AsyncStorage: value does not exist for key: ${key}`);
   } catch (err) {
-    console.log(`AsyncStorage: failed to load value for key: ${key} error: ${err}`);
+    // console.log(`AsyncStorage: failed to load value for key: ${key} error: ${err}`);
   }
   return null;
 }

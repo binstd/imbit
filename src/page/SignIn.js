@@ -11,7 +11,7 @@ import { USER_KEY } from '../config'
 import { Screen, TextInput, Text, Spinner, Button,Caption,View } from '@shoutem/ui';
 import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
 
-// import ethers from 'ethers';
+
 import {hasAddress} from '../helpers/userFetch';
 import {loadWallet} from '../helpers/wallet';
 
@@ -36,15 +36,15 @@ export default class SignIn extends React.Component {
                 navBarNoBorder: true,
                 hideShadow: true,
                 noBorder: true,
-                rightButtons: [
-                    {
-                        id: 'SignUp',
-                        // icon: <Icon name="sidebar" />,
-                        text: '创建新用户',
-                        color: '#000000',
+                // rightButtons: [
+                //     {
+                //         id: 'SignUp',
+                //         // icon: <Icon name="sidebar" />,
+                //         text: '创建新用户',
+                //         color: '#000000',
 
-                    }
-                ],
+                //     }
+                // ],
                 leftButtons: [],
             }
         };
@@ -87,16 +87,6 @@ export default class SignIn extends React.Component {
                 this.saveWallet(mnemonic);
              }, 500);
         }
-        // this.refs.toast.show('请输入正确的手机号');
-        // this.setState({ isLoading: true });
-       
-        // if (mnemonic.length != 0) {
-        //     setTimeout(() => {
-        //        this.saveWallet(mnemonic);
-        //     }, 500);
-        // } else {
-        //     this.setState({ isLoading: false });
-        // } 
     }
 
     async saveWallet(mnemonic){
@@ -108,7 +98,7 @@ export default class SignIn extends React.Component {
             this.refs.toast.show('无法创建区块链身份,请检测助记词是否正确！');
         }
         let result = await hasAddress(wallet.address);
-        if(result){
+        if(result == 1){
             this.setState({
                 isLoading: false,
               });
@@ -117,7 +107,12 @@ export default class SignIn extends React.Component {
             this.setState({
                 isLoading: false,
             });
-            goUserInfo();
+            Navigation.push(this.props.componentId, {
+                component: {
+                    name: 'TraditionalSignIn',
+                }
+            })
+            
         }
     }
 
@@ -148,7 +143,7 @@ export default class SignIn extends React.Component {
                             onChangeText={val => this.onChangeText('mnemonic', val)}
                         />
                      
-                        {/* <View  style={styles.otherSign} >
+                        <View  style={styles.otherSign} >
                             <Caption 
                                 styleName="bold"
                                 style={styles.rightSign}
@@ -161,7 +156,7 @@ export default class SignIn extends React.Component {
                                 >
                                 Email/手机登录
                             </Caption> 
-                        </View> */}
+                        </View>
                         
                 
                         <Button

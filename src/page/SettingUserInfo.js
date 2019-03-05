@@ -31,7 +31,7 @@ export default observer(class SettingUserInfo extends React.Component {
     }
 
   state = {
-    username: '', password: '', email: '', phone_number: ''
+    username: '', password: '', email: '', telephone: ''
   }
 
   onChangeText = (key, val) => {
@@ -39,7 +39,7 @@ export default observer(class SettingUserInfo extends React.Component {
   }
 
   signUp = async () => {
-    const { username, password, email, phone_number } = this.state
+    const { username, password, email, telephone } = this.state
     try {
       // here place your signup logic
       console.log('user successfully signed up!: ', success)
@@ -53,7 +53,7 @@ export default observer(class SettingUserInfo extends React.Component {
     // user['publicAddress'] = userModel.address;
     postData['username'] = this.state.username;
     postData['email'] = this.state.email;
-    postData['telephone'] = this.state.phone_number;  
+    postData['telephone'] = this.state.telephone;  
     let user = await asyncStorageLoad(USER_KEY);
     fetch(`${SERVER_URL}api/users/${userModel.uid}`, {
         body: JSON.stringify(postData),
@@ -62,11 +62,16 @@ export default observer(class SettingUserInfo extends React.Component {
         },
         method: 'patch'
     }).then(response => response.json()).then( data => {
-        console.log('修改后的:\n',data);
 
         user['username'] = this.state.username;
-        user['email'] = this.state.email;
-        user['telephone'] = this.state.phone_number;  
+
+        if(this.state.email != '') {
+            user['email'] = this.state.email;
+        }
+
+        if(this.state.telephone != '') {
+            user['telephone'] = this.state.telephone;  
+        }
         asyncStorageSave(USER_KEY, user);
         userModel.allSet(user);
     });
@@ -83,14 +88,14 @@ export default observer(class SettingUserInfo extends React.Component {
     this.setState({
         username:user.username,
         email:user.email,
-        phone_number:user.telephone
+        // telephone:user.telephone
     });
-    console.log('user=>', user)
+    // console.log('user=>', user)
   }
 
 
   render() {
-    const { username, email, phone_number } = this.state
+    const { username, email, telephone } = this.state
     return (
        <Screen style={styles.container}>
         <Screen style={styles.containerData}>
@@ -113,14 +118,7 @@ export default observer(class SettingUserInfo extends React.Component {
                 onChangeText={val => this.onChangeText('email', val)}
             />
 
-            <TextInput
-                style={styles.input}
-                placeholder='手机号'
-                value = {phone_number}
-                autoCapitalize="none"
-                placeholderTextColor='white'
-                onChangeText={val => this.onChangeText('phone_number', val)}
-            />
+            
             
             <Button 
                 styleName="secondary" 

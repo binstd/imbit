@@ -50,7 +50,7 @@ export async function RegisterUserInfo({ username, email, telephone}) {
     postData['username'] = username;
     postData['email'] = email;
     postData['telephone'] = telephone;
-    console.log(postData);
+    console.log('postData:',postData);
     let data = await fetch(`${SERVER_URL}api/users`, {
         body: JSON.stringify(postData),
         headers: {
@@ -66,7 +66,9 @@ export async function RegisterUserInfo({ username, email, telephone}) {
         user['uid'] = data.id;
         await asyncStorageSave(USER_KEY, user);
         userModel.allSet(user);
-        // goMnomonic();  
+        return 1;
+    } else {
+        return 0;
     }
 }
 
@@ -89,6 +91,35 @@ export async function hasAddress(address) {
         user['telephone'] =  data[0].telephone;
         user['email']  = data[0].email;
         await asyncStorageSave(USER_KEY, user);
+        return 1;
+    } else {
+        console.log('服务器没有该地址！');
+        return 0;
+    }
+}
+
+
+export async function hasTelephone(telephone) {
+    // https://api.binstd.com/api/users
+    const {address} = await asyncStorageLoad(USER_KEY);
+    let user = {};
+    user['telephone'] = telephone; 
+    let data = await fetch(`${SERVER_URL}api/users?telephone=${user['telephone']}`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'get'
+    }).then(response => response.json());
+    console.log('data::',data);
+    if(data.length != 0) {
+        if(!address){
+            user['uid'] = data[0].id;
+            user['address']  = data[0].publicAddress;
+            user['username'] = data[0].username;
+            user['telephone'] =  data[0].telephone;
+            user['email']  = data[0].email;
+            await asyncStorageSave(USER_KEY, user);
+        }
         return 1;
     } else {
         return 0;

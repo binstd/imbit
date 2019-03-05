@@ -91,7 +91,7 @@ export default observer( class Home extends React.Component {
         if (user) {
             userModel.allSet(user);
             this.setState({
-                address:user.address
+                address:user.address,
             })
         } else {
             this.setState({
