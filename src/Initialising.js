@@ -8,7 +8,7 @@ import {
 import { goToAuth, goHome } from './initNavigation'
 
 import { USER_KEY } from './config'
-import { asyncStorageLoad } from './helpers/asyncStorage';
+import { asyncStorageLoad,asyncStorageSave } from './helpers/asyncStorage';
 import { observer } from 'mobx-react/native';
 import userModel from './model/userModel';
 
@@ -29,6 +29,7 @@ export default observer(class Initialising extends React.Component {
         userModel.allSet(user);
         goHome()
       } else {
+        // await asyncStorageSave(USER_KEY, {});
         goToAuth()
       }
     } catch (err) {

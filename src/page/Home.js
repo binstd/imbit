@@ -25,6 +25,7 @@ import {
     Divider,
     Spinner,
     Screen,
+    Caption
 } from '@shoutem/ui';
 
 import Blockies from 'react-native-blockies';
@@ -170,7 +171,33 @@ export default observer( class Home extends React.Component {
                     >
                         <Text>扫一扫</Text>
                     </Button>
+                    {/* <Caption 
+                    styleName="bold"
+                    style={styles.footer}
+                    >
+                        安全、便捷的区块链身份授权系统
+
+                    </Caption>  */}
                 </Row>
+               
+                {/* <Row
+                    style={{
+                        // flex: 1,  
+                        justifyContent: 'center',
+                        marginBottom: 20,
+                        height: 100
+
+                    }}
+                >   
+                    <Caption 
+                            styleName="bold"
+                            style={styles.footer}
+                                
+                                >
+                                安全、便捷的区块链身份授权系统
+
+                    </Caption> 
+                </Row> */}
 
             </Screen>
             
@@ -183,5 +210,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    footer:{
+        margin:'auto',
+        marginTop:5,
+        // alignItems: 'center',
+    },
 })

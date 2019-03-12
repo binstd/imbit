@@ -10,7 +10,7 @@ class userModel {
     privatekey;
     mnemonic;
     pagenum;
-    
+    token;
     get getAllData() {
         const data = {
             uid: this.uid,
@@ -21,6 +21,7 @@ class userModel {
             pagenum:this.pagenum,
             mnemonic:this.mnemonic,
             email:this.email,
+            token:this.token
         };
         return data;
     }
@@ -57,10 +58,18 @@ class userModel {
             console.log(jsonData['email']);
             this.email = jsonData['email'];
         }
+        if(jsonData['token']){
+            console.log(jsonData['token']);
+            this.token = jsonData['token'];
+        }
     }
 
     uidSet(uid) {
         this.uid = uid;
+    }
+
+    tokenSet(token) {
+        this.token = token;
     }
 
     usernameSet(username) {

@@ -96,9 +96,9 @@ export default observer( class Setting extends React.Component {
                         </Row>
                     </Button>
                     
-                    {/* <Divider styleName="line" /> */}
+       
 
-                    <Button
+                    {/* <Button
                         onPress={() => {
                             Navigation.push(this.props.componentId, {
                             component: {
@@ -112,11 +112,10 @@ export default observer( class Setting extends React.Component {
                             <Text>语言切换</Text>
                             <Icon styleName="disclosure" name="right-arrow" />
                         </Row>
-                    </Button>
+                    </Button> */}
 
-                    {/* <Divider styleName="line" /> */}
 
-                    <Button
+                    {/* <Button
                         onPress={() => {
                             Navigation.push(this.props.componentId, {
                                 component: {
@@ -132,9 +131,8 @@ export default observer( class Setting extends React.Component {
                         <Icon styleName="disclosure" name="right-arrow" />
                     </Row>
 
-                    </Button>
+                    </Button> */}
 
-                    {/* <Divider styleName="line" /> */}
 
                     <Button
                         onPress={this.logout}

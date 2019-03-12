@@ -161,16 +161,28 @@ export default class SignIn extends React.Component {
                 
                         <Button
                             styleName="secondary"
-                            style={{
-                                width: 300,
-                                marginTop: 30,
-                            }}
+                            style={styles.buttonSign}
+                            // style={{
+                            //     width: 300,
+                            //     marginTop: 30,
+                            //     backgroundColor:'#308EFF'
+                            // }}
                             // onPressIn={() => this.setState({isLoading:true})}
                             onPress={() => this.signIn()}
                             // title="登陆身份"
                         >
-                            <Text>登录身份</Text>
+                            <Text style={styles.buttonText}>登录</Text>
                         </Button>
+
+                        <View  style={styles.otherSign} >
+                            <Caption 
+                                styleName="bold"
+                                style={styles.footerSign}
+                                
+                                >
+                                首次登陆会自动创建新账户
+                            </Caption> 
+                        </View>
                     </Screen>}
                     <Toast 
                         ref="toast"  
@@ -191,9 +203,7 @@ const styles = StyleSheet.create({
         // color: 'white',
         padding: 5,
         paddingLeft: 10,
-        // borderRadius: ,
-        // borderWidth: 0.5,
-        // borderColor: '#5f5f5f',
+        
     },
     container: {
         backgroundColor: 'white',
@@ -214,5 +224,19 @@ const styles = StyleSheet.create({
         // justifyContent: '',
         marginRight:5,
         alignItems: 'flex-end',
+    },
+    footerSign:{
+        margin:'auto',
+        marginTop:5,
+        alignItems: 'center',
+    },
+    buttonSign:{
+        width: 300,
+        marginTop: 30,
+        backgroundColor:'#308EFF',
+        borderColor:'#308EFF'
+    },
+    buttonText:{
+        fontSize:18
     }
 })

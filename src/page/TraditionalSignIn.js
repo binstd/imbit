@@ -8,9 +8,7 @@ import { Navigation } from 'react-native-navigation';
 import { Screen, TextInput, Text, Spinner, Button, Caption, View } from '@shoutem/ui';
 import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
 
-// import ethers from 'ethers';
 import { hasTelephone } from '../helpers/userFetch';
-import { loadWallet } from '../helpers/wallet';
 
 import { goHome, goUserInfo } from '../initNavigation';
 
@@ -18,7 +16,9 @@ import { USER_KEY,SERVER_URL } from '../config';
 import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
 
-export default class TraditionalSignIn extends React.Component {
+import timerModel from '../model/timerModel';
+import { observer } from 'mobx-react/native';
+export default TraditionalSignIn = observer( class TraditionalSignIn extends React.Component {
     static get options() {
         return {
             topBar: {
@@ -31,15 +31,7 @@ export default class TraditionalSignIn extends React.Component {
                 backButton: {
                     visible: true
                 },
-                // rightButtons: [
-                //     {
-                //         id: 'SignUp',
-                //         // icon: <Icon name="sidebar" />,
-                //         text: '创建新用户',
-                //         color: '#000000',
-
-                //     }
-                // ],
+              
                 leftButtons: [],
             }
         };
@@ -80,12 +72,13 @@ export default class TraditionalSignIn extends React.Component {
             this.refs.toast.show('请输入正确的电话号码');
         } else {
             // this.setState({ isSending: true });
-            fetch(`${SERVER_URL}api/virify/massegecode?telephone=${telephone}`, {
+            fetch(`https://api.binstd.com/api/virify/massegecode?telephone=${telephone}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }).then(response => response.json()).then( data => {
                 console.log(data);
+                timerModel.reset();
                 this.setState({
                     realCode:data.code,
                     isSending:true
@@ -96,7 +89,7 @@ export default class TraditionalSignIn extends React.Component {
 
     }
 
-    async virifyMassegeCode() {
+    virifyMassegeCode() {
         
         const { telephone, code, realCode} = this.state;
         // console.log(telephone);
@@ -108,8 +101,12 @@ export default class TraditionalSignIn extends React.Component {
             this.refs.toast.show('请输入您接收到的验证码!');
         }
 
-        if(realCode == code) {   
-            await this.toPage();
+        if(realCode == code) {  
+            this.setState({ isLoading: true }); 
+            setTimeout(() => {
+                this.toPage();
+            }, 500);
+            // await this.toPage();
         } else {
             this.refs.toast.show('您输入的验证码是错误的!');
         }
@@ -117,8 +114,8 @@ export default class TraditionalSignIn extends React.Component {
 
     async toPage() {
         const { telephone } = this.state;
-        let user = await asyncStorageLoad(USER_KEY);
-        user['telephone'] = telephone;
+        let user = await asyncStorageLoad(USER_KEY)?await asyncStorageLoad(USER_KEY):{};
+  
         await asyncStorageSave(USER_KEY, user);
      
         //判断是新用户还是老用户,登录验证
@@ -131,8 +128,7 @@ export default class TraditionalSignIn extends React.Component {
                     isLoading: false,
                 });
                 goHome();
-            }
-           
+            }  
         } else {
             this.setState({
                 isLoading: false,
@@ -144,6 +140,31 @@ export default class TraditionalSignIn extends React.Component {
 
     render() {
         const { isLoading,isSending } = this.state;
+        let  virifyView;
+        if (timerModel.timer > 0 && isSending) {
+            virifyView  =  <Caption 
+                            styleName="bold"
+                            style={{
+                                margin:'auto',
+                                marginRight:25
+                            }}
+                            >
+                                倒计时{timerModel.timer}秒
+                            </Caption> ;
+        } else {
+            virifyView  =    <Button
+                                styleName="secondary"
+                                style={{
+                                    width: 100,
+                                    height: 40,
+                                    margin: 'auto',
+                                }}
+                                onPress={() => this.getMassegeCode()}
+                            >
+                                <Text>验证码</Text>
+                            </Button>;
+        }
+
         return (
             <Screen style={styles.container}>
                 {this.state.isLoading ?
@@ -171,29 +192,7 @@ export default class TraditionalSignIn extends React.Component {
                                 placeholderTextColor='white'
                                 onChangeText={val => this.onChangeText('code', val)}
                             />
-                            {isSending ?
-                                <Caption 
-                                    styleName="bold"
-                                    style={{
-                                        margin:'auto',
-                                        marginRight:25
-                                    }}
-                                >
-                                    倒计时{this.state.reTime}秒
-                                </Caption> 
-                                :
-                                <Button
-                                    styleName="secondary"
-                                    style={{
-                                        width: 100,
-                                        height: 40,
-                                        margin: 'auto',
-                                    }}
-                                    onPress={() => this.getMassegeCode()}
-                                >
-                                    <Text>验证码</Text>
-                                </Button>
-                                }
+                           {virifyView}
                            
 
                            
@@ -201,16 +200,21 @@ export default class TraditionalSignIn extends React.Component {
 
                         <Button
                             styleName="secondary"
-                            style={{
-                                width: 300,
-                                marginTop: 30,
-                            }}
+                            style={styles.buttonSign}
                             onPress={() => this.virifyMassegeCode()}
                        
                         >
-                            <Text>登录身份</Text>
+                            <Text style={styles.buttonText} >登录</Text>
                         </Button>
-
+                        <View  style={styles.otherSign} >
+                            <Caption 
+                                styleName="bold"
+                                style={styles.footerSign}
+                                
+                                >
+                                首次登陆会自动创建新账户
+                            </Caption> 
+                        </View>   
                     </Screen>}
                 <Toast
                     ref="toast"
@@ -220,7 +224,7 @@ export default class TraditionalSignIn extends React.Component {
             </Screen>
         )
     }
-}
+});
 
 const styles = StyleSheet.create({
     input: {
@@ -261,5 +265,19 @@ const styles = StyleSheet.create({
         // justifyContent: '',
         marginRight: 5,
         alignItems: 'flex-end',
+    },
+    footerSign:{
+        margin:'auto',
+        marginTop:5,
+        alignItems: 'center',
+    },
+    buttonSign:{
+        width: 300,
+        marginTop: 30,
+        backgroundColor:'#308EFF',
+        borderColor:'#308EFF'
+    },
+    buttonText:{
+        fontSize:18
     }
 })
