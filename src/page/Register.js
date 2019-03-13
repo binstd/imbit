@@ -16,8 +16,10 @@ export default class Register extends React.Component {
             topBar: {
                 hideShadow: true,
                 noBorder: true,
+                elevation: 0,
                 title: {
-                    text: '补充用户信息'
+                    text: '补充用户信息',
+                    alignment: "center"
                 },
                 background: {
                     translucent: true
@@ -80,8 +82,10 @@ export default class Register extends React.Component {
                         <Button
                             styleName="secondary"
                             style={{
-                                width: 300,
+                                width: '90%',
                                 marginTop: 30,
+                                backgroundColor: '#308EFF',
+                                borderColor: '#308EFF',
                             }}
                             onPress={this.register}
                         >
@@ -96,16 +100,13 @@ export default class Register extends React.Component {
 
 const styles = StyleSheet.create({
     input: {
-        width: 300,
+        width: '100%',
         margin: 10,
         padding: 10,
         paddingLeft: 30,
         backgroundColor: '#F5F5F5',
     },
     container: {
-        // flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center',
         backgroundColor: 'white',
     },
     container2: {

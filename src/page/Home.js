@@ -25,7 +25,9 @@ import {
     Divider,
     Spinner,
     Screen,
-    Caption
+    Caption,
+    Image,
+    TouchableOpacity
 } from '@shoutem/ui';
 
 import Blockies from 'react-native-blockies';
@@ -38,8 +40,10 @@ export default observer( class Home extends React.Component {
             topBar: {
                 color: 'red',
                 title: {
-                    text: ''
+                    text: 'ImBit',
+                    alignment: "center"
                 },
+                elevation: 0,
                 navBarNoBorder: true,
                 hideShadow: true,
                 noBorder: true,
@@ -62,6 +66,8 @@ export default observer( class Home extends React.Component {
     
         this.state = {
             address:'',
+            username:'',
+            telephone:'',
             loading: false
         };
         Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
@@ -93,112 +99,100 @@ export default observer( class Home extends React.Component {
             userModel.allSet(user);
             this.setState({
                 address:user.address,
+                username:user.username,
+                telephone:user.telephone
             })
         } else {
             this.setState({
-                address:userModel.address
+                address:userModel.address,
+                username:userModel.username,
+                telephone:userModel.telephone
             })
         }
     }
 
     render() {
         console.log('props; ', this.props)
-        const {address} = this.state;
-        // console.log(address);
+        const {address, username, telephone} = this.state;
+        // console.log('address.slice(0,5) => ',address.slice(0,5));
+        // console.log('address.slice(0,10) => ',address.slice(0,16));
         return (
-            <Screen styleName="paper full-screen"
-                style={{
-                    flex: 1,  
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}
-            >
-             {address?
-                    <Row
-                        style={{
-                            // flex: 1,  
-                            // justifyContent: 'center',
-                            marginTop: 100,
-                            height: 100
-
-                        }}
-                    >
-                        <Blockies
-                            blockies={address} //string content to generate icon
-                            size={50} // blocky icon size
-                            style={{ width: 50, height: 50, marginRight: 10, }} // style of the view will wrap the icon
-                            color="#dfe" 
-                            bgColor="#ffe" 
-                            spotColor="#abc"   
-                        />
-
-                        <View >
-                            <Subtitle>钱包地址:</Subtitle>
-                            <Text>
-                                {address}
-                            </Text>
-                        </View>
-                     
-                    </Row>   
-                    
-                 :
-                    <Row>  
-                      <Spinner /> 
-                    </Row>
-                } 
-                  <Divider styleName="line" />
-           
-              
-                <Row
-                    style={{
-                        // flex: 1,  
-                        justifyContent: 'center',
-                        marginBottom: 20,
-                        height: 100
-
-                    }}
-                >
-                    <Button
-                        styleName="secondary"
-                        style={{ width: 200 }}
-                        onPress={() => {
-                            Navigation.push(this.props.componentId, {
-                                component: {
-                                    name: 'QRCodeScannerScreen',
-                                }
-                            });
-                        }}
-                    >
-                        <Text>扫一扫</Text>
-                    </Button>
-                    {/* <Caption 
-                    styleName="bold"
-                    style={styles.footer}
-                    >
-                        安全、便捷的区块链身份授权系统
-
-                    </Caption>  */}
-                </Row>
-               
-                {/* <Row
-                    style={{
-                        // flex: 1,  
-                        justifyContent: 'center',
-                        marginBottom: 20,
-                        height: 100
-
-                    }}
-                >   
-                    <Caption 
-                            styleName="bold"
-                            style={styles.footer}
-                                
+            <Screen  >
+                <Screen >                
+                            <View style={styles.usercard} >
+                                <Row styleName="small"  
+                                    style={styles.userinfo} 
+                                >
+                                    <Blockies
+                                        blockies={address} //string content to generate icon
+                                        size={60} // blocky icon size
+                                        style={{ width: 60, height: 60, marginRight: 20, }} // style of the view will wrap the icon
+                                        color="#dfe" 
+                                        bgColor="#ffe" 
+                                        spotColor="#abc"   
+                                    />
+                                    <View 
+                                        styleName="vertical"
+                                    >
+                                        <Subtitle>{username}</Subtitle>
+                                        <Text numberOfLines={1}>{telephone}</Text>
+                                    </View>
+                                    <Icon styleName="disclosure" name="right-arrow" />
+                                </Row>
+                                <Divider
+                                    styleName="line"
+                                    style={styles.inputLine}
+                                />
+                                <Row styleName="small" 
+                                    style={{
+                                        width:'95%',
+                                        height:30,
+                                        // margin:'auto'
+                                    }} 
+                                >
+                                    <View styleName="horizontal">
+                                        <Subtitle styleName="md-gutter-right">地址:</Subtitle>
+                                        <Caption >{address.slice(0,28)}......</Caption>
+                                    </View>
+                                    {/* <Button styleName="right-icon" name="right-arrow"><Icon name="receipt" /></Button> */}
+                                </Row>
+                            </View>
+                            <View style={styles.scancontainer}>
+                                <TouchableOpacity 
+                                    style={{ alignItems: 'center'}}
+                                    onPress={() => {
+                                        Navigation.push(this.props.componentId, {
+                                            component: {
+                                                name: 'QRCodeScannerScreen',
+                                            }
+                                        });
+                                    }}
+                                 >
+                                        <Image
+                                            styleName="medium-square"
+                                            style={styles.scanicon} 
+                                            source={{ uri: 'https://blockluz-1253389096.cos.ap-beijing.myqcloud.com/blockman/scanicon3-1.png'}}
+                                        />
+                                        <Text style={styles.scantext}>扫一扫</Text>
+                                </TouchableOpacity>  
+                                <Caption
+                                    styleName="bold"
+                                    style={styles.footertext}
                                 >
                                 安全、便捷的区块链身份授权系统
-
-                    </Caption> 
-                </Row> */}
-
+                                </Caption>
+                            </View>
+                            {/* <View style={styles.other} >
+                                    <Caption
+                                        styleName="bold"
+                                        style={styles.footertext}
+                                    >
+                                        首次登陆会自动创建新账户
+                                    </Caption>
+                            </View> */}
+                        
+                        {/* </Screen> */}
+                </Screen>
             </Screen>
             
         )
@@ -207,13 +201,58 @@ export default observer( class Home extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
+        // flex: 1,
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        backgroundColor: 'white',
+    },
+    container2: {
         flex: 1,
-        justifyContent: 'center',
+        marginTop: 10,
         alignItems: 'center'
+    },
+    usercard:{
+        marginTop:10,
+        backgroundColor: 'white',
+        height:140,
+        width:'100%',
+        // alignItems: 'center',
+        // flex: 1,
+    },
+    inputLine:{
+        width: '90%',
+        height: 1,
+        backgroundColor: '#EEEEEE',
+        margin: 'auto',
+        paddingLeft: 5,
+        marginBottom: 0,
+    },
+    userinfo:{
+        height:90,
+    },
+    scancontainer:{
+        marginTop:'80%',
+        height: '100%',
+        padding: 'auto',
+        alignItems: 'center',   
+    },
+    scanicon:{
+        width:90,
+        height:90,
+    },
+    scantext:{
+        fontSize: 13,
+        color: '#000000'
+    },
+ 
+    footertext: {
+        alignItems: 'center',
+        height:20,
+        marginTop: 25,
+        color: '#999999'
     },
     footer:{
         margin:'auto',
         marginTop:5,
-        // alignItems: 'center',
     },
 })

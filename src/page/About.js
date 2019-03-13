@@ -29,8 +29,10 @@ export default class About extends React.Component {
     return {
       topBar: {
         noBorder: true,
+        elevation: 0,
         title: {
-          text: '关于我们'
+          text: '关于我们',
+          alignment: "center"
         },
       }
     };

@@ -5,7 +5,7 @@ import {
 
 import { Navigation } from 'react-native-navigation';
 
-import { Screen, TextInput, Text, Spinner, Button, Caption, View } from '@shoutem/ui';
+import { Screen, TextInput, Text, Spinner, Button, Caption, View,TouchableOpacity,Divider } from '@shoutem/ui';
 import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
 
 import { hasTelephone } from '../helpers/userFetch';
@@ -22,21 +22,32 @@ export default TraditionalSignIn = observer( class TraditionalSignIn extends Rea
     static get options() {
         return {
             topBar: {
+              
+                elevation: 0,
+               
+                translucent:true,
+                blur:false, 
+                borderColor: 'white',
+                borderHeight: 0,
                 title: {
-                    text: ''
+                    text: '登录',
+                    alignment: "center"
+                },
+                backButton: {
+                    visible: false
                 },
                 navBarNoBorder: true,
                 hideShadow: true,
                 noBorder: true,
-                backButton: {
-                    visible: true
-                },
-              
+                // backButton: {
+                //     visible: true
+                // },
                 leftButtons: [],
             }
         };
     }
 
+   
     constructor(props) {
         super(props);
         this.state = {
@@ -143,78 +154,122 @@ export default TraditionalSignIn = observer( class TraditionalSignIn extends Rea
         let  virifyView;
         if (timerModel.timer > 0 && isSending) {
             virifyView  =  <Caption 
-                            styleName="bold"
-                            style={{
-                                margin:'auto',
-                                marginRight:25
-                            }}
-                            >
-                                倒计时{timerModel.timer}秒
-                            </Caption> ;
+                                styleName="bold"
+                                style={{
+                                    margin:'auto',
+                                    marginRight:25,
+                                    color:'#666666',
+                                    fontSize: 15,
+                                    // backgroundColor: 'white',
+                                }}
+                            > 剩余<Text style={{color:'#308EFF',marginLeft: 0,}}>{timerModel.timer}</Text>秒</Caption> ;
         } else {
             virifyView  =    <Button
                                 styleName="secondary"
                                 style={{
-                                    width: 100,
-                                    height: 40,
+                                    width: 120,
+                                    // height: 50,
                                     margin: 'auto',
+                                    backgroundColor: 'white',
+                                    borderColor: 'white',
                                 }}
                                 onPress={() => this.getMassegeCode()}
                             >
-                                <Text>验证码</Text>
+                                <Text
+                                    style={{ 
+                                        color: '#333333',
+                                        fontSize: 15,
+                                    }}
+                                >
+                                    获取二维码
+                                </Text>
                             </Button>;
         }
 
         return (
             <Screen style={styles.container}>
                 {this.state.isLoading ?
-                    <Screen style={styles.container2} >
+                    <Screen style={styles.containerSpinner} >
                         <Spinner />
                     </Screen>
                     :
-                    <Screen style={styles.container2} >
-
-                        <TextInput
-                            style={styles.input}
-                            placeholder='手机号'
-                            autoCapitalize="none"
-                            placeholderTextColor='white'
-                            onChangeText={val => this.onChangeText('telephone', val)}
-                        />
-                        <View style={styles.virify} >
-                            
+                    <Screen >
+                        <View style={styles.header} >
+                            <TouchableOpacity
+                                style={styles.headerOne}
+                                onPress={() => {
+                                    Navigation.push(this.props.componentId, {
+                                        component: {
+                                            name: 'SignIn',
+                                        }
+                                    });
+                                }}
+                            >
+                                <Text style={styles.headerText} >助记词</Text>
+                               
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.headerOne}
+                            >
+                                <Text
+                                    style={styles.headerTextSelected}
+                                >
+                                    手机号
+                                </Text>
+                                <Divider
+                                    styleName="line"
+                                    style={styles.headerLine}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <Screen style={styles.container2} >
                             <TextInput
-                                style={styles.code}
-                                placeholder='验证码'
-                                // placeholder={'code'}
-                                // secureTextEntry
+                                style={styles.input}
+                                placeholder='请输入手机号'
                                 autoCapitalize="none"
                                 placeholderTextColor='white'
-                                onChangeText={val => this.onChangeText('code', val)}
+                                onChangeText={val => this.onChangeText('telephone', val)}
                             />
-                           {virifyView}
+                            <View style={{
+                                height: 2,
+                                width:'100%',
+                                marginTop:0,
+                                marginBottom: 0,
+                                backgroundColor:'white'
+                            }}>
+                                <Divider
+                                    styleName="line"
+                                    style={styles.inputLine}
+                                />
+                            </View>
                            
+                            <View style={styles.virify} >
+                                <TextInput
+                                    style={styles.code}
+                                    placeholder='请输入验证码'
+                                    autoCapitalize="none"
+                                    placeholderTextColor='white'
+                                    onChangeText={val => this.onChangeText('code', val)}
+                                />
+                            {virifyView}
+                            </View>
 
-                           
-                        </View>
-
-                        <Button
-                            styleName="secondary"
-                            style={styles.buttonSign}
-                            onPress={() => this.virifyMassegeCode()}
-                       
-                        >
-                            <Text style={styles.buttonText} >登录</Text>
-                        </Button>
-                        <View  style={styles.otherSign} >
-                            <Caption 
-                                styleName="bold"
-                                style={styles.footerSign}
-                                
+                            <Button
+                                styleName="secondary"
+                                style={styles.buttonSign}
+                                onPress={() => this.virifyMassegeCode()}
+                            >
+                                <Text style={styles.buttonText} >登录</Text>
+                            </Button>
+                            <View  style={styles.otherSign} >
+                                <Caption 
+                                    styleName="bold"
+                                    style={styles.footerSign}    
                                 >
-                                首次登陆会自动创建新账户
-                            </Caption> 
-                        </View>   
+                                    首次登陆会自动创建新账户
+                                </Caption> 
+                            </View>  
+                        </Screen> 
                     </Screen>}
                 <Toast
                     ref="toast"
@@ -227,26 +282,66 @@ export default TraditionalSignIn = observer( class TraditionalSignIn extends Rea
 });
 
 const styles = StyleSheet.create({
-    input: {
-        width: 300,
-        margin: 5,
-        padding: 5,
-        paddingLeft: 10,
-        backgroundColor: '#F5F5F5',
-    },
-
-    container: {
+    header: {
+        height: 45,
         backgroundColor: 'white',
+        flexDirection: 'row',
+    },
+    headerOne: {
+        // marginTop:45,
+        width: '50%',
+        height: '100%',
+        padding: 'auto',
+        alignItems: 'center',
+    },
+    headerText: {
+        fontSize: 16
+    },
+    headerTextSelected: {
+        fontSize: 16,
+        color: '#000000'
+    },
+    headerLine: {
+        width: 20,
+        height: 4,
+        backgroundColor: '#308EFF',
+        margin: 'auto',
+        marginBottom: 0,
+    },
+    inputLine:{
+        width: '90%',
+        height: 1,
+        backgroundColor: '#EEEEEE',
+        margin: 'auto',
+    },
+    input: {
+        width: '100%',
+        // margin: 5,
+        // padding: '5%',
+        // paddingLeft: '5%',
+        // paddingLeft: 10,
+        backgroundColor: 'white',
+    },
+    container: {
+        // backgroundColor: 'white',
+    },
+    containerSpinner:{
+        flex: 1,
+        marginTop: 200,
+        // justifyContent: 'center',
+        alignItems: 'center'
     },
     container2: {
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         flex: 1,
-        marginTop: '25%',
+        marginTop: 10,
         alignItems: 'center'
     },
     virify: {
-        width: 300,
+        width: '100%',
+        // paddingLeft: '5%',
         flexDirection: 'row',
+        backgroundColor: 'white',
     },
     otherSign: {
         width: 300,
@@ -255,14 +350,9 @@ const styles = StyleSheet.create({
     },
     code: {
         width: 180,
-        margin: 5,
-        marginLeft: 0,
-        padding: 5,
-        paddingLeft: 10,
-        backgroundColor: '#F5F5F5',
+        backgroundColor: 'white',
     },
     rightSign: {
-        // justifyContent: '',
         marginRight: 5,
         alignItems: 'flex-end',
     },
@@ -270,9 +360,10 @@ const styles = StyleSheet.create({
         margin:'auto',
         marginTop:5,
         alignItems: 'center',
+        color: '#999999'
     },
     buttonSign:{
-        width: 300,
+        width: '90%',
         marginTop: 30,
         backgroundColor:'#308EFF',
         borderColor:'#308EFF'

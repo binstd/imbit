@@ -19,8 +19,10 @@ export default observer(class SettingUserInfo extends React.Component {
                 topBar: {
                 hideShadow: true,
                 noBorder: true,
+                elevation: 0,
                 title: {
-                    text: '完善个人信息'
+                    text: '完善个人信息',
+                    alignment: "center"
                 },
                 background: {
                     translucent: true
@@ -118,13 +120,15 @@ export default observer(class SettingUserInfo extends React.Component {
                 onChangeText={val => this.onChangeText('email', val)}
             />
 
-            
-            
             <Button 
                 styleName="secondary" 
                 style={{
-                    width: 300,
+                    // width: 300,
+                    // marginTop: 30,
+                    width: '90%',
                     marginTop: 30,
+                    backgroundColor: '#308EFF',
+                    borderColor: '#308EFF',
                 }}
                 onPress={this.commit}
             >
@@ -138,23 +142,14 @@ export default observer(class SettingUserInfo extends React.Component {
 
 const styles = StyleSheet.create({
   input: {
-    width: 300,
+    width: '100%',
     margin: 10,
     padding: 10,
     paddingLeft: 30,
-
   },
-//   container: {
-//     // backgroundColor: 'white',
-   
-   
-//     // justifyContent: 'center',
-//     // alignItems: 'center',
-//   },
   containerData: {
     marginTop:100,
     flex: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
   } 
 

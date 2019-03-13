@@ -101,7 +101,9 @@ export default class SignUp extends React.Component {
                         <Spinner /> 
                     </Screen>
                     :
+                   
                     <Screen style={styles.container2} >
+                       
                         <TextInput
                             style={styles.input}
                             placeholder='用户名'
@@ -151,10 +153,6 @@ const styles = StyleSheet.create({
     input: {
         width: 300,
         backgroundColor: '#F5F5F5',
-        // fontSize: 16,
-        // fontWeight: '500',
-        // height: 48,
-        // backgroundColor: '#42A5F5',
         margin: 10,
         // color: 'white',
         padding: 10,
@@ -165,9 +163,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     container2: {
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         flex: 1,
-        marginTop: '25%',
+        // marginTop: '25%',
         // justifyContent: 'center',
         alignItems: 'center'
     },

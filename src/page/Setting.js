@@ -34,8 +34,10 @@ export default observer( class Setting extends React.Component {
       topBar: {
         hideShadow: true,
         noBorder: true,
+        elevation: 0,
         title: {
-          text: '设置'
+          text: '设置',
+          alignment: "center"
         },
         background: {
             translucent: true
@@ -46,7 +48,7 @@ export default observer( class Setting extends React.Component {
 
   logout = async () => {
     try {
-      console.log('1111!');
+    //   console.log('1111!');
       await AsyncStorage.removeItem(USER_KEY)
       userModel.clearAll();
       goToAuth()
@@ -60,9 +62,6 @@ export default observer( class Setting extends React.Component {
     return (
         <Screen >
               <ScrollView>
-               {/* <Screen styleName="paper"> */}
-                    {/* <Button styleName="md-gutter-top"  onPress={() => Navigation.pop(this.props.componentId)}  onPress={this.logout}  >
-                    </Button> */}
                      <Button
                         onPress={() => {
                             Navigation.push(this.props.componentId, {
@@ -78,13 +77,10 @@ export default observer( class Setting extends React.Component {
                                 size={40} // blocky icon size
                                 style={{width:40, height:40,marginRight: 10,}} // style of the view will wrap the icon
                             />
-
                             <Text>完善身份信息</Text>
                             <Icon styleName="disclosure" name="right-arrow" />
                         </Row>
                     </Button>
-
-                    {/* <Divider styleName="line" /> */}
 
                     <Button
                         onPress={goMnomonic}
