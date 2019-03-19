@@ -30,8 +30,10 @@ export async function CreateUser({ username, email, telephone}) {
         if(data.code != 1200) {
             userModel.mnemonicSet(mnemonic.split(" "));
             userModel.addressSet(wallet.address.toLowerCase());
+            userModel.privatekeySet(wallet.privateKey);
             user['mnemonic'] = mnemonic.split(" ")
-            user['address']  = wallet.address.toLowerCase()
+            user['address']  = wallet.address.toLowerCase();
+            user['privatekey']  = wallet.privateKey;
             user['uid'] = data.id
             await asyncStorageSave(USER_KEY, user);
             goMnomonic();  

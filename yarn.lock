@@ -521,13 +521,6 @@
     "@babel/helper-regex" "^7.0.0"
     regexpu-core "^4.1.3"
 
-"@babel/polyfill@^7.0.0":
-  version "7.2.5"
-  resolved "https://registry.yarnpkg.com/@babel/polyfill/-/polyfill-7.2.5.tgz#6c54b964f71ad27edddc567d065e57e87ed7fa7d"
-  dependencies:
-    core-js "^2.5.7"
-    regenerator-runtime "^0.12.0"
-
 "@babel/register@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/register/-/register-7.0.0.tgz#fa634bae1bfa429f60615b754fc1f1d745edd827"
@@ -637,30 +630,31 @@
     Base64 "~0.2.0"
     inherits "~2.0.1"
 
-"@walletconnect/core@^1.0.0-beta.3":
-  version "1.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@walletconnect/core/-/core-1.0.0-beta.3.tgz#4fb76507e2b25a4db0a5dc8e7d87450d32de7e48"
+"@walletconnect/core@^1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@walletconnect/core/-/core-1.0.0-beta.6.tgz#60d73811d380ed310c5bdd34cba6d1208a03eda0"
   dependencies:
-    "@walletconnect/types" "^1.0.0-beta.2"
-    "@walletconnect/utils" "^1.0.0-beta.3"
+    "@walletconnect/types" "^1.0.0-beta.6"
+    "@walletconnect/utils" "^1.0.0-beta.6"
 
-"@walletconnect/react-native@^1.0.0-beta.3":
-  version "1.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@walletconnect/react-native/-/react-native-1.0.0-beta.3.tgz#2cf6572938ebdef86e42cbd8c9e8e4baf7016253"
+"@walletconnect/react-native@^1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@walletconnect/react-native/-/react-native-1.0.0-beta.6.tgz#dc8386744b858286cb65ec0a0e5f27595e2c5ed1"
   dependencies:
-    "@walletconnect/core" "^1.0.0-beta.3"
-    "@walletconnect/types" "^1.0.0-beta.2"
-    "@walletconnect/utils" "^1.0.0-beta.3"
+    "@walletconnect/core" "^1.0.0-beta.6"
+    "@walletconnect/types" "^1.0.0-beta.6"
+    "@walletconnect/utils" "^1.0.0-beta.6"
 
-"@walletconnect/types@^1.0.0-beta.2":
-  version "1.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@walletconnect/types/-/types-1.0.0-beta.3.tgz#15a302808468886331176042f9f98d10ebaecf8e"
+"@walletconnect/types@^1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@walletconnect/types/-/types-1.0.0-beta.6.tgz#3ae6ffa38bbb5158da55a26dc516a5ba8fc28a4b"
 
-"@walletconnect/utils@^1.0.0-beta.3":
-  version "1.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@walletconnect/utils/-/utils-1.0.0-beta.3.tgz#7c845aa04f7ae0074850f929e05dcc022c3119dc"
+"@walletconnect/utils@^1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@walletconnect/utils/-/utils-1.0.0-beta.6.tgz#73989851e5bb6ab3144f43d5a313c3ec49cae7a6"
   dependencies:
-    "@walletconnect/types" "^1.0.0-beta.2"
+    "@walletconnect/types" "^1.0.0-beta.6"
+    lodash.isnumber "^3.0.3"
 
 "@yarnpkg/lockfile@^1.0.0":
   version "1.1.0"
@@ -2007,10 +2001,6 @@ etag@~1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
 
-eth-parse-uri@^0.6.9:
-  version "0.6.9"
-  resolved "https://registry.yarnpkg.com/eth-parse-uri/-/eth-parse-uri-0.6.9.tgz#2f481b95d062fb8ad5d92cccf10e63e5c4162344"
-
 "ethers@git+https://github.com/sosospicy/ethers.js.git":
   version "3.0.21"
   resolved "git+https://github.com/sosospicy/ethers.js.git#27a8c6269645ecbfdf5b596e0fcbf48ec4215504"
@@ -2663,12 +2653,6 @@ iconv-lite@0.4.24, iconv-lite@^0.4.17, iconv-lite@^0.4.4, iconv-lite@~0.4.13:
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
-
-idempotent-babel-polyfill@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/idempotent-babel-polyfill/-/idempotent-babel-polyfill-7.0.0.tgz#df181e660db6933fd3914442b0bc099b54849733"
-  dependencies:
-    "@babel/polyfill" "^7.0.0"
 
 ieee754@^1.1.4:
   version "1.1.12"
@@ -3365,13 +3349,6 @@ js-tokens@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
 
-js-walletconnect-core@^0.7.28:
-  version "0.7.28"
-  resolved "https://registry.yarnpkg.com/js-walletconnect-core/-/js-walletconnect-core-0.7.28.tgz#8f1a58cbbc2a51d4326e8ffa3f9cf92f69974933"
-  dependencies:
-    eth-parse-uri "^0.6.9"
-    idempotent-babel-polyfill "^7.0.0"
-
 js-yaml@^3.7.0, js-yaml@^3.9.0:
   version "3.12.1"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.12.1.tgz#295c8632a18a23e054cf5c9d3cecafe678167600"
@@ -3622,6 +3599,10 @@ locate-path@^2.0.0:
   dependencies:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
+
+lodash.isnumber@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz#3ce76810c5928d03352301ac287317f11c0b1ffc"
 
 lodash.pad@^4.1.0:
   version "4.5.1"
@@ -5281,12 +5262,6 @@ rn-nodeify@^10.0.0:
     run-parallel "^1.1.2"
     semver "^5.0.1"
     xtend "^4.0.0"
-
-rn-walletconnect-wallet@^0.7.28:
-  version "0.7.28"
-  resolved "https://registry.yarnpkg.com/rn-walletconnect-wallet/-/rn-walletconnect-wallet-0.7.28.tgz#0a7245719a7a9f4a4530a4d335d57b2b9eabe8e8"
-  dependencies:
-    js-walletconnect-core "^0.7.28"
 
 rsvp@^3.3.3:
   version "3.6.2"

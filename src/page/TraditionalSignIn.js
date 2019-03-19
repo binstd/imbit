@@ -181,7 +181,7 @@ export default TraditionalSignIn = observer( class TraditionalSignIn extends Rea
                                         fontSize: 15,
                                     }}
                                 >
-                                    获取二维码
+                                    获取验证码
                                 </Text>
                             </Button>;
         }
@@ -266,7 +266,7 @@ export default TraditionalSignIn = observer( class TraditionalSignIn extends Rea
                                     styleName="bold"
                                     style={styles.footerSign}    
                                 >
-                                    首次登陆会自动创建新账户
+                                    首次登录会自动创建新账户
                                 </Caption> 
                             </View>  
                         </Screen> 
@@ -358,7 +358,7 @@ const styles = StyleSheet.create({
     },
     footerSign:{
         margin:'auto',
-        marginTop:5,
+        marginTop:10,
         alignItems: 'center',
         color: '#999999'
     },

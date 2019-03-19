@@ -177,7 +177,7 @@ export default class SignIn extends React.Component {
                                     styleName="bold"
                                     style={styles.footerSign}
                                 >
-                                    首次登陆会自动创建新账户
+                                    首次登录会自动创建新账户
                                 </Caption>
                             </View>
                         </Screen>
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     },
     footerSign: {
         margin: 'auto',
-        marginTop: 5,
+        marginTop: 10,
         alignItems: 'center',
         color: '#999999'
     },

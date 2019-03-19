@@ -138,6 +138,7 @@ export function registerScreens() {
     Navigation.registerComponent('SettingUserInfo', () => require('./page/SettingUserInfo').default);
     Navigation.registerComponent('Setting', () => require('./page/Setting').default);
     Navigation.registerComponent('QRCodeScannerScreen', () => require('./page/QRCodeScannerScreen').default);
+    Navigation.registerComponent('Connect', () => require('./page/Connect').default);
     Navigation.registerComponent('MnemonicTold', () => require('./mnemonic/Told').default);
     Navigation.registerComponent('MnemonicBackup', () => require('./mnemonic/Backup').default);
     Navigation.registerComponent('MnemonicConfirm', () => require('./mnemonic/Confirm').default);

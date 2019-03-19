@@ -7,7 +7,7 @@ class userModel {
     username;
     telephone;
     address;
-    privatekey;
+    privateKey;
     mnemonic;
     pagenum;
     token;
@@ -17,7 +17,7 @@ class userModel {
             username: this.username,
             telephone: this.telephone,
             address: this.address,
-            privatekey: this.privatekey,
+            privateKey: this.privateKey,
             pagenum:this.pagenum,
             mnemonic:this.mnemonic,
             email:this.email,
@@ -45,8 +45,8 @@ class userModel {
             this.address = jsonData['address'];
         }
 
-        if (jsonData['privatekey']) {
-            this.privatekey = jsonData['privatekey'];
+        if (jsonData['privateKey']) {
+            this.privateKey = jsonData['privateKey'];
         }
 
         if(jsonData['mnemonic']){
@@ -87,8 +87,8 @@ class userModel {
     addressSet(address) {
         this.address = address;
     }
-    privatekeySet(privatekey) {
-        this.privatekey = privatekey;
+    privateKeySet(privateKey) {
+        this.privateKey = privateKey;
     }
 
     pagenumSet(pagenum) {
@@ -106,7 +106,7 @@ class userModel {
         this.username = '';
         this.telephone = '';
         this.address = '';
-        this.privatekey = '';
+        this.privateKey = '';
         this.mnemonic = '';
     }
 }
@@ -116,14 +116,14 @@ decorate(userModel, {
     username: observable,
     telephone: observable,
     address: observable,
-    privatekey: observable,
+    privateKey: observable,
     pagenum:observable,
     allSet: action,
     uidSet: action,
     usernameSet: action,
     telephoneSet: action,
     addressSet: action,
-    privatekeySet: action,
+    privateKeySet: action,
     pagenumSet:action,
     mnemonicSet:action,
     clearAll:action,

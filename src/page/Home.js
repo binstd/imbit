@@ -74,7 +74,7 @@ export default observer( class Home extends React.Component {
     }
 
     navigationButtonPressed({ buttonId }) {
-        console.log('buttonId => ', buttonId);
+        // console.log('buttonId => ', buttonId);
         if (buttonId === 'Setting') {
             Navigation.push(this.props.componentId, {
                 component: {
@@ -95,6 +95,7 @@ export default observer( class Home extends React.Component {
 
     async componentDidMount() {
         const user = await asyncStorageLoad(USER_KEY);
+        console.log('\n Home',user);
         if (user) {
             userModel.allSet(user);
             this.setState({
