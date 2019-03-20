@@ -10,7 +10,7 @@ import { goToAuth } from '../initNavigation'
 import {
     Html,
     ScrollView
-  } from '@shoutem/ui';
+} from '@shoutem/ui';
 
 const htmlcontent = `<p>IMbit是Web3.0时代数字身份系统,可自主控制授权你的身份数据。</p>
 

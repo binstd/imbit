@@ -24,6 +24,7 @@ import {
 
 // @observer
 export default observer( class Setting extends React.Component {
+    
     static get options() {
         return {
             topBar: {
@@ -48,8 +49,6 @@ export default observer( class Setting extends React.Component {
         console.log('login out!!!');
    
     }
-
- 
 
     render() {
         const address = userModel.address;
