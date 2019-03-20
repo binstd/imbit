@@ -118,6 +118,7 @@ export default observer( class Told extends React.Component {
                 flex: 1,  
                 justifyContent: 'center',
                 marginBottom: 100,
+                // height:90,
                 width:'100%',
                 padding: 'auto',
             }}
@@ -148,6 +149,7 @@ export default observer( class Told extends React.Component {
                         width: '90%',
                         margin: 'auto',
                         marginTop: 5,
+                        marginBottom:80,
                         backgroundColor:'#308EFF',
                         borderColor:'#308EFF'
                     }}

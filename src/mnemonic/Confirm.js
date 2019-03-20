@@ -178,6 +178,8 @@ export default observer(class Confirm extends React.Component {
                                 flex: 1,  
                                 justifyContent: 'center',
                                 marginTop: 50,
+                                width:'100%',
+                                padding: 'auto',
                                 height:100
                             }}
                     >  
@@ -186,7 +188,8 @@ export default observer(class Confirm extends React.Component {
                             style={{
                                 width: '90%',
                                 backgroundColor:'#308EFF',
-                                borderColor:'#308EFF'
+                                borderColor:'#308EFF',
+                                margin: 'auto',
                                 // marginTop: 10,
                             }}
                             onPress={() => {this.verifyMnemonic()}}       

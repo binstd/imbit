@@ -127,6 +127,8 @@ export default observer(class Backup extends React.Component {
                         flex: 1,  
                         justifyContent: 'center',
                         marginBottom: 100,
+                        width:'100%',
+                        padding: 'auto',
                     }}
             >  
                 <Button 
@@ -134,6 +136,7 @@ export default observer(class Backup extends React.Component {
                     style={{
                         width: '90%',
                         marginTop: 50,
+                        margin: 'auto',
                         backgroundColor:'#308EFF',
                         borderColor:'#308EFF'
                     }}

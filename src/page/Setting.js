@@ -46,26 +46,10 @@ export default observer( class Setting extends React.Component {
         // userModel.clearAll();
         goToAuth();
         console.log('login out!!!');
-        // try {
-        //     //   console.log('1111!');
-        //     AsyncStorage.removeItem(USER_KEY)
-        //     userModel.clearAll();
-        //     goToAuth();
-        // } catch (err) {
-        //     console.log('error signing out...: ', err)
-        // }
+   
     }
 
-    // logout = async () => {
-    //     try {
-    //     //   console.log('1111!');
-    //       await AsyncStorage.removeItem(USER_KEY)
-    //       userModel.clearAll();
-    //       goToAuth()
-    //     } catch (err) {
-    //       console.log('error signing out...: ', err)
-    //     }
-    // }
+ 
 
     render() {
         const address = userModel.address;
@@ -95,7 +79,13 @@ export default observer( class Setting extends React.Component {
                     {
                         userModel.privateKey &&
                         <Button
-                            onPress={goMnomonic}
+                            onPress={() => {
+                                Navigation.push(this.props.componentId, {
+                                    component: {
+                                        name: 'MnemonicTold',
+                                    }
+                                });
+                            }}
                         >
                             <Row>
                                 <Icon name="folder" />
