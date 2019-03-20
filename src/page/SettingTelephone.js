@@ -18,7 +18,7 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 
 import timerModel from '../model/timerModel';
 import { observer } from 'mobx-react/native';
-export default TraditionalSignIn = observer( class TraditionalSignIn extends React.Component {
+export default SettingTelephone = observer( class SettingTelephone extends React.Component {
     static get options() {
         return {
             topBar: {
@@ -30,7 +30,7 @@ export default TraditionalSignIn = observer( class TraditionalSignIn extends Rea
                 borderColor: 'white',
                 borderHeight: 0,
                 title: {
-                    text: '登录',
+                    text: '添加手机号',
                     alignment: "center"
                 },
                 backButton: {
@@ -128,17 +128,20 @@ export default TraditionalSignIn = observer( class TraditionalSignIn extends Rea
         user.telephone = telephone;
         await asyncStorageSave(USER_KEY, user);
      
-        //判断是新用户还是老用户,登录验证
+        // 判断是新用户还是老用户,登录验证
         if(await hasTelephone(telephone) == 1) {
+            this.setState({
+                isLoading: false,
+            });
+
             if(user['address']) {
-                this.refs.toast.show('该手机号已被使用，请更换新手机号重试！');
+                timerModel.reset();
+                this.refs.toast.show('该手机号已被使用，请更换新手机号重试!');
                 return;
-            } else {
-                this.setState({
-                    isLoading: false,
-                });
+            } else { 
                 goHome();
             }  
+
         } else {
             this.setState({
                 isLoading: false,
@@ -194,34 +197,7 @@ export default TraditionalSignIn = observer( class TraditionalSignIn extends Rea
                     </Screen>
                     :
                     <Screen >
-                        <View style={styles.header} >
-                            <TouchableOpacity
-                                style={styles.headerOne}
-                                onPress={() => {
-                                    Navigation.push(this.props.componentId, {
-                                        component: {
-                                            name: 'SignIn',
-                                        }
-                                    });
-                                }}
-                            >
-                                <Text style={styles.headerText} >助记词</Text>
-                               
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.headerOne}
-                            >
-                                <Text
-                                    style={styles.headerTextSelected}
-                                >
-                                    手机号
-                                </Text>
-                                <Divider
-                                    styleName="line"
-                                    style={styles.headerLine}
-                                />
-                            </TouchableOpacity>
-                        </View>
+                        
                         <Screen style={styles.container2} >
                             <TextInput
                                 style={styles.input}
@@ -251,7 +227,7 @@ export default TraditionalSignIn = observer( class TraditionalSignIn extends Rea
                                     placeholderTextColor='white'
                                     onChangeText={val => this.onChangeText('code', val)}
                                 />
-                            {virifyView}
+                                {virifyView}
                             </View>
 
                             <Button
@@ -259,16 +235,18 @@ export default TraditionalSignIn = observer( class TraditionalSignIn extends Rea
                                 style={styles.buttonSign}
                                 onPress={() => this.virifyMassegeCode()}
                             >
-                                <Text style={styles.buttonText} >登录</Text>
+                                <Text style={styles.buttonText} >下一步</Text>
                             </Button>
-                            <View  style={styles.otherSign} >
+
+                            {/* <View  style={styles.otherSign} >
                                 <Caption 
                                     styleName="bold"
                                     style={styles.footerSign}    
                                 >
                                     首次登录会自动创建新账户
                                 </Caption> 
-                            </View>  
+                            </View>   */}
+                            
                         </Screen> 
                     </Screen>}
                 <Toast

@@ -8,12 +8,13 @@ import { goMnomonic } from '../initNavigation'
 
 // 生成密钥保存个人信息
 export async function CreateUser({ username, email, telephone}) {
+    console.log('username, email, telephone => \n',username, email, telephone);
     //publicAddress 
     if(!userModel.mnemonic) {
         let wallet = ethers.Wallet.createRandom();
         mnemonic = wallet.mnemonic;
 
-        let user = {};
+        let user = await asyncStorageLoad(USER_KEY) || {};
         user['publicAddress'] = wallet.address.toLowerCase(); 
         user['username'] = username;
         user['email'] = email;
@@ -30,7 +31,7 @@ export async function CreateUser({ username, email, telephone}) {
         if(data.code != 1200) {
             userModel.mnemonicSet(mnemonic.split(" "));
             userModel.addressSet(wallet.address.toLowerCase());
-            userModel.privatekeySet(wallet.privateKey);
+            userModel.privateKeySet(wallet.privateKey);
             user['mnemonic'] = mnemonic.split(" ")
             user['address']  = wallet.address.toLowerCase();
             user['privatekey']  = wallet.privateKey;
@@ -46,7 +47,7 @@ export async function CreateUser({ username, email, telephone}) {
 
 //
 export async function RegisterUserInfo({ username, email, telephone}) {
-    const user = await asyncStorageLoad(USER_KEY);
+    let user = await asyncStorageLoad(USER_KEY) || {};
     let postData = {};
     postData['publicAddress'] = user['address']; 
     postData['username'] = username;
@@ -77,9 +78,10 @@ export async function RegisterUserInfo({ username, email, telephone}) {
 //0xded8f0646c28678510f6cc98a948e5927cb616af 案例
 export async function hasAddress(address) {
     // https://api.binstd.com/api/users
-    let user = {};
-    user['publicAddress'] = address.toLowerCase(); 
-    let data = await fetch(`${SERVER_URL}api/users?publicAddress=${user['publicAddress']}`, {
+    let postData = {};
+
+    postData['publicAddress'] = address.toLowerCase(); 
+    let data = await fetch(`${SERVER_URL}api/users?publicAddress=${postData['publicAddress']}`, {
         headers: {
             'Content-Type': 'application/json'
         },
@@ -87,6 +89,8 @@ export async function hasAddress(address) {
     }).then(response => response.json());
 
     if(data.length != 0) {
+        let user = await asyncStorageLoad(USER_KEY) || {};
+        console.log(user);
         user['uid'] = data[0].id;
         user['address']  = data[0].publicAddress;
         user['username'] = data[0].username;
@@ -104,9 +108,10 @@ export async function hasAddress(address) {
 export async function hasTelephone(telephone) {
     // https://api.binstd.com/api/users
     const {address} = await asyncStorageLoad(USER_KEY);
-    let user = {};
-    user['telephone'] = telephone; 
-    let data = await fetch(`${SERVER_URL}api/users?telephone=${user['telephone']}`, {
+    // let user = {};
+    let postData = {};
+    postData['telephone'] = telephone; 
+    let data = await fetch(`${SERVER_URL}api/users?telephone=${postData['telephone']}`, {
         headers: {
             'Content-Type': 'application/json'
         },
@@ -115,6 +120,8 @@ export async function hasTelephone(telephone) {
     console.log('data::',data);
     if(data.length != 0) {
         if(!address){
+            let user = await asyncStorageLoad(USER_KEY) || {};
+            console.log(user);
             user['uid'] = data[0].id;
             user['address']  = data[0].publicAddress;
             user['username'] = data[0].username;

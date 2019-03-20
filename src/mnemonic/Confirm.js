@@ -177,14 +177,16 @@ export default observer(class Confirm extends React.Component {
                         style={{
                                 flex: 1,  
                                 justifyContent: 'center',
-                                marginTop: 10,
+                                marginTop: 50,
                                 height:100
                             }}
                     >  
                         <Button 
                             styleName="secondary" 
                             style={{
-                                width: 300,
+                                width: '90%',
+                                backgroundColor:'#308EFF',
+                                borderColor:'#308EFF'
                                 // marginTop: 10,
                             }}
                             onPress={() => {this.verifyMnemonic()}}       

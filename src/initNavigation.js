@@ -132,6 +132,7 @@ export function registerScreens() {
     Navigation.registerComponent('SignIn', () => require('./page/SignIn').default);
     Navigation.registerComponent('TraditionalSignIn', () => require('./page/TraditionalSignIn').default);
     Navigation.registerComponent('SignUp', () => require('./page/SignUp').default);
+    Navigation.registerComponent('SettingTelephone', () => require('./page/SettingTelephone').default); 
     Navigation.registerComponent('Register', () => require('./page/Register').default); 
     Navigation.registerComponent('About', () => require('./page/About').default);
     Navigation.registerComponent('Translate', () => require('./page/Translate').default);

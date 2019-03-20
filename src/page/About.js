@@ -43,7 +43,7 @@ export default class About extends React.Component {
         {/* <Text>Screen 2</Text> */}
         <Html
             body={htmlcontent}
-            style={{marginTop: 30,}}
+            style={{width:'85%',margin:'auto', marginTop: 30,}}
         />
       
       </ScrollView>

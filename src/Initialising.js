@@ -13,6 +13,11 @@ import { observer } from 'mobx-react/native';
 import userModel from './model/userModel';
 
 import Reactotron from 'reactotron-react-native';
+import {
+    Image
+} from '@shoutem/ui';
+// import ic_launcher from './img/ic_launcher.png';
+
 // @observer
 export default observer(class Initialising extends React.Component {
 
@@ -41,7 +46,12 @@ export default observer(class Initialising extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>IMbit</Text>
+        {/* <Text style={styles.welcome}>IMbit</Text> */}
+            <Image
+                styleName="small"
+                // source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png'}}
+                source={require('./img/ic_launcher.png')}
+            />
       </View>
     )
   }

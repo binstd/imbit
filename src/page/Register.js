@@ -38,7 +38,6 @@ export default class Register extends React.Component {
         const { username, email } = this.state;
         const { telephone, address } = await asyncStorageLoad(USER_KEY);
         console.log('register,address', address);
-
         this.setState({ isLoading: true });
         if (username != '' && email != '') {
             setTimeout(() => {
@@ -65,7 +64,7 @@ export default class Register extends React.Component {
                     <Screen style={styles.container2} >
                         <TextInput
                             style={styles.input}
-                            placeholder='Username'
+                            placeholder='用户名'
                             autoCapitalize="none"
                             placeholderTextColor='white'
                             onChangeText={val => this.onChangeText('username', val)}
@@ -73,7 +72,7 @@ export default class Register extends React.Component {
 
                         <TextInput
                             style={styles.input}
-                            placeholder='Email'
+                            placeholder='E-mail'
                             autoCapitalize="none"
                             placeholderTextColor='white'
                             onChangeText={val => this.onChangeText('email', val)}
@@ -83,13 +82,13 @@ export default class Register extends React.Component {
                             styleName="secondary"
                             style={{
                                 width: '90%',
-                                marginTop: 30,
+                                marginTop: 50,
                                 backgroundColor: '#308EFF',
                                 borderColor: '#308EFF',
                             }}
                             onPress={this.register}
                         >
-                            <Text>注  册</Text>
+                            <Text>完成注册</Text>
                         </Button>
                     </Screen>
                 }
@@ -104,13 +103,13 @@ const styles = StyleSheet.create({
         margin: 10,
         padding: 10,
         paddingLeft: 30,
-        backgroundColor: '#F5F5F5',
+        backgroundColor: 'white',
     },
     container: {
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
     },
     container2: {
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         flex: 1,
         marginTop: '25%',
         alignItems: 'center'

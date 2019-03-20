@@ -11,6 +11,7 @@ class userModel {
     mnemonic;
     pagenum;
     token;
+
     get getAllData() {
         const data = {
             uid: this.uid,
@@ -87,17 +88,16 @@ class userModel {
     addressSet(address) {
         this.address = address;
     }
+    
     privateKeySet(privateKey) {
         this.privateKey = privateKey;
     }
 
     pagenumSet(pagenum) {
-        // console.log("还能无效嘛?:",pagenum);
         this.pagenum = pagenum;
     }
 
     mnemonicSet(mnemonic) {
-        // console.log("mnemonicSet:",mnemonic);
        this.mnemonic = mnemonic;     
     }   
     
@@ -108,6 +108,9 @@ class userModel {
         this.address = '';
         this.privateKey = '';
         this.mnemonic = '';
+        this.pagenum = '';
+        this.email = '';
+        this.token = '';
     }
 }
 

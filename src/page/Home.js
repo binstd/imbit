@@ -95,17 +95,17 @@ export default observer( class Home extends React.Component {
 
     async componentDidMount() {
         const user = await asyncStorageLoad(USER_KEY);
-        console.log('\n Home',user);
+        console.log('\n Home :',user);
         if (user) {
             userModel.allSet(user);
             this.setState({
-                address:user.address,
+                address:user.address.slice(0,15),
                 username:user.username,
                 telephone:user.telephone
             })
         } else {
             this.setState({
-                address:userModel.address,
+                address:userModel.address.slice(0,15),
                 username:userModel.username,
                 telephone:userModel.telephone
             })
@@ -153,7 +153,7 @@ export default observer( class Home extends React.Component {
                                 >
                                     <View styleName="horizontal">
                                         <Subtitle styleName="md-gutter-right">地址:</Subtitle>
-                                        <Caption >{address.slice(0,28)}......</Caption>
+                                        <Caption >{address}......</Caption>
                                     </View>
                                     {/* <Button styleName="right-icon" name="right-arrow"><Icon name="receipt" /></Button> */}
                                 </Row>

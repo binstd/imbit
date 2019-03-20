@@ -118,13 +118,18 @@ export default observer( class Told extends React.Component {
                 flex: 1,  
                 justifyContent: 'center',
                 marginBottom: 100,
+                width:'100%',
+                padding: 'auto',
             }}
         >  
             <Button 
                     styleName="secondary" 
                     style={{
-                        width: 300,
-                        marginTop: 10,
+                        width: '90%',
+                        margin: 'auto',
+                        marginTop: 50,
+                        backgroundColor:'#308EFF',
+                        borderColor:'#308EFF'
                     }}
                     // onPress={this.signIn}
                     onPress={() => {
@@ -140,8 +145,11 @@ export default observer( class Told extends React.Component {
             <Button 
                     styleName="secondary" 
                     style={{
-                        width: 300,
-                        marginTop: 30,
+                        width: '90%',
+                        margin: 'auto',
+                        marginTop: 5,
+                        backgroundColor:'#308EFF',
+                        borderColor:'#308EFF'
                     }}
                     onPress={goHome}
             >

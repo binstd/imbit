@@ -132,8 +132,10 @@ export default observer(class Backup extends React.Component {
                 <Button 
                     styleName="secondary" 
                     style={{
-                        width: 300,
-                        marginTop: 30,
+                        width: '90%',
+                        marginTop: 50,
+                        backgroundColor:'#308EFF',
+                        borderColor:'#308EFF'
                     }}
                     onPress={() => {
                         Navigation.push(this.props.componentId, {

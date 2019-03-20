@@ -24,9 +24,7 @@ export default class SignIn extends React.Component {
     static get options() {
         return {
             topBar: {
-             
                 elevation: 0,
-               
                 borderColor: 'white',
                 borderHeight: 0,
                 title: {
@@ -54,7 +52,7 @@ export default class SignIn extends React.Component {
     }
 
     navigationButtonPressed({ buttonId }) {
-        console.log('buttonId => ', buttonId);
+        // console.log('buttonId => ', buttonId);
         if (buttonId === 'SignUp') {
             Navigation.push(this.props.componentId, {
                 component: {
@@ -84,6 +82,7 @@ export default class SignIn extends React.Component {
     }
 
     async saveWallet(mnemonic) {
+        userModel.clearAll();
         let wallet = await loadWallet(mnemonic);
         if (!wallet) {
             this.setState({
@@ -98,22 +97,22 @@ export default class SignIn extends React.Component {
             });
             goHome();
         } else {
+            // console.log('SettingTelephone!');
             this.setState({
                 isLoading: false,
             });
             Navigation.push(this.props.componentId, {
                 component: {
-                    name: 'TraditionalSignIn',
+                    name: 'SettingTelephone',
                 }
             })
 
         }
     }
 
-
-    static navigatorStyle = {
-        topBarElevationShadowEnabled: false
-    };
+    // static navigatorStyle = {
+    //     topBarElevationShadowEnabled: false
+    // };
 
     render() {
 
@@ -129,12 +128,13 @@ export default class SignIn extends React.Component {
                             <TouchableOpacity
                                 style={styles.headerOne}
                             >
-                                <Text style={styles.headerTextSelected} > 助记词</Text>
+                                <Text style={styles.headerTextSelected}> 助记词</Text>
                                 <Divider
                                     styleName="line"
                                     style={styles.headerLine}
                                 />
                             </TouchableOpacity>
+
                             <TouchableOpacity
                                 style={styles.headerOne}
                                 onPress={() => {
@@ -154,6 +154,7 @@ export default class SignIn extends React.Component {
                         </View>
 
                         <Screen style={styles.container2} >
+
                             <TextInput
                                 style={styles.input}
                                 placeholder='请输入12个助记词,词词之间用空格'
@@ -199,7 +200,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 50,
         alignItems: 'center',
-        textAlign: 'center',
+        // textAlign: 'center',
     },
     header: {
         height: 45,
@@ -214,14 +215,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     headerText: {
-        fontSize: 16
+        fontSize: 17
     },
     headerTextSelected: {
-        fontSize: 16,
+        fontSize: 17,
         color: '#000000'
     },
     headerLine: {
-        width: 20,
+        width: 25,
         height: 4,
         backgroundColor: '#308EFF',
         margin: 'auto',
@@ -256,7 +257,7 @@ const styles = StyleSheet.create({
     },
     buttonSign: {
         width: '90%',
-        marginTop: 30,
+        marginTop: 55,
         backgroundColor: '#308EFF',
         borderColor: '#308EFF',
     },

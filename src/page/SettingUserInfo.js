@@ -11,6 +11,8 @@ import userModel from '../model/userModel';
 
 import { USER_KEY,SERVER_URL } from '../config'
 import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
+import validator from 'validator';
+import Toast, { DURATION } from 'react-native-easy-toast';
 
 // @observer
 export default observer(class SettingUserInfo extends React.Component {
@@ -92,7 +94,6 @@ export default observer(class SettingUserInfo extends React.Component {
         email:user.email,
         // telephone:user.telephone
     });
-    // console.log('user=>', user)
   }
 
 
@@ -113,7 +114,7 @@ export default observer(class SettingUserInfo extends React.Component {
            
             <TextInput
                 style={styles.input}
-                placeholder='email'
+                placeholder='E-mail'
                 value = {email}
                 autoCapitalize="none"
                 placeholderTextColor='white'

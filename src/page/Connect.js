@@ -229,10 +229,10 @@ export default class ConnectScreen extends React.Component {
 
             walletConnector.on("disconnect", (error, payload) => {
                 console.log('退出连接!")'); // tslint:disable-line
-
-                if (error) {
-                    throw error;
-                }
+                goHome();
+                // if (error) {
+                //     throw error;
+                // }
 
                 // this.resetApp();
             });
@@ -412,6 +412,7 @@ export default class ConnectScreen extends React.Component {
             :
             !displayRequest ? (  //不显示请求
                 <View  style={styles.container2} >
+                    <Text>{" 请求列表:"}</Text>
                     {!!requests.length ? (
                         requests.map(request => (
                             <View
@@ -428,16 +429,16 @@ export default class ConnectScreen extends React.Component {
                         ))
                     ) : (
                             // <View style={styles.container2} >
-                                <Text>{" "}</Text>
+                            <Text>{" "}</Text>
                             // </View>
                         )}
                 </View>
             ) : (   //评论器
-                        <DisplayRequest
-                            displayRequest={displayRequest}
-                            peerMeta={peerMeta}
-                            approveRequest={this.approveRequest}
-                            rejectRequest={this.rejectRequest}
+                    <DisplayRequest
+                        displayRequest={displayRequest}
+                        peerMeta={peerMeta}
+                        approveRequest={this.approveRequest}
+                        rejectRequest={this.rejectRequest}
                     />
                 )
             }
