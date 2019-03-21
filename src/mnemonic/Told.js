@@ -28,8 +28,10 @@ export default observer( class Told extends React.Component {
         return {
             topBar: {
                 noBorder: true,
+                elevation: 0,
                 title: {
-                    text: '提示'
+                    text: '提示',
+                    alignment: "center"
                 },
             }
         };
@@ -117,7 +119,7 @@ export default observer( class Told extends React.Component {
           style={{
                 flex: 1,  
                 justifyContent: 'center',
-                marginBottom: 100,
+                marginBottom: 10,
                 // height:90,
                 width:'100%',
                 padding: 'auto',
@@ -128,7 +130,7 @@ export default observer( class Told extends React.Component {
                     style={{
                         width: '90%',
                         margin: 'auto',
-                        marginTop: 50,
+                        // marginTop: 0,
                         backgroundColor:'#308EFF',
                         borderColor:'#308EFF'
                     }}

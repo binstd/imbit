@@ -5,14 +5,14 @@ import {
     StyleSheet,
     AsyncStorage
 } from 'react-native'
-// import { goToAuth } from '../initNavigation'
+
 import { Navigation } from 'react-native-navigation';
 
 import { USER_KEY } from '../config'
 import { observer } from 'mobx-react/native';
 import userModel from '../model/userModel';
 import { asyncStorageLoad } from '../helpers/asyncStorage';
-// import { Navigation } from 'react-native-navigation';
+
 import {
     ScrollView,
     Icon,
@@ -31,7 +31,7 @@ import {
 
 import Blockies from 'react-native-blockies';
 
-
+import { goHome, goUserInfo } from '../initNavigation';
 export default observer( class Home extends React.Component {
 
     static options(passProps) {
@@ -62,7 +62,6 @@ export default observer( class Home extends React.Component {
 
     constructor(props) {
         super(props);
-    
         this.state = {
             address:'',
             username:'',
@@ -92,9 +91,22 @@ export default observer( class Home extends React.Component {
         }
     }
 
-    async componentDidMount() {
+    async UNSAFE_componentWillMount() {
         const user = await asyncStorageLoad(USER_KEY);
-        // console.log('\n Home :',user);
+        console.log('user => \n',user);
+        //user?
+        if(!user.telephone) {
+            Navigation.push(this.props.componentId, {
+                component: {
+                    name: 'SettingTelephone',
+                }
+            })
+        }
+
+        if(!user.username) {
+            goUserInfo();
+        }
+
         if (user) {
             userModel.allSet(user);
             this.setState({
@@ -105,7 +117,11 @@ export default observer( class Home extends React.Component {
         };
     }
 
-     copyAddress = async () => {
+    // async componentDidMount() {
+        
+    // }
+
+    copyAddress = async () => {
         console.log(this.state.address);
         Clipboard.setString(this.state.address);
         let str = await Clipboard.getString();
@@ -121,7 +137,8 @@ export default observer( class Home extends React.Component {
         let showaddress  = address ? address.slice(0,15 ): '';
    
         return (
-            <Screen  >
+            <Screen >
+            {   address ?
                 <Screen >                
                             <View style={styles.usercard} >
                                 <TouchableOpacity 
@@ -136,6 +153,17 @@ export default observer( class Home extends React.Component {
                                     <Row styleName="small"  
                                         style={styles.userinfo} 
                                     >
+                                    {/* {
+                                        address &&
+                                        <Blockies
+                                            blockies={address} //string content to generate icon
+                                            size={60} // blocky icon size
+                                            style={{ width: 60, height: 60, marginRight: 20, }} // style of the view will wrap the icon
+                                            color="#dfe" 
+                                            bgColor="#ffe" 
+                                            spotColor="#abc"   
+                                        />
+                                    } */}
                                         <Blockies
                                             blockies={address} //string content to generate icon
                                             size={60} // blocky icon size
@@ -204,9 +232,10 @@ export default observer( class Home extends React.Component {
                                 </Caption>
                             </View>
                             
-                        
-                        {/* </Screen> */}
                 </Screen>
+                :
+                <Spinner />
+                }
             </Screen>
             
         )

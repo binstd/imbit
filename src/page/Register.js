@@ -77,7 +77,6 @@ export default class Register extends React.Component {
                             placeholderTextColor='white'
                             onChangeText={val => this.onChangeText('email', val)}
                         />
-
                         <Button
                             styleName="secondary"
                             style={{

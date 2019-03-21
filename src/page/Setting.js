@@ -46,7 +46,7 @@ export default observer( class Setting extends React.Component {
         await AsyncStorage.removeItem(USER_KEY)
         // userModel.clearAll();
         goToAuth();
-        console.log('login out!!!');
+        // console.log('login out!!!');
    
     }
 
@@ -121,7 +121,6 @@ export default observer( class Setting extends React.Component {
                     </Button>
                 </ScrollView>
             </Screen>
-
         )
     }
 });

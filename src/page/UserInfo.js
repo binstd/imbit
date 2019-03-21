@@ -5,7 +5,6 @@ import QRCode from 'react-native-qrcode';
 import { Screen, TextInput, Text, Row, Spinner, Button, Caption, View, ScrollView, TouchableOpacity, Divider } from '@shoutem/ui';
 import userModel from '../model/userModel';
 
-// const SCREEN_WIDTH = Dimensions.get('window').width;
 class UserInfo extends Component {
     // static navigationOptions = {
     //     title: 'token收款地址',
@@ -101,7 +100,10 @@ const styles = StyleSheet.create({
         marginVertical:20
     },
     buttonSign:{
-        marginTop:20,
+        marginTop:50,
+        width:'90%',
+        backgroundColor:'#308EFF',
+        borderColor: '#308EFF',
     }
 });
 
