@@ -39,15 +39,6 @@ export default class SignIn extends React.Component {
         // Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
     }
 
-    // navigationButtonPressed({ buttonId }) {
-    //     if (buttonId === 'SignUp') {
-    //         Navigation.push(this.props.componentId, {
-    //             component: {
-    //                 name: 'SignUp',
-    //             }
-    //         });
-    //     }
-    // }
 
    setLoading(isLoading){
        this.setState({isLoading:isLoading});

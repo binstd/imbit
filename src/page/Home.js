@@ -101,12 +101,10 @@ export default observer( class Home extends React.Component {
                     name: 'SettingTelephone',
                 }
             })
-        }
-
-        if(!user.username) {
+        }else if(!user.username) {
             goUserInfo();
         }
-
+        
         if (user) {
             userModel.allSet(user);
             this.setState({
@@ -116,10 +114,6 @@ export default observer( class Home extends React.Component {
             })
         };
     }
-
-    // async componentDidMount() {
-        
-    // }
 
     copyAddress = async () => {
         console.log(this.state.address);

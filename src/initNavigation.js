@@ -61,9 +61,9 @@ export const goToAuth = () => Navigation.setRoot({
                     // component: {
                     //     name: 'SignUp',
                     // },
-                    component: {
-                        name: 'TraditionalSignIn',
-                    },
+                    // component: {
+                    //     name: 'TraditionalSignIn',
+                    // },
                     component: {
                         name: 'SignIn',
                     },
@@ -130,7 +130,7 @@ export function registerScreens() {
     Navigation.registerComponent('Home', () => require('./page/Home').default);
     Navigation.registerComponent('Initializing', () => require('./Initialising').default);
     Navigation.registerComponent('SignIn', () => require('./page/SignIn').default);
-    Navigation.registerComponent('TraditionalSignIn', () => require('./page/TraditionalSignIn').default);
+    // Navigation.registerComponent('TraditionalSignIn', () => require('./page/TraditionalSignIn').default);
     // Navigation.registerComponent('SignUp', () => require('./page/SignUp').default);
     Navigation.registerComponent('SettingTelephone', () => require('./page/SettingTelephone').default); 
     Navigation.registerComponent('Register', () => require('./page/Register').default); 

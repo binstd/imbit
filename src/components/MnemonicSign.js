@@ -39,7 +39,6 @@ class MnemonicSign extends React.Component{
         // this.setState({
         //     address:,
         // });
-       
     }
 
     onChangeText = (key, value) => {
@@ -81,7 +80,7 @@ class MnemonicSign extends React.Component{
                 component: {
                     name: 'SettingTelephone',
                 }
-            })
+            });
 
         }
     }

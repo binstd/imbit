@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react'
 import {
     StyleSheet
-} from 'react-native'
-
+} from 'react-native';
 // import {Navigation} from 'react-native-navigation';
 import { USER_KEY, SERVER_URL } from '../config';
 import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
@@ -37,7 +36,7 @@ export default class Register extends React.Component {
     register = async () => {
         const { username, email } = this.state;
         const { telephone, address } = await asyncStorageLoad(USER_KEY);
-        console.log('register,address', address);
+        // console.log('register,address', address);
         this.setState({ isLoading: true });
         if (username != '' && email != '') {
             setTimeout(() => {
