@@ -100,7 +100,7 @@ export async function hasAddress(address) {
         return 1;
     } else {
         console.log('服务器没有该地址！');
-        return 0;
+        return null;
     }
 }
 
@@ -127,6 +127,7 @@ export async function hasTelephone(telephone) {
             user['username'] = data[0].username;
             user['telephone'] =  data[0].telephone;
             user['email']  = data[0].email;
+            userModel.allSet(user);
             await asyncStorageSave(USER_KEY, user);
         }
         return 1;

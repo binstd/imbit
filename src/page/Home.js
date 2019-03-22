@@ -31,7 +31,7 @@ import {
 
 import Blockies from 'react-native-blockies';
 
-import { goHome, goUserInfo } from '../initNavigation';
+// import { goHome, goUserInfo } from '../initNavigation';
 export default observer( class Home extends React.Component {
 
     static options(passProps) {
@@ -93,26 +93,15 @@ export default observer( class Home extends React.Component {
 
     async UNSAFE_componentWillMount() {
         const user = await asyncStorageLoad(USER_KEY);
-        console.log('user => \n',user);
-        //user?
-        if(!user.telephone) {
-            Navigation.push(this.props.componentId, {
-                component: {
-                    name: 'SettingTelephone',
-                }
-            })
-        }else if(!user.username) {
-            goUserInfo();
-        }
-        
-        if (user) {
-            userModel.allSet(user);
+    
+      
+            console.log('user',user);
             this.setState({
                 address:user.address,
                 username:user.username,
                 telephone:user.telephone
-            })
-        };
+            });
+        
     }
 
     copyAddress = async () => {
@@ -128,6 +117,7 @@ export default observer( class Home extends React.Component {
     render() {
         console.log('props; ', this.props)
         const {address, username, telephone} = this.state;
+        
         let showaddress  = address ? address.slice(0,15 ): '';
    
         return (

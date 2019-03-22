@@ -24,7 +24,7 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 import { USER_KEY } from '../config';
 import { Navigation } from 'react-native-navigation';
 import { goHome } from '../initNavigation'
-class MnemonicSign extends React.Component{
+class MnemonicSign extends React.Component {
 
     constructor(props) {
         super(props);

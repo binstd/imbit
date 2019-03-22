@@ -9,6 +9,9 @@ import { goHome } from '../initNavigation'
 import { Screen, TextInput, Button, Text, Spinner } from '@shoutem/ui';
 import { RegisterUserInfo, CreateUser } from '../helpers/userFetch';
 
+import validator from 'validator';
+import Toast, { DURATION } from 'react-native-easy-toast';
+
 export default class Register extends React.Component {
     static get options() {
         return {
@@ -36,13 +39,28 @@ export default class Register extends React.Component {
     register = async () => {
         const { username, email } = this.state;
         const { telephone, address } = await asyncStorageLoad(USER_KEY);
+        if( validator.isEmpty(username)) {
+            this.refs.toast.show('用户名不能为空.');
+            return;
+        }
+
+        if (!validator.isEmail(email)) {
+            this.refs.toast.show('请输入合适的E-mail.');
+            return;
+         }
         // console.log('register,address', address);
         this.setState({ isLoading: true });
         if (username != '' && email != '') {
-            setTimeout(() => {
+            setTimeout( async () => {
                 if (address) {
-                    RegisterUserInfo({ username, email, telephone }) 
-                    goHome();
+                    if (await RegisterUserInfo({ username, email, telephone })) {
+                        goHome();
+                    }else {
+                        this.refs.toast.show('E-mail或用户名重复!');
+                        this.setState({ isLoading: false });
+                       
+                    }
+                   
                 } else {
                     CreateUser({ username, email, telephone });
                 }
@@ -90,6 +108,11 @@ export default class Register extends React.Component {
                         </Button>
                     </Screen>
                 }
+                 <Toast
+                    ref="toast"
+                    position='top'
+                    positionValue={150}
+                />
             </Screen>
         )
     }

@@ -19,7 +19,8 @@ import {
     Row,
     Text,
     Icon,
-    ScrollView
+    ScrollView,
+    Spinner
 } from '@shoutem/ui';
 
 // @observer
@@ -43,17 +44,17 @@ export default observer( class Setting extends React.Component {
     }
 
     logout = async () => {
-        await AsyncStorage.removeItem(USER_KEY)
-        // userModel.clearAll();
+        await AsyncStorage.removeItem(USER_KEY);
         goToAuth();
+        userModel.clearAll();
         // console.log('login out!!!');
-   
     }
 
     render() {
         const address = userModel.address;
         return (
             <Screen >
+                {address?
                 <ScrollView>
                     <Button
                         onPress={() => {
@@ -120,6 +121,9 @@ export default observer( class Setting extends React.Component {
                         </Row>
                     </Button>
                 </ScrollView>
+                :
+                    <Spinner />
+                }
             </Screen>
         )
     }

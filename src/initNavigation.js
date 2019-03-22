@@ -126,6 +126,21 @@ export const goUserInfo = () => Navigation.setRoot({
     }
 });  
 
+export const settingTelephone = () => Navigation.setRoot({
+    root: {
+        stack: {
+            id: 'SettingTelephone',
+            children: [
+                {
+                    component: {
+                        name: 'SettingTelephone',
+                    }
+                }
+            ],
+        }
+    }
+});  
+
 export function registerScreens() {
     Navigation.registerComponent('Home', () => require('./page/Home').default);
     Navigation.registerComponent('Initializing', () => require('./Initialising').default);
