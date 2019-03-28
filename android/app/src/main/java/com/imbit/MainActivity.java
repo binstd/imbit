@@ -3,9 +3,15 @@ package com.imbit;
 // import com.facebook.react.ReactActivity;
 // new reactnativenavigation start
 import com.reactnativenavigation.NavigationActivity;
+import android.os.Bundle;  //add 
+import org.devio.rn.splashscreen.SplashScreen; //add
 
 public class MainActivity extends NavigationActivity {
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.show(this);  // 添加这一句
+        super.onCreate(savedInstanceState);
+    }
 }
 // new reactnativenavigation end
 

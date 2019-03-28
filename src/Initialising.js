@@ -18,6 +18,7 @@ import {
 } from '@shoutem/ui';
 // import ic_launcher from './img/ic_launcher.png';
 import { hasAddress } from './helpers/userFetch';
+import SplashScreen from 'react-native-splash-screen';
 // @observer
 export default observer(class Initialising extends React.Component {
 
@@ -30,13 +31,12 @@ export default observer(class Initialising extends React.Component {
         Reactotron.log('hello rendering world');
         try {
             const user = await asyncStorageLoad(USER_KEY);
-            console.log("init:",user);
             if (user) {
+               
                 if (await hasAddress(user.address)) {
                     userModel.allSet(user);
                     goHome();
                 } else {
-             
                     // console.log('liuliang:',Boolean(user.telephone),user.telephone);
                     // !tmp && typeof(tmp)!="undefined" && tmp!=0
                     if (!user.telephone || typeof(user.telephone) != "undefined" ) {
@@ -54,6 +54,7 @@ export default observer(class Initialising extends React.Component {
             console.log('error: ', err)
             goToAuth()
         }
+        SplashScreen.hide();
     }
 
     render() {

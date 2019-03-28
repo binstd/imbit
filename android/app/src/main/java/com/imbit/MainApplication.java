@@ -3,6 +3,7 @@ package com.imbit;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.crypho.scrypt.RNScryptPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
 // import com.bitgo.randombytes.RandomBytesPackage;
@@ -60,7 +61,8 @@ public class MainApplication extends NavigationApplication {
             // eg. new VectorIconsPackage()
                 new RandomBytesPackage(),
                 new RNCameraPackage(),
-                new RNScryptPackage()
+                new RNScryptPackage(),
+                new SplashScreenReactPackage()  //启动图
         );
     }
   

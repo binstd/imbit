@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 120,
         backgroundColor: 'white',
-        padding: 50,
+        padding: 10,
         alignItems: 'center',
         // textAlign: 'center',
     },

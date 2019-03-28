@@ -4863,6 +4863,10 @@ react-native-scrypt@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-scrypt/-/react-native-scrypt-1.0.0.tgz#c397c951fa53b0a6b82f6da980bb3b090cd961e4"
 
+react-native-splash-screen@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.2.0.tgz#d47ec8557b1ba988ee3ea98d01463081b60fff45"
+
 react-native-tcp@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/react-native-tcp/-/react-native-tcp-3.3.0.tgz#8eea75b7b2c2c6db4b91f38f171fba3b2a1b60ee"

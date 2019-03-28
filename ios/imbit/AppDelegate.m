@@ -10,6 +10,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <ReactNativeNavigation/ReactNativeNavigation.h>
+#import "RNSplashScreen.h"  // 添加这一句
 
 @implementation AppDelegate
 
@@ -43,7 +44,7 @@
 {
   NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
   [ReactNativeNavigation bootstrap:jsCodeLocation launchOptions:launchOptions];
-  
+  [RNSplashScreen show];  // 添加这一句，这一句一定要在最后
   return YES;
 }
 
