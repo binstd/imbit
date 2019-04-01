@@ -2,7 +2,8 @@
 
 import './shim.js';
 // import crypto from 'crypto';
-
+console.disableYellowBox = true;
+console.warn('YellowBox is disabled.');
 import {Navigation} from 'react-native-navigation';
 import {registerScreens} from './src/initNavigation';
 

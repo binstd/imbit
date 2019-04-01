@@ -151,7 +151,12 @@ export function registerScreens() {
     Navigation.registerComponent('Register', () => require('./page/Register').default); 
     Navigation.registerComponent('About', () => require('./page/About').default);
     Navigation.registerComponent('Translate', () => require('./page/Translate').default);
-    Navigation.registerComponent('SettingUserInfo', () => require('./page/SettingUserInfo').default);
+    Navigation.registerComponent('SettingUserMainInfo', () => require('./page/Settinguser/SettingUserInfo').default);
+    Navigation.registerComponent('SettingMain', () => require('./page/Settinguser/SettingMain').default);
+    Navigation.registerComponent('SetttingNewTelephone', () => require('./page/Settinguser/SetttingNewTelephone').default);
+ 
+    Navigation.registerComponent('MyMoneyScreen', () => require('./page/MyMoney').default);
+
     Navigation.registerComponent('Setting', () => require('./page/Setting').default);
     Navigation.registerComponent('QRCodeScannerScreen', () => require('./page/QRCodeScannerScreen').default);
     Navigation.registerComponent('Connect', () => require('./page/Connect').default);

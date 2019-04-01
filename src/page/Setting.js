@@ -5,14 +5,14 @@ import {
     AsyncStorage,
 } from 'react-native'
 import { goToAuth, goMnomonic } from '../initNavigation'
-// import { goToAuth } from './initNavigation'
-// import { Auth } from 'aws-amplify'
+
+import { Switch } from '@shoutem/ui';
 import { Navigation } from 'react-native-navigation';
 import { USER_KEY } from '../config'
 import { observer } from 'mobx-react/native';
 import userModel from '../model/userModel';
 import Blockies from 'react-native-blockies';
-
+import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
 import {
     Button,
     Screen,
@@ -22,6 +22,7 @@ import {
     ScrollView,
     Spinner
 } from '@shoutem/ui';
+// import console = require('console');
 
 // @observer
 export default observer( class Setting extends React.Component {
@@ -43,6 +44,21 @@ export default observer( class Setting extends React.Component {
         };
     }
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            switchOn: false,
+            isLoading: true,
+        };
+    }
+
+    async componentDidMount() {
+        this.setState({
+            switchOn:userModel.openTouchId,
+            isLoading:false,
+        });
+    }
+
     logout = async () => {
         await AsyncStorage.removeItem(USER_KEY);
         goToAuth();
@@ -50,8 +66,19 @@ export default observer( class Setting extends React.Component {
         // console.log('login out!!!');
     }
 
+    openTouchId = async(switchOn) => {
+ 
+        userModel.openTouchIdSet(switchOn);
+        // console.log('\n \n openTouchId => \n',switchOn);
+        this.setState({ switchOn: switchOn});
+        let user = await asyncStorageLoad(USER_KEY);
+        user['openTouchId'] = switchOn;
+        asyncStorageSave(USER_KEY, user);
+    }
+
     render() {
         const address = userModel.address;
+        // console.log(switchOn); 
         return (
             <Screen >
                 {address?
@@ -60,7 +87,7 @@ export default observer( class Setting extends React.Component {
                         onPress={() => {
                             Navigation.push(this.props.componentId, {
                                 component: {
-                                    name: 'SettingUserInfo',
+                                    name: 'SettingMain',
                                 }
                             });
                         }}
@@ -108,6 +135,26 @@ export default observer( class Setting extends React.Component {
                             <Icon name="about" />
                             <Text>关于我们 (当前版本:0.79) </Text>
                             <Icon styleName="disclosure" name="right-arrow" />
+                        </Row>
+                    </Button>
+
+                    <Button
+                        onPress={() => {
+                            // Navigation.push(this.props.componentId, {
+                            //     component: {
+                            //         name: 'About',
+                            //     }
+                            // });
+                        }}
+                    >
+                        <Row>
+                            <Icon name="about" />
+                            <Text>使用Touch ID</Text>
+                            <Switch
+                                onValueChange={value => this.openTouchId(value)}
+                                value={this.state.switchOn}
+                            />
+                            {/* <Icon styleName="disclosure" name="right-arrow" /> */}
                         </Row>
                     </Button>
 

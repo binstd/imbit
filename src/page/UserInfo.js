@@ -31,7 +31,6 @@ class UserInfo extends Component {
         this.setState({
             address:userModel.address,
         });
-       
     }
 
     render() {

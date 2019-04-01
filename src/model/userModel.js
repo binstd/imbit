@@ -11,6 +11,7 @@ class userModel {
     mnemonic;
     pagenum;
     token;
+    openTouchId = false;
 
     get getAllData() {
         const data = {
@@ -22,7 +23,8 @@ class userModel {
             pagenum:this.pagenum,
             mnemonic:this.mnemonic,
             email:this.email,
-            token:this.token
+            token:this.token,
+            openTouchId:this.openTouchId
         };
         return data;
     }
@@ -34,7 +36,7 @@ class userModel {
         }
 
         if (jsonData['username']) {
-            console.log(jsonData['username']);
+            // console.log(jsonData['username']);
             this.username = jsonData['username'];
         }
 
@@ -51,18 +53,27 @@ class userModel {
         }
 
         if(jsonData['mnemonic']){
-            console.log(jsonData['mnemonic']);
+            // console.log(jsonData['mnemonic']);
             this.mnemonic = jsonData['mnemonic'];
         }
 
         if(jsonData['email']){
-            console.log(jsonData['email']);
+            // console.log(jsonData['email']);
             this.email = jsonData['email'];
         }
-        if(jsonData['token']){
-            console.log(jsonData['token']);
+        if(jsonData['token']) {
+            // console.log(jsonData['token']);
             this.token = jsonData['token'];
         }
+        
+        if(jsonData['openTouchId']) {
+            // console.log(jsonData['openTouchId']);
+            this.openTouchId = jsonData['openTouchId'];
+        }
+    }
+
+    openTouchIdSet(openTouchId) {
+        this.openTouchId = openTouchId;
     }
 
     uidSet(uid) {

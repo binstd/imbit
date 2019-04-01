@@ -93,8 +93,9 @@ export default observer( class Home extends React.Component {
 
     async UNSAFE_componentWillMount() {
         const user = await asyncStorageLoad(USER_KEY);
-    
-      
+            if(userModel.openTouchId){
+                console.log('请使用touchid！');
+            }
             console.log('user',user);
             this.setState({
                 address:user.address,
@@ -137,17 +138,6 @@ export default observer( class Home extends React.Component {
                                     <Row styleName="small"  
                                         style={styles.userinfo} 
                                     >
-                                    {/* {
-                                        address &&
-                                        <Blockies
-                                            blockies={address} //string content to generate icon
-                                            size={60} // blocky icon size
-                                            style={{ width: 60, height: 60, marginRight: 20, }} // style of the view will wrap the icon
-                                            color="#dfe" 
-                                            bgColor="#ffe" 
-                                            spotColor="#abc"   
-                                        />
-                                    } */}
                                         <Blockies
                                             blockies={address} //string content to generate icon
                                             size={60} // blocky icon size
@@ -188,8 +178,45 @@ export default observer( class Home extends React.Component {
                                     </Button>
                                 </Row>
                             </View>
-                            <View style={styles.scancontainer}>
+                            <View 
+                                style={{
+                                    width:'100%',
+                                    height:80,
+                                    flex: 1,
+                                    flexDirection: 'row',
+                                    justifyContent: 'center',
+                                }} 
+                            >
+                                <Button 
+                                    style={{
+                                        width:85,
+                                        height:40,
+                                        margin:10,
+                                    }} 
+                                >
+                                    <Text>转账</Text>
+                                </Button>
+                                <Button 
+                                    // styleName="secondary" 
+                                    style={{
+                                        width:85,
+                                        height:40,
+                                        margin:10,
+                                    }} 
+                                    // onPress={this._mymoney}  
+                                    onPress={() => {
+                                        Navigation.push(this.props.componentId, {
+                                            component: {
+                                                name: 'MyMoneyScreen',
+                                            }
+                                        });
+                                    }}
+                                >
+                                    <Text>我的资产</Text>
+                                </Button> 
+                            </View>
 
+                            <View style={styles.scancontainer}>
                                 <TouchableOpacity 
                                     style={{ alignItems: 'center'}}
                                     onPress={() => {
