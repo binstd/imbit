@@ -25,6 +25,7 @@ export default class Translate extends React.Component {
             }
         };
     }
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -35,7 +36,7 @@ export default class Translate extends React.Component {
                     {
                         code: "zh",
                         description: "cn "
-                            + "private subsidiary company, Audi Sport GmbH."
+                            + "private subsidiary company, Audi Sport GmbH"
                     }
                 },
                 {
@@ -43,7 +44,7 @@ export default class Translate extends React.Component {
                     models: {
                         code: "en",
                         description: "en "
-                            + "Chiron as a successor to the Veyron."
+                            + "Chiron as a successor to the Veyron"
                     }
                 },
                 {
@@ -51,7 +52,7 @@ export default class Translate extends React.Component {
                     models: {
                         code: "tw",
                         description: "cn-tw "
-                            + "manufactured by Dodge (SRT for 2013 and 2014)."
+                            + "manufactured by Dodge (SRT for 2013 and 2014)"
                     }
                 },
             ],
@@ -73,7 +74,7 @@ export default class Translate extends React.Component {
                     onOptionSelected={(Lang) => this.settingLan(Lang)}
                     //   onOptionSelected={(Lang) => this.setState({ selectedLang: Lang })}
                     titleProperty="brand"
-                    valueProperty="lang.code"
+                    valueProperty="lang.models.code"
                     style={{ height: 30 }}
                 />
             </Screen>

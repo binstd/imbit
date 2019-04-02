@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   AsyncStorage, 
@@ -12,25 +13,28 @@ import {
     Title,
     Subtitle,
     Caption,
+    Button,
     ListView,
     Text,
     Row
 } from '@shoutem/ui';
-import userModel from '../model/userModel';
 
-export default class MyMoneyScreen extends React.Component {
+import userModel from '../../model/userModel';
+import transactionModel from '../../model/transactionModel';
+import { observer } from 'mobx-react/native';
+import { Navigation } from 'react-native-navigation';
+
+export default observer(class ChooseSymbol extends React.Component {
     static get options() {
         return {
-          topBar: {
-            noBorder: true,
-            elevation: 0,
-            title: {
-              text: '我的资产',
-              alignment: "center"
-            },
-          }
+            topBar: {
+                noBorder: true,
+                title: {
+                    text: '选择转账币种'
+                },
+            }
         };
-      }
+    }
 
     constructor(props) {
         super(props);
@@ -38,12 +42,21 @@ export default class MyMoneyScreen extends React.Component {
         this.state = {
             tokenList: [    
             ],
-          }
+        }
     }
-    
+
+    TransactionToken(tokenInfo) {
+        console.log('tokenInfo:',tokenInfo);
+        transactionModel.tokenInfoSet(tokenInfo); 
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'TransactionInput',
+            }
+        });
+    } 
+
     async componentDidMount () {
-        // https://blockscout.com/eth/mainnet/api?module=account&action=tokenlist&address=
-        // const address = '0x81D723361d4F3e648F2c9c479d88DC6dEBF4fA5f';
+
         let data = await fetch(`https://blockscout.com/eth/ropsten/api?module=account&action=tokenlist&address=${userModel.address}`, {
             headers: {
                 'Content-Type': 'application/json'
@@ -56,44 +69,29 @@ export default class MyMoneyScreen extends React.Component {
             },
             method: 'get'
         }).then(response => response.json());
-        // 0xded8f0646c28678510f6cc98a948e5927cb616af
-        console.log(data);
-        console.log(balance);
         this.setState({
              tokenList:[{symbol:'eth',balance:balance.result},...data.result]
-        });
-        
+        });   
     }
-
-
+    
     renderRow(token) {
-
         return (
-            <View style={{width:'100%',backgroundColor:'white'}}>
-                <Row style={{width:'80%',marginLeft:'15%',}} >
-                    <View 
-                        styleName="horizontal stretch space-between" 
-                    >
-                        {
-                            token.symbol === 'eth'?
-                            <Subtitle>
-                                {token.balance/Math.pow(10,18)}
-                            </Subtitle>
-                            :
-                            <Subtitle>
-                                {token.balance/Math.pow(10,token.decimals)}
-                            </Subtitle>
-                        }
-                       
-                        <Caption>{token.symbol}</Caption>
-                    </View>
-                       
-                    {/* <Text styleName="disclosure" name="right-arrow" >ETH</Text>  */}
+            <View style={{width:'100%', backgroundColor:'white',}}>
+                <Row style={{width:'80%',marginLeft:'10%',marginTop: 10}} >
+                    <Button 
+                            style={{
+                                width:85,
+                                height:40,
+                                margin:'auto',
+                            }} 
+                            onPress={() => {
+                                this.TransactionToken(token)
+                            }}
+                        >
+                            <Text>{token.symbol}</Text>
+                    </Button> 
+                    
                 </Row>
-                <Divider
-                    styleName="line"
-                    style={styles.inputLine}
-                /> 
             </View>
   
         );
@@ -102,8 +100,9 @@ export default class MyMoneyScreen extends React.Component {
     render() {
      const tokenList = this.state.tokenList;
       return (
-        <View style={styles.container}>
-          <ListView
+          <View>
+                
+            <ListView
                 style={styles.container}
                 data={tokenList}
                 renderRow={this.renderRow}
@@ -116,11 +115,12 @@ export default class MyMoneyScreen extends React.Component {
       await AsyncStorage.clear();
       this.props.navigation.navigate('Auth');
     };
-  }
+  });
 
   const styles = StyleSheet.create({
     container: {
-        // backgroundColor:'white',
+        // margin: 100,
+        marginTop:100,
         backgroundColor: 'white',
     },
     inputLine: {

@@ -14,7 +14,6 @@ import userModel from '../model/userModel';
 import { asyncStorageLoad } from '../helpers/asyncStorage';
 
 import {
-    ScrollView,
     Icon,
     Row,
     Subtitle,
@@ -31,7 +30,6 @@ import {
 
 import Blockies from 'react-native-blockies';
 
-// import { goHome, goUserInfo } from '../initNavigation';
 export default observer( class Home extends React.Component {
 
     static options(passProps) {
@@ -72,7 +70,6 @@ export default observer( class Home extends React.Component {
     }
 
     navigationButtonPressed({ buttonId }) {
-        // console.log('buttonId => ', buttonId);
         if (buttonId === 'Setting') {
             Navigation.push(this.props.componentId, {
                 component: {
@@ -125,124 +122,132 @@ export default observer( class Home extends React.Component {
             <Screen >
             {   address ?
                 <Screen >                
-                            <View style={styles.usercard} >
-                                <TouchableOpacity 
-                                    onPress={() => {
-                                        Navigation.push(this.props.componentId, {
-                                            component: {
-                                                name: 'UserInfo',
-                                            }
-                                        });
-                                    }}
-                                >
-                                    <Row styleName="small"  
-                                        style={styles.userinfo} 
-                                    >
-                                        <Blockies
-                                            blockies={address} //string content to generate icon
-                                            size={60} // blocky icon size
-                                            style={{ width: 60, height: 60, marginRight: 20, }} // style of the view will wrap the icon
-                                            color="#dfe" 
-                                            bgColor="#ffe" 
-                                            spotColor="#abc"   
-                                        />
-                                        <View 
-                                            styleName="vertical"
-                                        >
-                                            <Subtitle>{username}</Subtitle>
-                                            <Text numberOfLines={1}>{telephone}</Text>
-                                        </View>
-                                        <Icon styleName="disclosure" name="right-arrow" />
-                                    </Row>
-                                </TouchableOpacity>
-                                <Divider
-                                    styleName="line"
-                                    style={styles.inputLine}
-                                />
-                                <Row styleName="small" 
-                                    style={{
-                                        width:'95%',
-                                        height:30,
-                                    }} 
-                                >
-                                    <View styleName="horizontal">
-                                        <Subtitle styleName="md-gutter-right">地址:</Subtitle>
-                                        <Caption >{showaddress}......</Caption>
-                                    </View>
-                                    <Button 
-                                        // styleName="secondary" 
-                                        onPress={this.copyAddress}
-                                        name="right-arrow"
-                                    >
-                                        <Text style={{color:'#999999'}}>复制</Text>
-                                    </Button>
-                                </Row>
-                            </View>
-                            <View 
-                                style={{
-                                    width:'100%',
-                                    height:80,
-                                    flex: 1,
-                                    flexDirection: 'row',
-                                    justifyContent: 'center',
-                                }} 
+                    <View style={styles.usercard} >
+                        <TouchableOpacity 
+                            onPress={() => {
+                                Navigation.push(this.props.componentId, {
+                                    component: {
+                                        name: 'UserInfo',
+                                    }
+                                });
+                            }}
+                        >
+                            <Row styleName="small"  
+                                style={styles.userinfo} 
                             >
-                                <Button 
-                                    style={{
-                                        width:85,
-                                        height:40,
-                                        margin:10,
-                                    }} 
+                                <Blockies
+                                    blockies={address} //string content to generate icon
+                                    size={60} // blocky icon size
+                                    style={{ width: 60, height: 60, marginRight: 20, }} // style of the view will wrap the icon
+                                    color="#dfe" 
+                                    bgColor="#ffe" 
+                                    spotColor="#abc"   
+                                />
+                                <View 
+                                    styleName="vertical"
                                 >
-                                    <Text>转账</Text>
-                                </Button>
-                                <Button 
-                                    // styleName="secondary" 
-                                    style={{
-                                        width:85,
-                                        height:40,
-                                        margin:10,
-                                    }} 
-                                    // onPress={this._mymoney}  
-                                    onPress={() => {
-                                        Navigation.push(this.props.componentId, {
-                                            component: {
-                                                name: 'MyMoneyScreen',
-                                            }
-                                        });
-                                    }}
-                                >
-                                    <Text>我的资产</Text>
-                                </Button> 
+                                    <Subtitle>{username}</Subtitle>
+                                    <Text numberOfLines={1}>{telephone}</Text>
+                                </View>
+                                <Icon styleName="disclosure" name="right-arrow" />
+                            </Row>
+                        </TouchableOpacity>
+                        <Divider
+                            styleName="line"
+                            style={styles.inputLine}
+                        />
+                        <Row styleName="small" 
+                            style={{
+                                width:'95%',
+                                height:30,
+                            }} 
+                        >
+                            <View styleName="horizontal">
+                                <Subtitle styleName="md-gutter-right">地址:</Subtitle>
+                                <Caption >{showaddress}......</Caption>
                             </View>
-
-                            <View style={styles.scancontainer}>
-                                <TouchableOpacity 
-                                    style={{ alignItems: 'center'}}
-                                    onPress={() => {
-                                        Navigation.push(this.props.componentId, {
-                                            component: {
-                                                name: 'QRCodeScannerScreen',
-                                            }
-                                        });
-                                    }}
-                                 >
-                                    <Image
-                                        styleName="medium-square"
-                                        style={styles.scanicon} 
-                                        source={{ uri: 'https://blockluz-1253389096.cos.ap-beijing.myqcloud.com/blockman/scanicon3-1.png'}}
-                                    />
-                                    <Text style={styles.scantext}>扫一扫</Text>
-                                </TouchableOpacity>  
-
-                                <Caption
-                                    styleName="bold"
-                                    style={styles.footertext}
-                                >
-                                    安全、便捷的区块链身份授权系统
-                                </Caption>
-                            </View>
+                            <Button 
+                                // styleName="secondary" 
+                                onPress={this.copyAddress}
+                                name="right-arrow"
+                            >
+                                <Text style={{color:'#999999'}}>复制</Text>
+                            </Button>
+                        </Row>
+                    </View>
+                    <View 
+                        style={{
+                            width:'100%',
+                            height:80,
+                            flex: 1,
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                        }} 
+                    >
+                        <Button 
+                            style={{
+                                width:85,
+                                height:40,
+                                margin:10,
+                            }} 
                             
+                            onPress={() => {
+                                Navigation.push(this.props.componentId, {
+                                    component: {
+                                        name: 'ChooseSymbol',
+                                    }
+                                });
+                            }}
+                            
+                        >
+                            <Text>转账</Text>
+                        </Button>
+                        <Button 
+                            // styleName="secondary" 
+                            style={{
+                                width:85,
+                                height:40,
+                                margin:10,
+                            }} 
+                            // onPress={this._mymoney}  
+                            onPress={() => {
+                                Navigation.push(this.props.componentId, {
+                                    component: {
+                                        name: 'MyMoneyScreen',
+                                    }
+                                });
+                            }}
+                        >
+                            <Text>我的资产</Text>
+                        </Button> 
+                    </View>
+
+                    <View style={styles.scancontainer}>
+                        <TouchableOpacity 
+                            style={{ alignItems: 'center'}}
+                            onPress={() => {
+                                Navigation.push(this.props.componentId, {
+                                    component: {
+                                        name: 'QRCodeScannerScreen',
+                                    }
+                                });
+                            }}
+                            >
+                            <Image
+                                styleName="medium-square"
+                                style={styles.scanicon} 
+                                source={{ uri: 'https://blockluz-1253389096.cos.ap-beijing.myqcloud.com/blockman/scanicon3-1.png'}}
+                            />
+                            <Text style={styles.scantext}>扫一扫</Text>
+                        </TouchableOpacity>  
+
+                        <Caption
+                            styleName="bold"
+                            style={styles.footertext}
+                        >
+                            安全、便捷的区块链身份授权系统
+                        </Caption>
+                    </View>
                 </Screen>
                 :
                 <Spinner />

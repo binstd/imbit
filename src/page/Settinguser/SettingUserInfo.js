@@ -57,7 +57,7 @@ export default observer(class SettingUserInfo extends React.Component {
         // user['publicAddress'] = userModel.address;
         postData['username'] = this.state.username;
         postData['email'] = this.state.email;
-        // postData['telephone'] = this.state.telephone;  
+       
         let user = await asyncStorageLoad(USER_KEY);
         fetch(`${SERVER_URL}api/users/${userModel.uid}`, {
             body: JSON.stringify(postData),

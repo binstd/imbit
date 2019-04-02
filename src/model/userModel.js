@@ -36,7 +36,6 @@ class userModel {
         }
 
         if (jsonData['username']) {
-            // console.log(jsonData['username']);
             this.username = jsonData['username'];
         }
 
@@ -52,22 +51,18 @@ class userModel {
             this.privateKey = jsonData['privateKey'];
         }
 
-        if(jsonData['mnemonic']){
-            // console.log(jsonData['mnemonic']);
+        if(jsonData['mnemonic']) {
             this.mnemonic = jsonData['mnemonic'];
         }
 
         if(jsonData['email']){
-            // console.log(jsonData['email']);
             this.email = jsonData['email'];
         }
         if(jsonData['token']) {
-            // console.log(jsonData['token']);
             this.token = jsonData['token'];
         }
         
         if(jsonData['openTouchId']) {
-            // console.log(jsonData['openTouchId']);
             this.openTouchId = jsonData['openTouchId'];
         }
     }

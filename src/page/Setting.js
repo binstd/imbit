@@ -126,6 +126,22 @@ export default observer( class Setting extends React.Component {
                         onPress={() => {
                             Navigation.push(this.props.componentId, {
                                 component: {
+                                    name: 'Translate',
+                                }
+                            });
+                        }}
+                    >
+                        <Row>
+                            <Icon name="about" />
+                            <Text>语言 </Text>
+                            <Icon styleName="disclosure" name="right-arrow" />
+                        </Row>
+                    </Button>
+
+                    <Button
+                        onPress={() => {
+                            Navigation.push(this.props.componentId, {
+                                component: {
                                     name: 'About',
                                 }
                             });
