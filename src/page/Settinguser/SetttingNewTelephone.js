@@ -22,19 +22,16 @@ export default SetttingNewTelephone = observer( class SetttingNewTelephone exten
     static get options() {
         return {
             topBar: {
+                hideShadow: true,
+                noBorder: true,
                 elevation: 0,
-                translucent:true,
-                blur:false, 
-                borderColor: 'white',
-                borderHeight: 0,
                 title: {
                     text: '重置手机号',
                     alignment: "center"
                 },
-                navBarNoBorder: true,
-                hideShadow: true,
-                noBorder: true,
-                leftButtons: [],
+                background: {
+                    translucent: true
+                },
             }
         };
     }

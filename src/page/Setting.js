@@ -12,7 +12,10 @@ import { USER_KEY } from '../config'
 import { observer } from 'mobx-react/native';
 import userModel from '../model/userModel';
 import Blockies from 'react-native-blockies';
-import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
+import { asyncStorageSave, asyncStorageLoad, authTouchID } from '../helpers/asyncStorage';
+import validator from 'validator';
+
+import Toast, { DURATION } from 'react-native-easy-toast';
 import {
     Button,
     Screen,
@@ -67,13 +70,20 @@ export default observer( class Setting extends React.Component {
     }
 
     openTouchId = async(switchOn) => {
- 
+        // let switchOn = userModel.openTouchId;
+        if( userModel.openTouchId === true) {
+            if(!await authTouchID('设置')) {
+                this.refs.toast.show('您没有确认指纹无法操作！');
+                return false;
+            }
+        }
+
         userModel.openTouchIdSet(switchOn);
-        // console.log('\n \n openTouchId => \n',switchOn);
         this.setState({ switchOn: switchOn});
         let user = await asyncStorageLoad(USER_KEY);
         user['openTouchId'] = switchOn;
         asyncStorageSave(USER_KEY, user);
+        
     }
 
     render() {
@@ -183,6 +193,11 @@ export default observer( class Setting extends React.Component {
                             <Icon styleName="disclosure" name="right-arrow" />
                         </Row>
                     </Button>
+                    <Toast
+                        ref="toast"
+                        position='top'
+                        positionValue={150}
+                    />
                 </ScrollView>
                 :
                     <Spinner />

@@ -27,10 +27,15 @@ import { Navigation } from 'react-native-navigation';
 export default observer(class ChooseSymbol extends React.Component {
     static get options() {
         return {
+          
             topBar: {
                 noBorder: true,
+                elevation: 0,
+                navBarNoBorder: true,
+                hideShadow: true,
                 title: {
-                    text: '选择转账币种'
+                    text: '选择转账币种',
+                    alignment: "center"
                 },
             }
         };

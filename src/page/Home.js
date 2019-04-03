@@ -10,8 +10,8 @@ import { Navigation } from 'react-native-navigation';
 
 import { USER_KEY } from '../config'
 import { observer } from 'mobx-react/native';
-import userModel from '../model/userModel';
-import { asyncStorageLoad } from '../helpers/asyncStorage';
+
+import { asyncStorageLoad, authTouchID } from '../helpers/asyncStorage';
 
 import {
     Icon,
@@ -29,7 +29,7 @@ import {
 } from '@shoutem/ui';
 
 import Blockies from 'react-native-blockies';
-
+import TouchID from 'react-native-touch-id';
 export default observer( class Home extends React.Component {
 
     static options(passProps) {
@@ -90,9 +90,9 @@ export default observer( class Home extends React.Component {
 
     async UNSAFE_componentWillMount() {
         const user = await asyncStorageLoad(USER_KEY);
-            if(userModel.openTouchId){
-                console.log('请使用touchid！');
-            }
+            // if(userModel.openTouchId){
+            //     console.log('请使用touchid！');
+            // }
             console.log('user',user);
             this.setState({
                 address:user.address,
@@ -103,6 +103,7 @@ export default observer( class Home extends React.Component {
     }
 
     copyAddress = async () => {
+       
         console.log(this.state.address);
         Clipboard.setString(this.state.address);
         let str = await Clipboard.getString();
@@ -112,6 +113,17 @@ export default observer( class Home extends React.Component {
         );
     }
 
+    toTransaction = async () =>{
+        // console.log('luzluzluz');
+        if(await authTouchID('转账')) {
+            Navigation.push(this.props.componentId, {
+                component: {
+                    name: 'ChooseSymbol',
+                }
+            });
+        }
+    }
+    
     render() {
         console.log('props; ', this.props)
         const {address, username, telephone} = this.state;
@@ -178,8 +190,9 @@ export default observer( class Home extends React.Component {
                     <View 
                         style={{
                             width:'100%',
-                            height:80,
-                            flex: 1,
+                            marginTop:10,
+                            height:100,
+                            // flex: 1,
                             flexDirection: 'row',
                             justifyContent: 'center',
                         }} 
@@ -190,15 +203,9 @@ export default observer( class Home extends React.Component {
                                 height:40,
                                 margin:10,
                             }} 
-                            
                             onPress={() => {
-                                Navigation.push(this.props.componentId, {
-                                    component: {
-                                        name: 'ChooseSymbol',
-                                    }
-                                });
-                            }}
-                            
+                                this.toTransaction();
+                            }} 
                         >
                             <Text>转账</Text>
                         </Button>

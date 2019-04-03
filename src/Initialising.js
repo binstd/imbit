@@ -19,6 +19,7 @@ import {
 // import ic_launcher from './img/ic_launcher.png';
 import { hasAddress } from './helpers/userFetch';
 import SplashScreen from 'react-native-splash-screen';
+
 // @observer
 export default observer(class Initialising extends React.Component {
 
@@ -55,17 +56,18 @@ export default observer(class Initialising extends React.Component {
             goToAuth()
         }
         SplashScreen.hide();
+    
     }
 
     render() {
         return (
             <View style={styles.container}>
                 {/* <Text style={styles.welcome}>IMbit</Text> */}
-                <Image
+                {/* <Image
                     styleName="small"
                     // source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png'}}
                     source={require('./img/ic_launcher.png')}
-                />
+                /> */}
             </View>
         )
     }

@@ -4,6 +4,7 @@ import userModel from '../model/userModel';
 import { USER_KEY } from '../config'
 //0xded8f0646c28678510f6cc98a948e5927cb616af 案例
 
+
 const { HDNode, providers, utils, Wallet } = ethers;
 const network = (process.env.NODE_ENV === 'production') ? 'mainnet' : 'rinkeby';
 
@@ -60,4 +61,5 @@ export async function signMessage(message) {
     }
     return null;
 }
+
 

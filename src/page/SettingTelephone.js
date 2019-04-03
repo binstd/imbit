@@ -238,17 +238,20 @@ export default SettingTelephone = observer( class SettingTelephone extends React
                                 <Text style={styles.buttonText} >下一步</Text>
                             </Button>
 
-                            {/* <View  style={styles.otherSign} >
-                                <Caption 
-                                    styleName="bold"
-                                    style={styles.footerSign}    
-                                >
-                                    首次登录会自动创建新账户
-                                </Caption> 
-                            </View>   */}
+                            {/* 
+                                <View  style={styles.otherSign} >
+                                    <Caption 
+                                        styleName="bold"
+                                        style={styles.footerSign}    
+                                    >
+                                        首次登录会自动创建新账户
+                                    </Caption> 
+                                </View>   
+                                */
+                            }
                             
                         </Screen> 
-                    </Screen>}
+                    </Screen> }
                 <Toast
                     ref="toast"
                     position='top'

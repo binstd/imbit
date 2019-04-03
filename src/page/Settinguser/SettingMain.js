@@ -11,7 +11,7 @@ import { USER_KEY } from '../../config'
 import { observer } from 'mobx-react/native';
 import userModel from '../../model/userModel';
 // import Blockies from 'react-native-blockies';
-
+import { authTouchID } from '../../helpers/asyncStorage';
 import {
     Button,
     Screen,
@@ -49,6 +49,16 @@ export default observer( class SettingMain extends React.Component {
         // console.log('login out!!!');
     }
 
+    toSetttingNewTelephone = async () =>{
+        if(await authTouchID('重置手机号')) {
+            Navigation.push(this.props.componentId, {
+                component: {
+                    name: 'SetttingNewTelephone',
+                }
+            });
+        }
+    }
+
     render() {
         const address = userModel.address;
         return (
@@ -65,7 +75,7 @@ export default observer( class SettingMain extends React.Component {
                         }}
                     >
                         <Row>
-                            <Text   >邮箱</Text>
+                            <Text>邮箱</Text>
                             <Text style={styles.leftRow} > {userModel.email} </Text>
                             <Icon styleName="disclosure" name="right-arrow" />
                         </Row>
@@ -88,14 +98,10 @@ export default observer( class SettingMain extends React.Component {
                     </Button>
 
                     {
-                        userModel.privateKey &&
+                        true &&
                         <Button
                             onPress={() => {
-                                Navigation.push(this.props.componentId, {
-                                    component: {
-                                        name: 'SetttingNewTelephone',
-                                    }
-                                });
+                                this.toSetttingNewTelephone();
                             }}
                         >
                             <Row>

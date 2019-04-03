@@ -4,6 +4,7 @@ class transactionModel {
     id = Math.random();
     tokenInfo;
     address;
+    
     get getAllData() {
         const data = {
             tokenInfo: this.tokenInfo,

@@ -3,6 +3,7 @@ package com.imbit;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rnfingerprint.FingerprintAuthPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.crypho.scrypt.RNScryptPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
@@ -59,6 +60,7 @@ public class MainApplication extends NavigationApplication {
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
             // eg. new VectorIconsPackage()
+                new FingerprintAuthPackage(),
                 new RandomBytesPackage(),
                 new RNCameraPackage(),
                 new RNScryptPackage(),

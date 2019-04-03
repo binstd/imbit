@@ -21,9 +21,13 @@ export default observer( class TransactionInput extends React.Component {
     static get options() {
         return {
             topBar: {
+                elevation: 0,
                 noBorder: true,
+                navBarNoBorder: true,
+                hideShadow: true,
                 title: {
-                    text: '转账'
+                    text: '转账',
+                    alignment: "center"
                 },
             }
         };
@@ -38,7 +42,7 @@ export default observer( class TransactionInput extends React.Component {
     }
 
     onChangeText = (key, val) => {
-        this.setState({ [key]: val })
+        this.setState({ [key]: val });
     }
 
     register = async () => {
@@ -98,7 +102,7 @@ export default observer( class TransactionInput extends React.Component {
                             placeholderTextColor='white'
                             onChangeText={val => this.onChangeText('amount', val)}
                         />
-                        
+
                         <Button
                             styleName="secondary"
                             style={{

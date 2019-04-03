@@ -9,7 +9,7 @@ let NotificationDisplayedListener = null;
 let NotificationOpenedListener = null;
 
 export async function initFCM() {
-  console.log('\n \n <-- 初.始.化 firebase.initFCM ---> \n \n ');
+//   console.log('\n \n <-- 初.始.化 firebase.initFCM ---> \n \n ');
   await requestPermissions();
   await registerListeners();
   await getFCMToken();
@@ -17,7 +17,7 @@ export async function initFCM() {
 
 export async function getFCMToken() {
   const fcmToken = await firebase.messaging().getToken();
-  console.log('FCM TOKEN ===>', fcmToken);
+//   console.log('FCM TOKEN ===>', fcmToken);
   return fcmToken;
 }
 
