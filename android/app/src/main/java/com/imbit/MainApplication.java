@@ -18,14 +18,6 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
 
-//import com.facebook.react.ReactApplication;
-//import com.reactnative.photoview.PhotoViewPackage;
-//import com.BV.LinearGradient.LinearGradientPackage;
-//import com.oblador.vectoricons.VectorIconsPackage;
-//import com.facebook.react.ReactNativeHost;
-//import com.facebook.react.ReactPackage;
-//import com.facebook.react.shell.MainReactPackage;
-//import com.facebook.soloader.SoLoader;
 
 // reactnativenavigation new ++ 
 import com.reactnativenavigation.NavigationApplication;

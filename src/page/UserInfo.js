@@ -4,11 +4,27 @@ import { Alert, StyleSheet, Clipboard,  Dimensions } from 'react-native'
 import QRCode from 'react-native-qrcode';
 import { Screen, TextInput, Text, Row, Spinner, Button, Caption, View, ScrollView, TouchableOpacity, Divider } from '@shoutem/ui';
 import userModel from '../model/userModel';
-
-class UserInfo extends Component {
+import { observer } from 'mobx-react/native';
+const UserInfo  = observer(class UserInfo extends Component {
     // static navigationOptions = {
     //     title: 'token收款地址',
     // };
+    static get options() {
+        return {
+            topBar: {
+                hideShadow: true,
+                noBorder: true,
+                elevation: 0,
+                title: {
+                    text: '个人信息',
+                    alignment: "center"
+                },
+                background: {
+                    translucent: true
+                },
+            }
+        };
+    }
 
     constructor(props) {
         super(props);
@@ -35,7 +51,7 @@ class UserInfo extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={styles.container} >
                 <View style={styles.qrcode} >
                     <QRCode
                         value={this.state.address}
@@ -72,7 +88,7 @@ class UserInfo extends Component {
             </View >
         )
     }
-}
+});
 
 const styles = StyleSheet.create({
     container: {

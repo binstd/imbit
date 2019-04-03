@@ -63,6 +63,10 @@ export default observer( class Setting extends React.Component {
     }
 
     logout = async () => {
+        if(!await authTouchID('退出身份')) {
+            this.refs.toast.show('您没有确认指纹无法操作！');
+            return false;
+        }
         await AsyncStorage.removeItem(USER_KEY);
         goToAuth();
         userModel.clearAll();
@@ -73,7 +77,7 @@ export default observer( class Setting extends React.Component {
         // let switchOn = userModel.openTouchId;
         if( userModel.openTouchId === true) {
             if(!await authTouchID('设置')) {
-                this.refs.toast.show('您没有确认指纹无法操作！');
+                this.refs.toast.show('您没有确认指纹无法操作!');
                 return false;
             }
         }
@@ -132,7 +136,7 @@ export default observer( class Setting extends React.Component {
                         </Button>
                     }
 
-                    <Button
+                    {/* <Button
                         onPress={() => {
                             Navigation.push(this.props.componentId, {
                                 component: {
@@ -146,7 +150,7 @@ export default observer( class Setting extends React.Component {
                             <Text>语言 </Text>
                             <Icon styleName="disclosure" name="right-arrow" />
                         </Row>
-                    </Button>
+                    </Button> */}
 
                     <Button
                         onPress={() => {

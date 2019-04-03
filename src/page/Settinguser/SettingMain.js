@@ -32,7 +32,7 @@ export default observer( class SettingMain extends React.Component {
                 noBorder: true,
                 elevation: 0,
                 title: {
-                    text: '个人信息设定',
+                    text: '个人信息',
                     alignment: "center"
                 },
                 background: {

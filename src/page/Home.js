@@ -12,7 +12,8 @@ import { USER_KEY } from '../config'
 import { observer } from 'mobx-react/native';
 
 import { asyncStorageLoad, authTouchID } from '../helpers/asyncStorage';
-
+import userModel from '../model/userModel';
+import Toast, { DURATION } from 'react-native-easy-toast';
 import {
     Icon,
     Row,
@@ -44,16 +45,21 @@ export default observer( class Home extends React.Component {
                 navBarNoBorder: true,
                 hideShadow: true,
                 noBorder: true,
+                leftButtons: [
+                    {
+                        id: 'TwoFactor',
+                        text: '2F',
+                        color: '#4F4F4F',
+                    }
+                ],
                 rightButtons: [
                     {
                         id: 'Setting',
-                        // icon: <Icon name="sidebar" />,
                         text: '设置',
                         color: '#4F4F4F',
-
                     }
                 ],
-                leftButtons: [],
+                // leftButtons: [],
             }
         };
     }
@@ -77,6 +83,14 @@ export default observer( class Home extends React.Component {
                 }
             });
         }
+        if (buttonId === 'TwoFactor') {
+            Navigation.push(this.props.componentId, {
+                component: {
+                    name: 'TwoFactorList',
+                }
+            });
+        }
+        
     }
 
     logout = async () => {
@@ -90,21 +104,16 @@ export default observer( class Home extends React.Component {
 
     async UNSAFE_componentWillMount() {
         const user = await asyncStorageLoad(USER_KEY);
-            // if(userModel.openTouchId){
-            //     console.log('请使用touchid！');
-            // }
-            console.log('user',user);
-            this.setState({
-                address:user.address,
-                username:user.username,
-                telephone:user.telephone
-            });
-        
+        userModel.allSet(user);
+        console.log('user',user);
+        this.setState({
+            address:user.address,
+            username:user.username,
+            telephone:user.telephone
+        });
     }
 
     copyAddress = async () => {
-       
-        console.log(this.state.address);
         Clipboard.setString(this.state.address);
         let str = await Clipboard.getString();
         // alert('复制成功！');
@@ -113,8 +122,12 @@ export default observer( class Home extends React.Component {
         );
     }
 
-    toTransaction = async () =>{
-        // console.log('luzluzluz');
+    toTransaction = async () => {
+        if(!userModel.privateKey) {
+            this.refs.toast.show('您的账户没有权限操作转账!');
+            return ;
+        }
+
         if(await authTouchID('转账')) {
             Navigation.push(this.props.componentId, {
                 component: {
@@ -123,7 +136,7 @@ export default observer( class Home extends React.Component {
             });
         }
     }
-    
+
     render() {
         console.log('props; ', this.props)
         const {address, username, telephone} = this.state;
@@ -190,19 +203,21 @@ export default observer( class Home extends React.Component {
                     <View 
                         style={{
                             width:'100%',
-                            marginTop:10,
-                            height:100,
+                            marginTop:0,
+                            height:50,
                             // flex: 1,
                             flexDirection: 'row',
                             justifyContent: 'center',
                         }} 
                     >
                         <Button 
+
                             style={{
                                 width:85,
                                 height:40,
-                                margin:10,
+                                margin:5,
                             }} 
+
                             onPress={() => {
                                 this.toTransaction();
                             }} 
@@ -214,7 +229,7 @@ export default observer( class Home extends React.Component {
                             style={{
                                 width:85,
                                 height:40,
-                                margin:10,
+                                margin:5,
                             }} 
                             // onPress={this._mymoney}  
                             onPress={() => {
@@ -255,6 +270,11 @@ export default observer( class Home extends React.Component {
                             安全、便捷的区块链身份授权系统
                         </Caption>
                     </View>
+                    <Toast
+                        ref="toast"
+                        position='top'
+                        positionValue={150}
+                    />
                 </Screen>
                 :
                 <Spinner />
@@ -267,9 +287,6 @@ export default observer( class Home extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center',
         backgroundColor: 'white',
     },
     container2: {
@@ -282,8 +299,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         height:140,
         width:'100%',
-        // alignItems: 'center',
-        // flex: 1,
     },
     inputLine:{
         width: '90%',
@@ -297,7 +312,7 @@ const styles = StyleSheet.create({
         height:90,
     },
     scancontainer:{
-        marginTop:'80%',
+        marginTop:'55%',
         height: '100%',
         padding: 'auto',
         alignItems: 'center',   
@@ -310,11 +325,10 @@ const styles = StyleSheet.create({
         fontSize: 13,
         color: '#000000'
     },
- 
     footertext: {
         alignItems: 'center',
         height:20,
-        marginTop: 25,
+        marginTop: 10,
         color: '#999999'
     },
     footer:{

@@ -159,6 +159,9 @@ export function registerScreens() {
     Navigation.registerComponent('Transaction', () => require('./page/transaction/Transaction').default);
     Navigation.registerComponent('ChooseSymbol', () => require('./page/transaction/ChooseSymbol').default);
     Navigation.registerComponent('TransactionInput', () => require('./page/transaction/TransactionInput').default);
+    Navigation.registerComponent('TwoFactorList', () => require('./page/twofactor/TwoFactorList').default);
+    
+
 
     Navigation.registerComponent('Setting', () => require('./page/Setting').default);
     Navigation.registerComponent('QRCodeScannerScreen', () => require('./page/QRCodeScannerScreen').default);
