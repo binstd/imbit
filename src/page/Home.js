@@ -124,7 +124,12 @@ export default observer( class Home extends React.Component {
 
     toTransaction = async () => {
         if(!userModel.privateKey) {
-            this.refs.toast.show('您的账户没有权限操作转账!');
+            this.refs.toast.show('请先绑定区块链身份!');
+            Navigation.push(this.props.componentId, {
+                component: {
+                    name: 'BindingMnemonic',
+                }
+            });
             return ;
         }
 
@@ -199,6 +204,26 @@ export default observer( class Home extends React.Component {
                                 <Text style={{color:'#999999'}}>复制</Text>
                             </Button>
                         </Row>
+                            {
+                                !userModel.privateKey &&
+                                <TouchableOpacity
+                                style={styles.bindingMnemonic}
+                                onPress={() => {
+                                    Navigation.push(this.props.componentId, {
+                                        component: {
+                                            name: 'BindingMnemonic',
+                                        }
+                                    });
+                                }}
+                            >
+                                <Text
+                                    style={{ color: '#308EFF', fontSize: 16,}}
+                                >
+                                    绑定区块链身份
+                                </Text>
+                            </TouchableOpacity>
+                            }
+                            
                     </View>
                     <View 
                         style={{
@@ -297,7 +322,7 @@ const styles = StyleSheet.create({
     usercard:{
         marginTop:10,
         backgroundColor: 'white',
-        height:140,
+        height:170,
         width:'100%',
     },
     inputLine:{
@@ -335,4 +360,11 @@ const styles = StyleSheet.create({
         margin:'auto',
         marginTop:5,
     },
+    bindingMnemonic:{
+        alignItems: 'center',
+        height:30,
+        padding:'auto',
+        color: '#308EFF',
+    
+    }
 })

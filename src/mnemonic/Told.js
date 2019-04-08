@@ -146,18 +146,18 @@ export default observer( class Told extends React.Component {
                     <Text>备份身份</Text>
             </Button>
             <Button 
-                    styleName="secondary" 
-                    style={{
-                        width: '90%',
-                        margin: 'auto',
-                        marginTop: 5,
-                        marginBottom:80,
-                        backgroundColor:'#308EFF',
-                        borderColor:'#308EFF'
-                    }}
-                    onPress={goHome}
+                styleName="secondary" 
+                style={{
+                    width: '90%',
+                    margin: 'auto',
+                    marginTop: 5,
+                    marginBottom:80,
+                    backgroundColor:'#308EFF',
+                    borderColor:'#308EFF'
+                }}
+                onPress={goHome}
             >
-                    <Text>稍后备份</Text>
+                <Text>稍后备份</Text>
             </Button>
         </View>
        

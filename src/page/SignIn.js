@@ -40,14 +40,14 @@ export default class SignIn extends React.Component {
     }
 
 
-   setLoading(isLoading){
+   setLoading(isLoading) {
        this.setState({isLoading:isLoading});
    }
 
     render() {
         const {tabIsMnemonic} = this.state;
         return (
-            <Screen style={styles.container}  >
+            <Screen style={styles.container} >
                 {this.state.isLoading ?
                     <Screen style={styles.container2} >
                         <Spinner />
