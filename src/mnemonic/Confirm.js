@@ -148,7 +148,7 @@ export default observer(class Confirm extends React.Component {
                                 key={i}
                                 onPress={() => {this.delMnemonic(word)}}
                             >
-                            <Text>{word}</Text>
+                                <Text>{word}</Text>
                             </Button>
                         )}
                 </View>

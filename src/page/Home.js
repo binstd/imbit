@@ -42,9 +42,12 @@ export default observer( class Home extends React.Component {
                     alignment: "center"
                 },
                 elevation: 0,
-                navBarNoBorder: true,
+                // navBarNoBorder: true,
                 hideShadow: true,
                 noBorder: true,
+                backButton: {
+                    visible: false,
+                },
                 leftButtons: [
                     {
                         id: 'TwoFactor',
@@ -266,6 +269,24 @@ export default observer( class Home extends React.Component {
                             }}
                         >
                             <Text>我的资产</Text>
+                        </Button> 
+                        <Button 
+                            // styleName="secondary" 
+                            style={{
+                                width:85,
+                                height:40,
+                                margin:5,
+                            }} 
+                            // onPress={this._mymoney}  
+                            onPress={() => {
+                                Navigation.push(this.props.componentId, {
+                                    component: {
+                                        name: 'TwoFactorList',
+                                    }
+                                });
+                            }}
+                        >
+                            <Text>双层验证</Text>
                         </Button> 
                     </View>
 

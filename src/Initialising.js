@@ -19,7 +19,7 @@ import {
 // import ic_launcher from './img/ic_launcher.png';
 import { hasAddress } from './helpers/userFetch';
 import SplashScreen from 'react-native-splash-screen';
-
+import factorModel from './model/factorModel';
 // @observer
 export default observer(class Initialising extends React.Component {
 
@@ -33,9 +33,10 @@ export default observer(class Initialising extends React.Component {
         try {
             const user = await asyncStorageLoad(USER_KEY);
             if (user) {
-               
                 if (await hasAddress(user.address)) {
-                    userModel.allSet(user);
+                    await userModel.allSet(user);
+                    const factorList = await asyncStorageLoad('Factor') || [];
+                    factorModel.factorSet(factorList);
                     goHome();
                 } else {
                     // console.log('liuliang:',Boolean(user.telephone),user.telephone);

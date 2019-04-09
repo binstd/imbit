@@ -13,7 +13,7 @@ class timerModel {
 
   // @action.bound
   reset() {
-    this.timer = 60;
+    this.timer = 30;
   }
 }
 
