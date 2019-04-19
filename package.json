@@ -1,0 +1,37 @@
+{
+  "name": "openwallet",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@shoutem/ui": "^0.23.20",
+    "buffer": "^5.2.1",
+    "ethjs": "^0.4.0",
+    "mobx": "^4.5.0",
+    "mobx-react": "^5.2.8",
+    "react": "16.6.3",
+    "react-native": "0.57.8",
+    "react-native-blockies": "^1.0.2",
+    "react-native-camera": "^1.4.3",
+    "react-native-easy-toast": "^1.2.0",
+    "react-native-gesture-handler": "^1.1.0",
+    "react-native-qrcode-scanner": "^1.1.2",
+    "react-native-splash-screen": "^3.2.0",
+    "react-native-touch-id": "^4.4.1",
+    "react-navigation": "^3.7.1",
+    "validator": "^10.11.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.4.0",
+    "babel-jest": "24.7.1",
+    "jest": "24.7.1",
+    "metro-react-native-babel-preset": "0.53.1",
+    "react-test-renderer": "16.6.3"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
