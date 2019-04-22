@@ -12,10 +12,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 
 
 
-// import { ListView } from '@shoutem/ui';
-// import Eth from 'ethjs';
-// import validator from 'validator';
-// import transactionModel from '../model/transactionModel';
+
 // 扫码
 class QRCodeScannerScreen extends Component {
 

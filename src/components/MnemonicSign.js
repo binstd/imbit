@@ -15,9 +15,12 @@ import {
 // import { hasAddress } from '../helpers/userFetch';
 import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
+import UserStore from '../model/UserStore';
+import { observer } from 'mobx-react/native';
 // import { USER_KEY } from '../config';
 // import { Navigation } from 'react-native-navigation';
-// import { goHome } from '../initNavigation'
+// import { goHome } from '../initNavigation';
+@observer
 class MnemonicSign extends React.Component {
 
     constructor(props) {
@@ -76,7 +79,15 @@ class MnemonicSign extends React.Component {
     // }
 
     signInAsync = () => {
-        AsyncStorage.setItem('userToken', 'abc');
+        // AsyncStorage.setItem('userToken', 'abc');
+
+        UserStore.login({
+            uid:'1',
+            address:'ox0043434',
+            privateKey:'ox0043434',
+            mnemonic:'mnemonic',
+            email:'lvxing@126.com',
+        });
         this.props.navigation.navigate('Home');
     };
 

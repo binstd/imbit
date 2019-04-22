@@ -16,6 +16,7 @@ import {
 // import { goHome, goUserInfo } from '../initNavigation';
 // import { USER_KEY,SERVER_URL } from '../config';
 import timerModel from '../model/timerModel';
+import UserStore from '../model/UserStore';
 import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { observer } from 'mobx-react/native';
@@ -64,25 +65,25 @@ const TelephoneSign = observer( class TelephoneSign extends React.Component {
     }
 
     virifyMassegeCode() {
-        // const { telephone, code, realCode} = this.state;
-        // // console.log(telephone);
-        // if (!validator.isMobilePhone(telephone, ['zh-CN', 'zh-HK', 'zh-TW'])) {
-        //     this.refs.toast.show('请输入正确的电话号码!');
-        // }
+        const { telephone, code, realCode} = this.state;
+        // console.log(telephone);
+        if (!validator.isMobilePhone(telephone, ['zh-CN', 'zh-HK', 'zh-TW'])) {
+            this.refs.toast.show('请输入正确的电话号码!');
+        }
 
-        // if (!validator.isByteLength(code, { min: 6, max: 6 })) {
-        //     this.refs.toast.show('请输入您接收到的验证码!');
-        // }
+        if (!validator.isByteLength(code, { min: 6, max: 6 })) {
+            this.refs.toast.show('请输入您接收到的验证码!');
+        }
 
-        // if(realCode == code) {  
-        //     // this.setState({ isLoading: true }); 
-        //     this.props.setLoading(true);
-        //     setTimeout(() => {
-        //         this.toPage();
-        //     }, 500);
-        // } else {
-        //     this.refs.toast.show('您输入的验证码是错误的!');
-        // }
+        if(realCode == code) {  
+            // this.setState({ isLoading: true }); 
+            this.props.setLoading(true);
+            setTimeout(() => {
+                this.toPage();
+            }, 500);
+        } else {
+            this.refs.toast.show('您输入的验证码是错误的!');
+        }
     }
 
     async toPage() {

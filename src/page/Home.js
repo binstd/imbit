@@ -269,11 +269,7 @@ export default class HomeScreen extends React.Component {
                             }} 
                             // onPress={this._mymoney}  
                             onPress={() => {
-                                Navigation.push(this.props.componentId, {
-                                    component: {
-                                        name: 'TwoFactorList',
-                                    }
-                                });
+                                this.props.navigation.navigate('TwoFactorList');
                             }}
                         >
                             <Text>双层验证</Text>
@@ -326,7 +322,7 @@ export default class HomeScreen extends React.Component {
     };
     
     _mymoney = () => {
-        this.props.navigation.navigate('MyMoney');
+        this.props.navigation.navigate('TwoFactorList');
         // this.props.navigation.navigate('Connect',{
         //     URI: this.state.uri,
         // });

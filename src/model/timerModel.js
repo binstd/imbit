@@ -5,7 +5,7 @@ class timerModel {
 
   constructor() {
     setInterval(() => {
-      if(this.timer >= 0){
+      if(this.timer >= 0) {
         this.timer -= 1;
       }
     }, 1000);

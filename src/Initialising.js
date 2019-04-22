@@ -7,6 +7,9 @@ import ConnectScreen from './page/Connect';
 import MyMoneyScreen from './page/MyMoney';
 import SettingInfoScreen from './page/SettingInfo';
 import QRCodeScannerScreen from './page/QRCodeScanner';
+import TwoFactorListScreen from './page/twofactor/TwoFactorList';
+import AddNewFactorScreen from './page/twofactor/AddNewFactor';
+
 
 const Home = createStackNavigator({  
     Home: HomeScreen, 
@@ -14,7 +17,9 @@ const Home = createStackNavigator({
     // Connect: ConnectScreen,
     MyMoney:MyMoneyScreen,
     Setting:SettingInfoScreen,
-    QRCodeScanner:QRCodeScannerScreen
+    QRCodeScanner:QRCodeScannerScreen,
+    TwoFactorList:TwoFactorListScreen,
+    AddNewFactor:AddNewFactorScreen
 });
 const Auth = createStackNavigator({ SignIn: SignInScreen });
 

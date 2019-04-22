@@ -41,20 +41,6 @@ export default class SettingInfoScreen extends React.Component {
                 flex:1, 
                 textAlign: 'center'
             }, 
-            // headerLeft: (
-            //     <Button 
-            
-            //     >
-            //         <Text style={{color:'#999999'}}></Text>
-            //     </Button>
-            // ),
-            // headerRight: (
-            //     <Button 
-            //         onPress={() => { navigation.navigate('Other')}}
-            //     >
-            //         <Text style={{color:'#999999'}}>设置</Text>
-            //     </Button>
-            // ),
         }
     };
     

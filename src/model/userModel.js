@@ -55,9 +55,10 @@ class userModel {
             this.mnemonic = jsonData['mnemonic'];
         }
 
-        if(jsonData['email']){
+        if(jsonData['email']) {
             this.email = jsonData['email'];
         }
+
         if(jsonData['token']) {
             this.token = jsonData['token'];
         }
