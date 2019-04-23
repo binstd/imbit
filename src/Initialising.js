@@ -11,6 +11,11 @@ import TwoFactorListScreen from './page/twofactor/TwoFactorList';
 import AddNewFactorScreen from './page/twofactor/AddNewFactor';
 
 
+import SettingUserMainScreen from './page/setting/SettingUserMain';
+// import SetttingNewTelephoneScreen from './page/setting/SetttingNewTelephone';
+import SettingEmailScreen from './page/setting/SettingEmail';
+import SettingUsernameScreen from './page/setting/SettingUsername';
+
 const Home = createStackNavigator({  
     Home: HomeScreen, 
     Other: OtherScreen, 
@@ -19,7 +24,12 @@ const Home = createStackNavigator({
     Setting:SettingInfoScreen,
     QRCodeScanner:QRCodeScannerScreen,
     TwoFactorList:TwoFactorListScreen,
-    AddNewFactor:AddNewFactorScreen
+    AddNewFactor:AddNewFactorScreen,
+    SettingUserMain:SettingUserMainScreen,
+    SettingEmail:SettingEmailScreen,
+    SettingUsername:SettingUsernameScreen
+    // SetttingNewTelephone:SetttingNewTelephoneScreen
+
 });
 const Auth = createStackNavigator({ SignIn: SignInScreen });
 

@@ -32,6 +32,7 @@ class MnemonicSign extends React.Component {
     }
     
     componentDidMount() {
+
     }
 
     // onChangeText = (key, value) => {
@@ -84,7 +85,9 @@ class MnemonicSign extends React.Component {
         UserStore.login({
             uid:'1',
             address:'ox0043434',
+            username:'liuliang',
             privateKey:'ox0043434',
+            telephone:'13185055317',
             mnemonic:'mnemonic',
             email:'lvxing@126.com',
         });

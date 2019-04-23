@@ -9,6 +9,7 @@ import { observer } from 'mobx-react/native';
 import Blockies from 'react-native-blockies';
 
 import userModel from '../model/userModel';
+import UserStore from '../model/UserStore';
 import DropDown from '../components/DropDown';
 // import { asyncStorageSave, asyncStorageLoad, authTouchID } from '../helpers/asyncStorage';
 
@@ -61,10 +62,12 @@ export default class SettingInfoScreen extends React.Component {
     }
 
     logout = async () => {
-        if(!await authTouchID('退出身份')) {
-            this.refs.toast.show('您没有确认指纹无法操作！');
-            return false;
-        }
+        UserStore.logout();
+        this.props.navigation.navigate('Auth');
+        // if(!await authTouchID('退出身份')) {
+        //     this.refs.toast.show('您没有确认指纹无法操作！');
+        //     return false;
+        // }
         // await AsyncStorage.removeItem(USER_KEY);
         // goToAuth();
         // userModel.clearAll();
@@ -73,14 +76,15 @@ export default class SettingInfoScreen extends React.Component {
 
     openTouchId = async(switchOn) => {
         // let switchOn = userModel.openTouchId;
-        if( userModel.openTouchId === true || userModel.openTouchId === false) {
-            if(!await authTouchID('设置')) {
-                this.refs.toast.show('您没有确认指纹无法操作!');
-                return false;
-            }
-        }
+
+        // if( userModel.openTouchId === true || userModel.openTouchId === false) {
+        //     if(!await authTouchID('设置')) {
+        //         this.refs.toast.show('您没有确认指纹无法操作!');
+        //         return false;
+        //     }
+        // }
         
-        userModel.openTouchIdSet(switchOn);
+        // userModel.openTouchIdSet(switchOn);
         this.setState({ switchOn: switchOn});
         // let user = await asyncStorageLoad(USER_KEY);
         user['openTouchId'] = switchOn;
@@ -97,11 +101,7 @@ export default class SettingInfoScreen extends React.Component {
                 <ScrollView>
                     <Button
                         onPress={() => {
-                            // Navigation.push(this.props.componentId, {
-                            //     component: {
-                            //         name: 'SettingMain',
-                            //     }
-                            // });
+                            this.props.navigation.navigate('SettingUserMain');
                         }}
                     >
                         <Row>
@@ -110,7 +110,7 @@ export default class SettingInfoScreen extends React.Component {
                                 size={40} // blocky icon size
                                 style={{ width: 40, height: 40, marginRight: 10, }} // style of the view will wrap the icon
                             />
-                            <Text>完善身份信息</Text>
+                            <Text> 完善身份信息 </Text>
                             <Icon styleName="disclosure" name="right-arrow" />
                         </Row>
                     </Button>

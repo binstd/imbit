@@ -1,5 +1,5 @@
 import { observable, action, computed } from "mobx";
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage } from 'react-native';
 
 class factorStore {
     
@@ -32,6 +32,17 @@ class factorStore {
         const length = this.factors.length;
         this.factors[length] = factor;
         AsyncStorage.setItem('factors', JSON.stringify(this.factors));
+    }
+
+    @action
+    factorRemove( factor ) {
+        // let factors = [];
+        // factors = this.factors;
+    
+        let factors = this.factors.filter(item => item.startCode !== factor.startCode);
+        console.log('==>',  factors);
+        this.factors.replace(factors);
+       
     }
 }
 

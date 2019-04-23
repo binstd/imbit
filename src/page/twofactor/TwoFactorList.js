@@ -43,9 +43,16 @@ export default observer(class TwoFactorListScreen extends React.Component {
                 flex:1, 
                 textAlign: 'center'
             }, 
+            headerRight: (
+                <Button 
+                    onPress={() => { navigation.state.params.deleteFactors();}}
+                >
+                    <Text style={{color:'#000000'}}> 删除 </Text>
+                </Button>
+            ),
         }
     };
-
+   
     constructor(props) {
         super(props);
         this.state = {
@@ -57,39 +64,44 @@ export default observer(class TwoFactorListScreen extends React.Component {
 
     componentDidMount () {
         const factors =  factorStore.getFactorData;
-        console.log('componentDidMount', factors);
-        const selectFactor = factors[0] || {}
 
-        if(selectFactor.startCode){
+        this.props.navigation.setParams({ deleteFactors: this.deleteFactors });
+
+        const selectFactor = factors[0] ? {name:factors[0].name,startCode:factors[0].startCode} : {};
+
+        if(selectFactor.startCode) {
             const secret = selectFactor.startCode;
-            const code = '12345';
+            const code = '123456';
+
             // speakeasy.totp({
             //     secret: secret,
             //     encoding: 'base32'
             // });
-            console.log('\n \n secret ======> \n \n',code);  
-        
+            console.log('selectFactor:',selectFactor);
             this.setState({
                 factors,
                 selectFactor,
                 code
             });
         }
-       
-       
+
         timerModel.reset();
         if(timerModel > 0) {
             this.refs.toast.show('已重新生成!');
             timerModel.reset();
         }
-        // console.log(factors);
     }
 
-    componentDidUpdate(){
-        if(timerModel.timer == 0){
+    componentDidUpdate() {
+        if(timerModel.timer == 0) {
             this.resetFoctor();
         }
     }   
+
+    deleteFactors = () => {
+        console.log('删除 =>',this.state.selectFactor);
+        factorStore.factorRemove(this.state.selectFactor);
+    }
 
     //更新    
     resetFoctor() {

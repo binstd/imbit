@@ -8,16 +8,9 @@ class UserStore {
     @observable isAuth = false;
 
     constructor() {
-        this.userInfo = AsyncStorage.getItem('userinfo').then( (data) => {
-          if(!data) {  
-            console.log('!data.isAuth',this.isAuth);
-              this.isAuth = false; 
-              return null;
-          } else { 
-              this.isAuth = true; 
-              console.log('data.isAuth',this.isAuth);
-              return JSON.parse(data); 
-          }
+        AsyncStorage.getItem('userinfo').then( (data) => {
+            // this.factors =  data ? observable.array(JSON.parse(data)) : observable.array();
+            this.userInfo = data ? JSON.parse(data) : null;
         });
     }
    
@@ -76,7 +69,6 @@ class UserStore {
         }
 
         if(Object.keys(jsonData).length !== 0 ) {
-            // console.log('luz',jsonData);
             this.isAuth = true;
             AsyncStorage.setItem('userinfo', JSON.stringify(this.userInfo));
         }
