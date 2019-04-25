@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import { AsyncStorage} from 'react-native';
-import UserStore from './src/model/UserStore';
+
 import createRootNavigator from './src/Initialising';
 
 import { createAppContainer } from 'react-navigation';
 import SplashScreen from 'react-native-splash-screen';
-// import { getConsoleOutput } from '@jest/console';
-import { observer } from 'mobx-react/native';
+
 
 // @observer
 export default class App extends React.Component {
@@ -21,9 +20,6 @@ export default class App extends React.Component {
     
       componentDidMount() {
      
-        // AsyncStorage.getItem('userinfo').then({
-            
-        // });
         AsyncStorage.getItem('userinfo').then( (data) => {
             this.setState({
                 signedIn:data ? true : false,

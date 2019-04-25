@@ -9,11 +9,9 @@ import {
 
 
 
-// import { USER_KEY } from '../config';
 import { observer } from 'mobx-react/native';
 
-// import { asyncStorageLoad, authTouchID } from '../helpers/asyncStorage';
-import userModel from '../model/userModel';
+import userStore from '../model/UserStore';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import {
     Icon,
@@ -32,7 +30,9 @@ import {
 
 import Blockies from 'react-native-blockies';
 import TouchID from 'react-native-touch-id';
+import {loadAddress,loadPrivateKey} from '../helper/Wallet';
 
+@observer
 export default class HomeScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
@@ -71,7 +71,8 @@ export default class HomeScreen extends React.Component {
             address:'0sssfd',
             username:'',
             telephone:'',
-            loading: false
+            loading: false,
+            hasPrivateKey:true,
         };
         // Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
     }
@@ -98,14 +99,25 @@ export default class HomeScreen extends React.Component {
     }
 
     async UNSAFE_componentWillMount() {
+        
         // const user = await asyncStorageLoad(USER_KEY);
-        // userModel.allSet(user);
+        // userStore.allSet(user);
         // console.log('user',user);
         // this.setState({
         //     address:user.address,
         //     username:user.username,
         //     telephone:user.telephone
         // });
+    }
+    
+    async componentDidMount() {
+        console.log(userStore.getAllData);
+        // console.log('===>',await loadPrivateKey());
+        let privateKey  = await loadPrivateKey();
+        this.setState({
+            hasPrivateKey:privateKey?true:false,
+        })
+        
     }
 
     copyAddress = async () => {
@@ -117,7 +129,7 @@ export default class HomeScreen extends React.Component {
     }
 
     toTransaction = async () => {
-        // if(!userModel.privateKey) {
+        // if(!userStore.privateKey) {
         //     this.refs.toast.show('请先绑定区块链身份!');
         //     Navigation.push(this.props.componentId, {
         //         component: {
@@ -136,9 +148,9 @@ export default class HomeScreen extends React.Component {
     }
 
     render() {
-        console.log('props; ', this.props)
-        const {address, username, telephone} = this.state;
-        
+        // console.log('props; ', this.props)
+        const {hasPrivateKey} = this.state;
+        const {address, username, telephone}  = userStore.getAllData;
         let showaddress  = address ? address.slice(0,15 ): '';
    
         return (
@@ -198,7 +210,7 @@ export default class HomeScreen extends React.Component {
                             </Button>
                         </Row>
                             {
-                                !userModel.privateKey &&
+                                !hasPrivateKey &&
                                 <TouchableOpacity
                                 style={styles.bindingMnemonic}
                                 onPress={() => {

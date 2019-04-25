@@ -10,16 +10,16 @@ import {
     Caption
 } from '@shoutem/ui';
 
-// import userModel from '../model/userModel';
-// import { loadWallet } from '../helpers/wallet';
+
 // import { hasAddress } from '../helpers/userFetch';
-import validator from 'validator';
+import { hasAddress } from '../helper/UserFetch';
+// import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import UserStore from '../model/UserStore';
 import { observer } from 'mobx-react/native';
-// import { USER_KEY } from '../config';
-// import { Navigation } from 'react-native-navigation';
-// import { goHome } from '../initNavigation';
+import {walletInit} from '../helper/Wallet';
+
+
 @observer
 class MnemonicSign extends React.Component {
 
@@ -35,49 +35,44 @@ class MnemonicSign extends React.Component {
 
     }
 
-    // onChangeText = (key, value) => {
-    //     this.setState({ [key]: value })
-    // }
+    onChangeText = (key, value) => {
+        this.setState({ [key]: value })
+    }
 
-    // async signIn() {
-    //     let { mnemonic } = this.state;
-    //     let mnemonicList = mnemonic.split(" ");
-    //     console.log(mnemonicList.length);
-    //     if (mnemonicList.length != 12) {
-    //         this.refs.toast.show('助记词仅支持用空格隔开的12个单词!');
-    //         return;
-    //     } else {
-    //         this.props.setLoading(true);
-    //         // this.setState({ isLoading: true });
-    //         setTimeout(() => {
-    //             this.saveWallet(mnemonic);
-    //         }, 500);
-    //     }
-    // }
+     signIn =() => {
+        let { mnemonic } = this.state;
+        let mnemonicList = mnemonic.split(" ");
+        console.log(mnemonicList.length);
+        if (mnemonicList.length != 12) {
+            this.refs.toast.show('助记词仅支持用空格隔开的12个单词!');
+            return;
+        } else {
+            this.props.setLoading(true);
+            setTimeout( () => {
+                this.saveWallet(mnemonic);
+            }, 500);
+        }
+    }
+    //marine egg thunder risk method absorb kitchen bird assist legend clarify approve
+     saveWallet = async (mnemonic) => {
+        // userModel.clearAll();
+        let { walletAddress } = await walletInit(mnemonic);
+        if (!walletAddress) {
+            this.props.setLoading(false);
+        }
 
-    // async saveWallet(mnemonic) {
-    //     userModel.clearAll();
-    //     let wallet = await loadWallet(mnemonic);
-    //     if (!wallet) {
-            
-    //         this.props.setLoading(false);
-    //         this.refs.toast.show('无法创建区块链身份,请检测助记词是否正确!');
-    //     }
-    //     let result = await hasAddress(wallet.address);
-    //     if (result == 1) {
-    //         this.props.setLoading(false);
-    //         goHome();
-    //     } else {
-    //         // console.log('SettingTelephone!');
-    //         this.props.setLoading(false);
-    //         Navigation.push(this.props.componentId, {
-    //             component: {
-    //                 name: 'SettingTelephone',
-    //             }
-    //         });
-
-    //     }
-    // }
+        let userdata = await hasAddress(walletAddress);
+        console.log(userdata);
+        if (userdata) {
+            console.log('1');
+            await UserStore.login(userdata);
+            console.log('2');
+            await this.props.navigation.navigate('Home');
+            // this.props.setLoading(false);
+        } else {
+            this.props.setLoading(false);
+        }
+    }
 
     signInAsync = () => {
         // AsyncStorage.setItem('userToken', 'abc');
@@ -117,7 +112,7 @@ class MnemonicSign extends React.Component {
             <Button
                 styleName="secondary"
                 style={styles.buttonSign}
-                onPress={() => this.signInAsync()}
+                onPress={() => this.signIn()}
             >
                 <Text style={styles.buttonText}>登录</Text>
             </Button>
@@ -131,10 +126,10 @@ class MnemonicSign extends React.Component {
                 </Caption>
             </View>
             <Toast
-                    ref="toast"
-                    position='top'
-                    positionValue={150}
-                />
+                ref="toast"
+                position='top'
+                positionValue={150}
+            />
         </Screen>
     );
   }

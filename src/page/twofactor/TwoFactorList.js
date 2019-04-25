@@ -5,7 +5,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-// import speakeasy from 'speakeasy'
+import speakeasy from 'speakeasy'
 import {
     View,
     Divider,
@@ -71,12 +71,10 @@ export default observer(class TwoFactorListScreen extends React.Component {
 
         if(selectFactor.startCode) {
             const secret = selectFactor.startCode;
-            const code = '123456';
-
-            // speakeasy.totp({
-            //     secret: secret,
-            //     encoding: 'base32'
-            // });
+            const code = speakeasy.totp({
+                secret: secret,
+                encoding: 'base32'
+            });
             console.log('selectFactor:',selectFactor);
             this.setState({
                 factors,
@@ -108,11 +106,10 @@ export default observer(class TwoFactorListScreen extends React.Component {
 
         const secret = 'qyyjmaxegqtj2qbp';
         if( this.state.selectFactor.startCode ) {
-            const code =  '123456';
-            //     speakeasy.totp({
-            //     secret: this.state.selectFactor.startCode,
-            //     encoding: 'base32'
-            // });
+            const code =  speakeasy.totp({
+                secret: this.state.selectFactor.startCode,
+                encoding: 'base32'
+            });
             this.setState({ code });
         }
         timerModel.reset();

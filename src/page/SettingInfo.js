@@ -12,7 +12,7 @@ import userModel from '../model/userModel';
 import UserStore from '../model/UserStore';
 import DropDown from '../components/DropDown';
 // import { asyncStorageSave, asyncStorageLoad, authTouchID } from '../helpers/asyncStorage';
-
+import {authTouchID} from '../helper/Common';
 import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import {
@@ -25,6 +25,7 @@ import {
     Spinner,
     Switch
 } from '@shoutem/ui';
+import {loadAddress,loadPrivateKey } from '../helper/Wallet';
 
 @observer
 export default class SettingInfoScreen extends React.Component {
@@ -51,50 +52,47 @@ export default class SettingInfoScreen extends React.Component {
         this.state = {
             switchOn: false,
             isLoading: true,
+            hasPrivateKey:true,
         };
     }
 
     async componentDidMount() {
+        let privateKey  = await loadPrivateKey();
+        console.log('await loadPrivateKey()',   privateKey);
         this.setState({
-            switchOn:userModel.openTouchId,
+            switchOn: UserStore.openTouchId,
             isLoading:false,
+            hasPrivateKey:privateKey?true:false,
         });
     }
 
     logout = async () => {
+        if(!await authTouchID('退出身份')) {
+            this.refs.toast.show('您没有确认指纹无法操作!');
+            return false;
+        }
         UserStore.logout();
         this.props.navigation.navigate('Auth');
-        // if(!await authTouchID('退出身份')) {
-        //     this.refs.toast.show('您没有确认指纹无法操作！');
-        //     return false;
-        // }
-        // await AsyncStorage.removeItem(USER_KEY);
-        // goToAuth();
-        // userModel.clearAll();
-        // console.log('login out!!!');
     }
 
-    openTouchId = async(switchOn) => {
-        // let switchOn = userModel.openTouchId;
-
-        // if( userModel.openTouchId === true || userModel.openTouchId === false) {
-        //     if(!await authTouchID('设置')) {
-        //         this.refs.toast.show('您没有确认指纹无法操作!');
-        //         return false;
-        //     }
-        // }
-        
+    openTouchId = async ( switchOn ) => {
+           
+        if(!await authTouchID('设置', true)) {
+            this.refs.toast.show('您没有确认指纹无法操作!');
+            return false;
+        }
         // userModel.openTouchIdSet(switchOn);
+        UserStore.login({openTouchId: switchOn});
         this.setState({ switchOn: switchOn});
         // let user = await asyncStorageLoad(USER_KEY);
-        user['openTouchId'] = switchOn;
+        // user['openTouchId'] = switchOn;
         // asyncStorageSave(USER_KEY, user);
-        
     }
 
     render() {
         const address = '0xx';//userModel.address;
-        // console.log(switchOn); 
+        const { hasPrivateKey } = this.state;
+        console.log('hasPrivateKey => \n', hasPrivateKey);
         return (
             <Screen >
                 {address?
@@ -116,14 +114,9 @@ export default class SettingInfoScreen extends React.Component {
                     </Button>
 
                     {
-                        userModel.privateKey &&
+                        hasPrivateKey &&
                         <Button
                             onPress={() => {
-                                // Navigation.push(this.props.componentId, {
-                                //     component: {
-                                //         name: 'MnemonicTold',
-                                //     }
-                                // });
                             }}
                         >
                             <Row>
@@ -135,7 +128,7 @@ export default class SettingInfoScreen extends React.Component {
                     }
 
                     {
-                        !userModel.privateKey &&
+                        !hasPrivateKey &&
                         <Button
                             onPress={() => {
                                 // Navigation.push(this.props.componentId, {

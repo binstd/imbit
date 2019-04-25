@@ -39,12 +39,13 @@ export default class SignInScreen extends React.Component {
 
 
    setLoading(isLoading) {
+     console.log('llllll:',isLoading);
        this.setState({isLoading:isLoading});
    }
 
     render() {
         const { tabIsMnemonic } = this.state;
-        console.log(';;;;',tabIsMnemonic);
+        // console.log(';;;;',tabIsMnemonic);
         return (
             <Screen style={styles.container} >
                 {this.state.isLoading ?
