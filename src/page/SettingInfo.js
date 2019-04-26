@@ -8,7 +8,7 @@ import {
 import { observer } from 'mobx-react/native';
 import Blockies from 'react-native-blockies';
 
-import userModel from '../model/userModel';
+// import userModel from '../model/userModel';
 import UserStore from '../model/UserStore';
 import DropDown from '../components/DropDown';
 // import { asyncStorageSave, asyncStorageLoad, authTouchID } from '../helpers/asyncStorage';
@@ -58,7 +58,6 @@ export default class SettingInfoScreen extends React.Component {
 
     async componentDidMount() {
         let privateKey  = await loadPrivateKey();
-        console.log('await loadPrivateKey()',   privateKey);
         this.setState({
             switchOn: UserStore.openTouchId,
             isLoading:false,
@@ -76,17 +75,12 @@ export default class SettingInfoScreen extends React.Component {
     }
 
     openTouchId = async ( switchOn ) => {
-           
         if(!await authTouchID('设置', true)) {
             this.refs.toast.show('您没有确认指纹无法操作!');
             return false;
         }
-        // userModel.openTouchIdSet(switchOn);
         UserStore.login({openTouchId: switchOn});
         this.setState({ switchOn: switchOn});
-        // let user = await asyncStorageLoad(USER_KEY);
-        // user['openTouchId'] = switchOn;
-        // asyncStorageSave(USER_KEY, user);
     }
 
     render() {
@@ -117,6 +111,8 @@ export default class SettingInfoScreen extends React.Component {
                         hasPrivateKey &&
                         <Button
                             onPress={() => {
+                                this.props.navigation.navigate('MnemonicTold');
+                                // 
                             }}
                         >
                             <Row>
@@ -131,11 +127,7 @@ export default class SettingInfoScreen extends React.Component {
                         !hasPrivateKey &&
                         <Button
                             onPress={() => {
-                                // Navigation.push(this.props.componentId, {
-                                //     component: {
-                                //         name: 'BindingMnemonic',
-                                //     }
-                                // });
+                                
                             }}
                         >
                             <Row>
@@ -150,7 +142,6 @@ export default class SettingInfoScreen extends React.Component {
                         <Row>
                             <Icon name="about" />
                             <Text>选择网络:</Text>
-                            
                             <DropDown />
                         </Row>
                     </Button>
@@ -170,11 +161,7 @@ export default class SettingInfoScreen extends React.Component {
 
                     <Button
                         onPress={() => {
-                            // Navigation.push(this.props.componentId, {
-                            //     component: {
-                            //         name: 'About',
-                            //     }
-                            // });
+                            this.props.navigation.navigate('About');
                         }}
                     >
                         <Row>

@@ -9,66 +9,40 @@ import {
 import {
     Html, Screen, DropDownMenu, Title, Image, Text
 } from '@shoutem/ui';
-
-
-// import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
-// import { USER_KEY } from '../config';
-
-
+import UserStore from '../model/UserStore';
+import {ALLOW_NETWORK} from '../helper/Config';
 export default class DropDown extends React.Component {
   
     constructor(props) {
         super(props);
         this.state = {
-            network: [
-                {
-                    title: "以太主网络",
-                    url:'l4343',
-                    code:"main",
-                },
-                {
-                    title: "ropsten网络",
-                    url:'l4343',
-                    code:"ropsten",
-                },
-                {
-                    title: "kovan网络",
-                    code:"kovan",
-                    url:'l4343',
-                },
-            ],
-            userInfo:[]
+            network:ALLOW_NETWORK,
+            // userInfo:[]
         }
     }
 
     settingLan(selectedNetwork) {
      
-        let {userInfo} = this.state;
-        console.log("selectedNetwork:\n", selectedNetwork);
-        userInfo['network'] = selectedNetwork.code;
+   
         this.setState({ 
             selectedNetwork: selectedNetwork,
-            userInfo:userInfo
+            network:ALLOW_NETWORK,
         });
-        console.log('asyncStorageSave(USER_KEY, userInfo):', userInfo);
-        // asyncStorageSave(USER_KEY, userInfo);
+      
+        UserStore.login({network:selectedNetwork.code});
     }
 
     async componentDidMount() {
-        // let userInfo = await asyncStorageLoad(USER_KEY);
+        let netCode = UserStore.network;
+        let selectedNetwork = {};
         for (let item of this.state.network) {
-            if(userInfo['network'] === item.code){
-                userInfo['network'] = item;
+            if(netCode === item.code){
+                selectedNetwork = item;
             }
         }
-        
-        if(!userInfo['network']) {
-            console.log('不存在');
-        }
-
+    
         this.setState({
-            userInfo:userInfo,
-            selectedNetwork:userInfo['network'] ? userInfo['network'] : this.state.network[0]
+            selectedNetwork:selectedNetwork ? selectedNetwork : this.state.network[0]
         });
     }
 

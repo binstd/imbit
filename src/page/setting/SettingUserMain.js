@@ -9,7 +9,7 @@ import {
 import { observer } from 'mobx-react/native';
 import UserStore from '../../model/UserStore';
 // import Blockies from 'react-native-blockies';
-// import { authTouchID } from '../../helpers/asyncStorage';
+import { authTouchID } from '../../helper/Common';
 import {
     Button,
     Screen,
@@ -41,27 +41,20 @@ export default observer( class SettingUserMainScreen extends React.Component {
         }
     };
 
-    logout = async () => {
-        await AsyncStorage.removeItem(USER_KEY);
-        UserStore.logout();
-    }
+
 
     toSetttingNewTelephone = async () =>{
-        // if(await authTouchID('重置手机号')) {
-        //     Navigation.push(this.props.componentId, {
-        //         component: {
-        //             name: 'SetttingNewTelephone',
-        //         }
-        //     });
-        // }
+        if(await authTouchID('重置手机号')) {
+            this.props.navigation.navigate('SetttingNewTelephone');
+        }
     }
 
     render() {
-        const { address,email,username, telephone } = UserStore.userInfo;
-        console.log(UserStore.userInfo);
+        // const { address,email,username, telephone } = UserStore.userInfo;
+        // console.log(UserStore.userInfo);
         return (
             <Screen >
-                {address?
+                {UserStore.address?
                 <ScrollView>
                     <Button
                         onPress={() => {
@@ -70,7 +63,7 @@ export default observer( class SettingUserMainScreen extends React.Component {
                     >
                         <Row>
                             <Text>邮箱</Text>
-                            <Text style={styles.leftRow} > {email} </Text>
+                            <Text style={styles.leftRow} > {UserStore.email} </Text>
                             <Icon styleName="disclosure" name="right-arrow" />
                         </Row>
                     </Button>
@@ -87,7 +80,7 @@ export default observer( class SettingUserMainScreen extends React.Component {
                     >
                         <Row>
                             <Text >用户名</Text>
-                            <Text style={styles.leftRow} >  {username}  </Text>
+                            <Text style={styles.leftRow} >  {UserStore.username}  </Text>
                             <Icon styleName="disclosure" name="right-arrow" />
                         </Row>
                     </Button>
@@ -102,7 +95,7 @@ export default observer( class SettingUserMainScreen extends React.Component {
                             <Row>
                                 {/* <Icon name="folder" /> */}
                                 <Text> 更换手机号 </Text>
-                                <Text style={styles.leftRow} > {telephone} </Text>
+                                <Text style={styles.leftRow} > {UserStore.telephone} </Text>
                                 <Icon styleName="disclosure" name="right-arrow" />
                             </Row>
                         </Button>

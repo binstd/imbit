@@ -74,20 +74,6 @@ class MnemonicSign extends React.Component {
         }
     }
 
-    signInAsync = () => {
-        // AsyncStorage.setItem('userToken', 'abc');
-
-        UserStore.login({
-            uid:'1',
-            address:'ox0043434',
-            username:'liuliang',
-            privateKey:'ox0043434',
-            telephone:'13185055317',
-            mnemonic:'mnemonic',
-            email:'lvxing@126.com',
-        });
-        this.props.navigation.navigate('Home');
-    };
 
     render() {
         const {

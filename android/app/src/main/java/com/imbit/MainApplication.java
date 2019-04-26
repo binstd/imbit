@@ -1,8 +1,17 @@
-package com.openwallet;
+package com.imbit;
 
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.keychain.KeychainPackage;
+import com.bitgo.randombytes.RandomBytesPackage;
+import org.reactnative.camera.RNCameraPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.rnfingerprint.FingerprintAuthPackage;
+import com.reactnative.photoview.PhotoViewPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -22,7 +31,16 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
+          new MainReactPackage(),
+            new KeychainPackage(),
+            new RandomBytesPackage(),
+            new RNCameraPackage(),
+            new RNGestureHandlerPackage(),
+            new SplashScreenReactPackage(),
+            new FingerprintAuthPackage(),
+            new PhotoViewPackage(),
+            new LinearGradientPackage(),
+            new VectorIconsPackage()
       );
     }
 

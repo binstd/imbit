@@ -5,7 +5,7 @@ import { Screen, View, TextInput, Button, Text } from '@shoutem/ui';
 
 import { observer } from 'mobx-react/native';
 import UserStore from '../../model/UserStore';
-import SERVER_URL from '../../helper/Config';
+import {SERVER_URL} from '../../helper/Config';
 
 @observer
 export default class SettingUsernameScreen extends React.Component {
@@ -16,24 +16,30 @@ export default class SettingUsernameScreen extends React.Component {
     async componentDidMount() {
         const user = UserStore.userInfo;
         this.setState({
-            username: user.username,
-            email: user.email,
+            username: UserStore.username,
+            email: UserStore.email,
             // telephone:user.telephone
         });
+    }
+
+    onChangeText = (key, val) => {
+        this.setState({ [key]: val })
     }
 
     commit = async () => {
        let postData = {};
         postData['username'] = this.state.username;
-        postData['email'] = this.state.email;
- 
-        fetch(`${SERVER_URL}api/users/${UserStore.userInfo.uid}`, {
+        UserStore.login(postData);
+
+        //中心化操作
+        fetch(`${SERVER_URL}api/users/${UserStore.uid}`, {
             body: JSON.stringify(postData),
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'patch'
         }).then(response => response.json()).then( data => {
+            let user = {};
             user['username'] = this.state.username;
 
             if (this.state.email != '') {

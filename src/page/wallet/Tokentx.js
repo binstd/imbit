@@ -1,29 +1,23 @@
 import React from 'react';
 import {
-  AsyncStorage, 
   StyleSheet,
 } from 'react-native';
 import {
     View,
     Divider,
-    Image,
-    ImageBackground,
-    Tile,
-    Title,
     Subtitle,
-    TouchableOpacity,
     Caption,
     ListView,
     Text,
     Row
 } from '@shoutem/ui';
-import UserStore from '../model/UserStore';
-import {ALLOW_NETWORK} from '../helper/Config';
+import UserStore from '../../model/UserStore';
 
-export default class MyMoneyScreen extends React.Component {
+
+export default class WalletTokentxScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
-            headerTitle: '我的资产',
+            headerTitle: '交易记录',
             headerStyle:{
                 elevation:0,
                 shadowOpacity: 0
@@ -47,8 +41,7 @@ export default class MyMoneyScreen extends React.Component {
     }
     
     async componentDidMount () {
-        console.log(UserStore.network);
-        
+        this.props.navigation.getParam('');
         const userNetwork = UserStore.network.split("-");
         let data = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=tokenlist&address=${UserStore.address}`, {
             headers: {
@@ -62,6 +55,7 @@ export default class MyMoneyScreen extends React.Component {
             },
             method: 'get'
         }).then(response => response.json());
+
         this.setState({
              tokenList:[{symbol:'eth',balance:balance.result},...data.result]
         });
@@ -71,22 +65,11 @@ export default class MyMoneyScreen extends React.Component {
     renderRow(token) {
 
         return (
-        
-               <TouchableOpacity 
-                    style={{width:'100%',backgroundColor:'white'}}
-                    onPress={() => {
-                        console.log('\n token =>',token);
-                        this.props.navigation.navigate('UserInfo', {
-                            token
-                          });
-                    }}
-                >
+            <View style={{width:'100%',backgroundColor:'white'}}>
                 <Row style={{width:'80%',marginLeft:'15%',}} >
-                  
                     <View 
                         styleName="horizontal stretch space-between" 
                     >
-                   
                         {
                             token.symbol === 'eth'?
                             <Subtitle>
@@ -99,24 +82,21 @@ export default class MyMoneyScreen extends React.Component {
                         }
                        
                         <Caption>{token.symbol}</Caption>
-                     
                     </View>
-                        
+                       
+                    {/* <Text styleName="disclosure" name="right-arrow" >ETH</Text>  */}
                 </Row>
-               
                 <Divider
                     styleName="line"
                     style={styles.inputLine}
                 /> 
-                </TouchableOpacity>
-    
+            </View>
   
         );
     }
 
     render() {
      const tokenList = this.state.tokenList;
-     console.log('=== >>',tokenList);
       return (
         <View style={styles.container}>
           <ListView
@@ -128,10 +108,6 @@ export default class MyMoneyScreen extends React.Component {
       );
     }
   
-    _signOutAsync = async () => {
-      await AsyncStorage.clear();
-      this.props.navigation.navigate('Auth');
-    };
   }
 
   const styles = StyleSheet.create({

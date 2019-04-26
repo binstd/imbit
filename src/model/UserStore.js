@@ -12,16 +12,13 @@ class UserStore {
     @observable email = '';
     @observable openTouchId = false;
     @observable isAuth = false;
+    @observable network = 'eth-main';
 
     constructor() {
-        AsyncStorage.getItem('userinfo').then( (data) => {
-            // this.userInfo = data ? JSON.parse(data) : null;
-            console.log(' constructor 1');
+        AsyncStorage.getItem('userinfo').then( (data) => { 
             if(data) {
                 this.allSet(JSON.parse(data));
-                console.log(' constructor 2');
             }
-            console.log(' constructor 3');
         });
     }
      
@@ -34,7 +31,7 @@ class UserStore {
             address: this.address,
             email:this.email,
             isAuth:this.isAuth,
-            // token:this.token,
+            network:this.network,
             openTouchId:this.openTouchId
         };
         return data;
@@ -44,21 +41,19 @@ class UserStore {
     //获取结果
     @computed 
     get isLogin() {
-        console.log('this.isAuth',this.isAuth);
         return this.isAuth ? true : false;
     }
 
     //操作
     @action.bound
     async login( userInfo ) {
-        console.log('login data:', userInfo);
-        this.allSet(userInfo);
+        await this.allSet(userInfo);
         this.isAuth = true;
-        await AsyncStorage.setItem('userinfo', JSON.stringify(userInfo) );
+        await AsyncStorage.setItem('userinfo', JSON.stringify(this.getAllData));
     }
   
     @action.bound
-    allSet( jsonData ) {
+    async allSet( jsonData ) {
         if (jsonData['uid']) {
             this.uid = jsonData['uid'];
         }
@@ -83,6 +78,10 @@ class UserStore {
              this.openTouchId = jsonData['openTouchId'];
         }
 
+        if(jsonData['network']) {
+            this.network = jsonData['network'];
+        }
+
     }
 
     //操作
@@ -95,6 +94,8 @@ class UserStore {
         this.address = '';
         this.email = '';
         this.isAuth = false;
+        this.network = 'eth-main';
+        this.openTouchId = false;
         AsyncStorage.removeItem('userinfo');
     }
 }

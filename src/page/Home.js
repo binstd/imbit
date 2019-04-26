@@ -74,29 +74,9 @@ export default class HomeScreen extends React.Component {
             loading: false,
             hasPrivateKey:true,
         };
-        // Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
     }
 
-    // headerOpress( buttonId ) {
-    //     if (buttonId === 'Setting') {
-    //         alert('This is a button:=>',buttonId)
-    //         Navigation.push(this.props.componentId, {
-    //             component: {
-    //                 name: 'Setting',
-    //             }
-    //         });
-    //     }
-    
-    // }
 
-    logout = async () => {
-        // try {
-        //     await AsyncStorage.removeItem(USER_KEY)
-        //     goToAuth()
-        // } catch (err) {
-        //     console.log('error signing out...: ', err)
-        // }
-    }
 
     async UNSAFE_componentWillMount() {
         
@@ -112,7 +92,6 @@ export default class HomeScreen extends React.Component {
     
     async componentDidMount() {
         console.log(userStore.getAllData);
-        // console.log('===>',await loadPrivateKey());
         let privateKey  = await loadPrivateKey();
         this.setState({
             hasPrivateKey:privateKey?true:false,
@@ -121,11 +100,11 @@ export default class HomeScreen extends React.Component {
     }
 
     copyAddress = async () => {
-        // Clipboard.setString(this.state.address);
-        // let str = await Clipboard.getString();
-        // Alert.alert('','已复制',
-        //     [{text:"好的", onPress:this.confirm}]
-        // );
+        Clipboard.setString(userStore.address);
+        let str = await Clipboard.getString();
+        Alert.alert('','已复制',
+            [{text:"好的", onPress:this.confirm}]
+        );
     }
 
     toTransaction = async () => {
@@ -148,7 +127,6 @@ export default class HomeScreen extends React.Component {
     }
 
     render() {
-        // console.log('props; ', this.props)
         const {hasPrivateKey} = this.state;
         const {address, username, telephone}  = userStore.getAllData;
         let showaddress  = address ? address.slice(0,15 ): '';
@@ -160,20 +138,16 @@ export default class HomeScreen extends React.Component {
                     <View style={styles.usercard} >
                         <TouchableOpacity 
                             onPress={() => {
-                                Navigation.push(this.props.componentId, {
-                                    component: {
-                                        name: 'UserInfo',
-                                    }
-                                });
+                                this.props.navigation.navigate('UserInfo');
                             }}
                         >
                             <Row styleName="small"  
                                 style={styles.userinfo} 
                             >
                                 <Blockies
-                                    blockies={address} //string content to generate icon
-                                    size={60} // blocky icon size
-                                    style={{ width: 60, height: 60, marginRight: 20, }} // style of the view will wrap the icon
+                                    blockies={address} 
+                                    size={60} 
+                                    style={{ width: 60, height: 60, marginRight: 20, }} 
                                     color="#dfe" 
                                     bgColor="#ffe" 
                                     spotColor="#abc"   
@@ -202,7 +176,6 @@ export default class HomeScreen extends React.Component {
                                 <Caption >{showaddress}......</Caption>
                             </View>
                             <Button 
-                                // styleName="secondary" 
                                 onPress={this.copyAddress}
                                 name="right-arrow"
                             >
@@ -235,7 +208,6 @@ export default class HomeScreen extends React.Component {
                             width:'100%',
                             marginTop:0,
                             height:50,
-                            // flex: 1,
                             flexDirection: 'row',
                             justifyContent: 'center',
                         }} 
@@ -255,31 +227,23 @@ export default class HomeScreen extends React.Component {
                             <Text>转账</Text>
                         </Button>
                         <Button 
-                            // styleName="secondary" 
                             style={{
                                 width:85,
                                 height:40,
                                 margin:5,
                             }} 
-                            // onPress={this._mymoney}  
                             onPress={() => {
-                                Navigation.push(this.props.componentId, {
-                                    component: {
-                                        name: 'MyMoneyScreen',
-                                    }
-                                });
+                                this.props.navigation.navigate('MyMoney');
                             }}
                         >
                             <Text>我的资产</Text>
                         </Button> 
                         <Button 
-                            // styleName="secondary" 
                             style={{
                                 width:85,
                                 height:40,
                                 margin:5,
                             }} 
-                            // onPress={this._mymoney}  
                             onPress={() => {
                                 this.props.navigation.navigate('TwoFactorList');
                             }}
@@ -300,7 +264,7 @@ export default class HomeScreen extends React.Component {
                                 style={styles.scanicon} 
                                 source={{ uri: 'https://blockluz-1253389096.cos.ap-beijing.myqcloud.com/blockman/scanicon3-1.png'}}
                             />
-                            <Text style={styles.scantext}>扫一扫</Text>
+                            <Text style={styles.scantext}> 扫一扫 </Text>
                         </TouchableOpacity>  
 
                         <Caption
@@ -329,15 +293,12 @@ export default class HomeScreen extends React.Component {
     };
 
     _signOutAsync = async () => {
-        await AsyncStorage.clear();
+        // await AsyncStorage.clear();
         this.props.navigation.navigate('Auth');
     };
     
     _mymoney = () => {
         this.props.navigation.navigate('TwoFactorList');
-        // this.props.navigation.navigate('Connect',{
-        //     URI: this.state.uri,
-        // });
     };
 }
 

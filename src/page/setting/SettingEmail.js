@@ -5,7 +5,7 @@ import { Screen, View, TextInput, Button, Text } from '@shoutem/ui';
 
 import { observer } from 'mobx-react/native';
 import UserStore from '../../model/UserStore';
-import SERVER_URL from '../../helper/Config';
+import {SERVER_URL} from '../../helper/Config';
 
 @observer
 export default class SettingEmailScreen extends React.Component {
@@ -14,27 +14,31 @@ export default class SettingEmailScreen extends React.Component {
     }
 
     async componentDidMount() {
-        const user = UserStore.userInfo;
+        // const user = UserStore.;
         this.setState({
-            username: user.username,
-            email: user.email,
+            username: UserStore.username,
+            email: UserStore.email,
         });
+    }
+
+    onChangeText = (key, val) => {
+        this.setState({ [key]: val })
     }
 
     commit = async () => {
        let postData = {};
-        postData['username'] = this.state.username;
+        // postData['username'] = this.state.username;
         postData['email'] = this.state.email;
- 
-        fetch(`${SERVER_URL}api/users/${UserStore.userInfo.uid}`, {
+        UserStore.login(postData);
+        fetch(`${SERVER_URL}api/users/${UserStore.uid}`, {
             body: JSON.stringify(postData),
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'patch'
         }).then(response => response.json()).then( data => {
+            let user = {};
             user['username'] = this.state.username;
-
             if (this.state.email != '') {
                 user['email'] = this.state.email;
             }
@@ -51,14 +55,7 @@ export default class SettingEmailScreen extends React.Component {
             <Screen style={styles.container}>
                 <Screen style={styles.containerData}>
 
-                    {/* <TextInput
-                        style={styles.input}
-                        placeholder='用户名'
-                        value={username}
-                        autoCapitalize="none"
-                        placeholderTextColor='white'
-                        onChangeText={val => this.onChangeText('username', val)}
-                    /> */}
+                   
 
                     <TextInput
                         style={styles.input}

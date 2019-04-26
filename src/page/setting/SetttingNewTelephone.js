@@ -6,7 +6,7 @@ import {
 
 import { Screen, TextInput, Text, Spinner, Button, Caption, View,TouchableOpacity,Divider } from '@shoutem/ui';
 import UserStore from '../../model/UserStore';
-
+import {SERVER_URL} from '../../helper/Config';
 import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
 
@@ -93,22 +93,20 @@ export default SetttingNewTelephoneScreen = observer( class SetttingNewTelephone
 
     commit = async () => {
         let postData = {};
-   
         postData['telephone'] = this.state.telephone;  
-        let user = await asyncStorageLoad(USER_KEY);
-        fetch(`${SERVER_URL}api/users/${userModel.uid}`, {
+        fetch(`${SERVER_URL}api/users/${UserStore.uid}`, {
             body: JSON.stringify(postData),
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'patch'
         }).then(response => response.json()).then( data => {
-
+            let user = {};
             if (this.state.telephone != '') {
                 user['telephone'] = this.state.telephone;
             }
-            asyncStorageSave(USER_KEY, user);
-            userModel.allSet(user);
+            UserStore.login(user);
+            this.props.navigation.goBack();
         });
     }
 
@@ -152,7 +150,7 @@ export default SetttingNewTelephoneScreen = observer( class SetttingNewTelephone
 
         return (
             <Screen style={styles.container}>
-                {this.state.isLoading ?
+                {isLoading ?
                     <Screen style={styles.containerSpinner} >
                         <Spinner />
                     </Screen>
@@ -199,8 +197,6 @@ export default SetttingNewTelephoneScreen = observer( class SetttingNewTelephone
                                 <Text style={styles.buttonText} >确认</Text>
                             </Button>
 
-                            
-                            
                         </Screen> 
                     </Screen>}
                 <Toast
