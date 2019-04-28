@@ -50,8 +50,6 @@ export default observer( class SettingUserMainScreen extends React.Component {
     }
 
     render() {
-        // const { address,email,username, telephone } = UserStore.userInfo;
-        // console.log(UserStore.userInfo);
         return (
             <Screen >
                 {UserStore.address?
@@ -71,11 +69,6 @@ export default observer( class SettingUserMainScreen extends React.Component {
                     <Button
                         onPress={() => {
                             this.props.navigation.navigate('SettingUsername');
-                            // Navigation.push(this.props.componentId, {
-                            //     component: {
-                            //         name: 'SettingUserInfo',
-                            //     }
-                            // });
                         }}
                     >
                         <Row>
@@ -93,7 +86,6 @@ export default observer( class SettingUserMainScreen extends React.Component {
                             }}
                         >
                             <Row>
-                                {/* <Icon name="folder" /> */}
                                 <Text> 更换手机号 </Text>
                                 <Text style={styles.leftRow} > {UserStore.telephone} </Text>
                                 <Icon styleName="disclosure" name="right-arrow" />

@@ -29,7 +29,7 @@ import {
 } from '@shoutem/ui';
 
 import Blockies from 'react-native-blockies';
-import TouchID from 'react-native-touch-id';
+import {authTouchID} from '../helper/Common';
 import {loadAddress,loadPrivateKey} from '../helper/Wallet';
 
 @observer
@@ -117,13 +117,14 @@ export default class HomeScreen extends React.Component {
         //     });
         //     return ;
         // }
-        // if(await authTouchID('转账')) {
-        //     Navigation.push(this.props.componentId, {
-        //         component: {
-        //             name: 'ChooseSymbol',
-        //         }
-        //     });
-        // }
+        if(await authTouchID('转账')) {
+            this.props.navigation.navigate('ChooseSymbol');
+            // Navigation.push(this.props.componentId, {
+            //     component: {
+            //         name: 'ChooseSymbol',
+            //     }
+            // });
+        }
     }
 
     render() {

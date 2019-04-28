@@ -12,7 +12,7 @@ import Blockies from 'react-native-blockies';
 import UserStore from '../model/UserStore';
 import DropDown from '../components/DropDown';
 // import { asyncStorageSave, asyncStorageLoad, authTouchID } from '../helpers/asyncStorage';
-import {authTouchID} from '../helper/Common';
+import { authTouchID } from '../helper/Common';
 import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import {
@@ -46,7 +46,6 @@ export default class SettingInfoScreen extends React.Component {
         }
     };
     
-
     constructor(props) {
         super(props);
         this.state = {
@@ -112,7 +111,6 @@ export default class SettingInfoScreen extends React.Component {
                         <Button
                             onPress={() => {
                                 this.props.navigation.navigate('MnemonicTold');
-                                // 
                             }}
                         >
                             <Row>

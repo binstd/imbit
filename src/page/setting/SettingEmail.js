@@ -54,9 +54,6 @@ export default class SettingEmailScreen extends React.Component {
         return (
             <Screen style={styles.container}>
                 <Screen style={styles.containerData}>
-
-                   
-
                     <TextInput
                         style={styles.input}
                         placeholder='E-mail'

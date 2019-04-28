@@ -71,8 +71,6 @@ export default class SettingUsernameScreen extends React.Component {
                     <Button
                         styleName="secondary"
                         style={{
-                            // width: 300,
-                            // marginTop: 30,
                             width: '90%',
                             marginTop: 10,
                             backgroundColor: '#308EFF',

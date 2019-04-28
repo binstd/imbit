@@ -5,7 +5,7 @@ import SignInScreen from './page/Sign';
 import OtherScreen from './page/Other';
 
 import MyMoneyScreen from './page/MyMoney';
-
+import WalletTokentxScreen from './page/wallet/Tokentx';
 
 
 import SettingInfoScreen from './page/SettingInfo';
@@ -19,14 +19,16 @@ import SetttingNewTelephoneScreen from './page/setting/SetttingNewTelephone';
 import SettingEmailScreen from './page/setting/SettingEmail';
 import SettingUsernameScreen from './page/setting/SettingUsername';
 
-
-
 import AboutScreen from './page/About';
 import MnemonicToldScreen from './page/mnemonic/Told';
 import MnemonicBackupScreen from './page/mnemonic/Backup';
 import MnemonicConfirmScreen from './page/mnemonic/Confirm';
 
 import UserInfoScreen from './page/UserInfo';
+
+import ChooseSymbolScreen from './page/transaction/ChooseSymbol';
+import TransactionInputScreen from './page/transaction/TransactionInput';
+
 
 const Home = createStackNavigator({  
     Home: HomeScreen, 
@@ -45,7 +47,9 @@ const Home = createStackNavigator({
     MnemonicBackup:MnemonicBackupScreen,
     MnemonicConfirm:MnemonicConfirmScreen,
     UserInfo:UserInfoScreen,
-    // WalletTokentx:WalletTokentxScreen
+    WalletTokentx:WalletTokentxScreen,
+    ChooseSymbol:ChooseSymbolScreen,
+    TransactionInput:TransactionInputScreen
 
 });
 const Auth = createStackNavigator({ SignIn: SignInScreen });
