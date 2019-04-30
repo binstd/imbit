@@ -42,7 +42,7 @@ export default observer(class ChooseSymbolScreen extends React.Component {
     }
 
     TransactionToken(tokenInfo) {
-        console.log('transaction token!',tokenInfo);
+        // console.log('transaction token!',tokenInfo);
         transactionModel.tokenInfoSet(tokenInfo); 
         this.props.navigation.navigate('TransactionInput');
     } 

@@ -2,6 +2,7 @@ import {observable, action, computed} from 'mobx';
 // import { decorate, observable, action, computed } from "mobx";
 import { AsyncStorage } from 'react-native'
 
+
 class UserStore {
 
     @observable userInfo = {};
@@ -12,7 +13,8 @@ class UserStore {
     @observable email = '';
     @observable openTouchId = false;
     @observable isAuth = false;
-    @observable network = 'eth-main';
+    @observable hasPrivate = false;
+    @observable network = 'eth-mainnet';
 
     constructor() {
         AsyncStorage.getItem('userinfo').then( (data) => { 
@@ -32,7 +34,8 @@ class UserStore {
             email:this.email,
             isAuth:this.isAuth,
             network:this.network,
-            openTouchId:this.openTouchId
+            openTouchId:this.openTouchId,
+            hasPrivate:this.hasPrivate
         };
         return data;
     }
@@ -47,6 +50,7 @@ class UserStore {
     //操作
     @action.bound
     async login( userInfo ) {
+        // console.log(" async login( userInfo ) { => ",userInfo);
         await this.allSet(userInfo);
         this.isAuth = true;
         await AsyncStorage.setItem('userinfo', JSON.stringify(this.getAllData));
@@ -81,6 +85,10 @@ class UserStore {
         if(jsonData['network']) {
             this.network = jsonData['network'];
         }
+        if(jsonData['hasPrivate']) {
+            this.hasPrivate = jsonData['hasPrivate'];
+        }
+        
 
     }
 
@@ -94,8 +102,9 @@ class UserStore {
         this.address = '';
         this.email = '';
         this.isAuth = false;
-        this.network = 'eth-main';
+        this.network = 'eth-mainnet';
         this.openTouchId = false;
+        this.hasPrivate = false;
         AsyncStorage.removeItem('userinfo');
     }
 }

@@ -13,8 +13,9 @@ import TelephoneSign from '../components/TelephoneSign';
 
 //登陆页面
 export default class SignInScreen extends React.Component {
+    
     static navigationOptions = {
-        headerTitle: '登陆',
+        headerTitle: '登录',
         headerStyle:{
             elevation:0,
             shadowOpacity: 0
@@ -25,10 +26,9 @@ export default class SignInScreen extends React.Component {
             flex:1, 
             textAlign: 'center'
         }, 
-       
     };
   
-     constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {
             mnemonic: '',
@@ -37,9 +37,7 @@ export default class SignInScreen extends React.Component {
         };
     }
 
-
    setLoading(isLoading) {
-     console.log('llllll:',isLoading);
        this.setState({isLoading:isLoading});
    }
 

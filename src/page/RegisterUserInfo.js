@@ -3,76 +3,70 @@ import {
     StyleSheet
 } from 'react-native';
 
-import { Screen, TextInput, Button, Text, Spinner } from '@shoutem/ui';
 
-import { observer } from 'mobx-react/native';
+import { Screen, TextInput, Button, Text, Spinner } from '@shoutem/ui';
+import { RegisterInfo, CreateUser } from '../helper/UserFetch';
+// import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
+// import { USER_KEY, SERVER_URL } from '../config';
 import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
-import transactionModel from '../../model/transactionModel';
-export default observer( class TransactionInputScreen extends React.Component {
- 
-    static navigationOptions = ({ navigation }) => {
-        return {
-            headerTitle: '转账',
-            headerStyle:{
-                elevation:0,
-                shadowOpacity: 0
-            },
-            headerTitleStyle:{
-                fontSize:19,
-                alignSelf:'center',
-                flex:1, 
-                textAlign: 'center'
-            }, 
-        }
+import UserStore from '../model/UserStore';
+
+export default class RegisterUserInfoScreen extends React.Component {
+    
+    static navigationOptions = {
+        headerTitle: '补充用户信息',
+        headerStyle:{
+            elevation:0,
+            shadowOpacity: 0
+        },
+        headerTitleStyle:{
+            fontSize:18,
+            alignSelf:'center',
+            flex:1, 
+            textAlign: 'center'
+        }, 
     };
-
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '', password: '', address: '', isLoading: false,
-        }
+    state = {
+        username: '', password: '', email: '', isLoading: false,
     }
-
     onChangeText = (key, val) => {
-        this.setState({ [key]: val });
+        this.setState({ [key]: val })
     }
 
     register = async () => {
         const { username, email } = this.state;
-        const { telephone, address } = await asyncStorageLoad(USER_KEY);
+        const { telephone, address } = UserStore.getAllData;
         if( validator.isEmpty(username)) {
             this.refs.toast.show('用户名不能为空.');
             return;
         }
-        // console.log('register,address', address);
+
+        if (!validator.isEmail(email)) {
+            this.refs.toast.show('请输入合适的E-mail.');
+            return;
+         }
         this.setState({ isLoading: true });
         if (username != '' && email != '') {
             setTimeout( async () => {
                 if (address) {
-                    if (await RegisterUserInfo({ username, email, telephone })) {
-                        // goHome();
+                    if (await RegisterInfo({ username, email, telephone })) {
+                        console.log("RegisterUserInfo({ username, email, telephone })");
+                        this.props.navigation.navigate('Home');
                     }else {
+                        console.log("RegisterUserInfo({ username, email, telephone }) false");
                         this.refs.toast.show('E-mail或用户名重复!');
                         this.setState({ isLoading: false });
-                       
                     }
-                   
                 } else {
-                    CreateUser({ username, email, telephone });
+                    if(await CreateUser({ username, email, telephone })) {
+                        this.props.navigation.navigate('Home');
+                    }
                 }
             }, 500);
         } else {
             this.setState({ isLoading: false });
         }
-    }
-
-    async componentDidMount () {
-        this.setState({
-            address:transactionModel.toaddress,
-            // isLoading:true,
-        });
     }
 
     render() {
@@ -86,21 +80,19 @@ export default observer( class TransactionInputScreen extends React.Component {
                     <Screen style={styles.container2} >
                         <TextInput
                             style={styles.input}
-                            defaultValue={this.state.address}
-                            placeholder='目标地址'
+                            placeholder='用户名'
                             autoCapitalize="none"
                             placeholderTextColor='white'
-                            onChangeText={val => this.onChangeText('address', val)}
+                            onChangeText={val => this.onChangeText('username', val)}
                         />
 
                         <TextInput
                             style={styles.input}
-                            placeholder={`${transactionModel.tokenInfo.symbol}的数量`}
+                            placeholder='E-mail'
                             autoCapitalize="none"
                             placeholderTextColor='white'
-                            onChangeText={val => this.onChangeText('amount', val)}
+                            onChangeText={val => this.onChangeText('email', val)}
                         />
-
                         <Button
                             styleName="secondary"
                             style={{
@@ -109,9 +101,9 @@ export default observer( class TransactionInputScreen extends React.Component {
                                 backgroundColor: '#308EFF',
                                 borderColor: '#308EFF',
                             }}
-                            // onPress={this.register}
+                            onPress={this.register}
                         >
-                            <Text>确认</Text>
+                            <Text>完成注册</Text>
                         </Button>
                     </Screen>
                 }
@@ -124,7 +116,6 @@ export default observer( class TransactionInputScreen extends React.Component {
         )
     }
 }
-);
 
 const styles = StyleSheet.create({
     input: {

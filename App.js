@@ -19,7 +19,6 @@ export default class App extends React.Component {
       }
     
       componentDidMount() {
-     
         AsyncStorage.getItem('userinfo').then( (data) => {
             this.setState({
                 signedIn:data ? true : false,
@@ -28,8 +27,7 @@ export default class App extends React.Component {
             SplashScreen.hide();
         });
 
-       
-      }
+    }
 
      render() {
         const {signedIn} = this.state; 

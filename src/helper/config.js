@@ -6,7 +6,7 @@ export const ALLOW_NETWORK = [
     {
         title: "以太主网络",
         url:'l4343',
-        code:"eth-main",
+        code:"eth-mainnet",
     },
     {
         title: "ropsten网络",

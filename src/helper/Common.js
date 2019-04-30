@@ -1,4 +1,5 @@
 import UserStore from '../model/UserStore';
+import TouchID from 'react-native-touch-id';
 //验证指纹识别
 export async function authTouchID(authTypeMassage, offAuth = false ) {
 

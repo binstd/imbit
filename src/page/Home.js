@@ -11,7 +11,7 @@ import {
 
 import { observer } from 'mobx-react/native';
 
-import userStore from '../model/UserStore';
+import UserStore from '../model/UserStore';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import {
     Icon,
@@ -34,6 +34,7 @@ import {loadAddress,loadPrivateKey} from '../helper/Wallet';
 
 @observer
 export default class HomeScreen extends React.Component {
+
     static navigationOptions = ({ navigation }) => {
         return {
             headerTitle: 'ImBit',
@@ -71,7 +72,7 @@ export default class HomeScreen extends React.Component {
             address:'0sssfd',
             username:'',
             telephone:'',
-            loading: false,
+            loading: true,
             hasPrivateKey:true,
         };
     }
@@ -81,7 +82,7 @@ export default class HomeScreen extends React.Component {
     async UNSAFE_componentWillMount() {
         
         // const user = await asyncStorageLoad(USER_KEY);
-        // userStore.allSet(user);
+        // UserStore.allSet(user);
         // console.log('user',user);
         // this.setState({
         //     address:user.address,
@@ -91,16 +92,16 @@ export default class HomeScreen extends React.Component {
     }
     
     async componentDidMount() {
-        console.log(userStore.getAllData);
-        let privateKey  = await loadPrivateKey();
-        this.setState({
-            hasPrivateKey:privateKey?true:false,
-        })
-        
+        // console.log(UserStore.getAllData);
+        // let privateKey  = await loadPrivateKey();
+        // this.setState({
+        //     hasPrivateKey:privateKey?true:false,
+        //     loading:privateKey?false:true
+        // }); 
     }
 
     copyAddress = async () => {
-        Clipboard.setString(userStore.address);
+        Clipboard.setString(UserStore.address);
         let str = await Clipboard.getString();
         Alert.alert('','已复制',
             [{text:"好的", onPress:this.confirm}]
@@ -108,33 +109,47 @@ export default class HomeScreen extends React.Component {
     }
 
     toTransaction = async () => {
-        // if(!userStore.privateKey) {
-        //     this.refs.toast.show('请先绑定区块链身份!');
-        //     Navigation.push(this.props.componentId, {
-        //         component: {
-        //             name: 'BindingMnemonic',
-        //         }
-        //     });
-        //     return ;
-        // }
+        const userNetwork = UserStore.network.split("-");
+        let balance = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=balance&address=${UserStore.address}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'get'
+        }).then(response => response.json());
+
+        if(balance.result ===  '0') {
+            this.refs.toast.show('没有足够的ETH,支付转账费!');
+            return ;
+        }
+
         if(await authTouchID('转账')) {
             this.props.navigation.navigate('ChooseSymbol');
-            // Navigation.push(this.props.componentId, {
-            //     component: {
-            //         name: 'ChooseSymbol',
-            //     }
-            // });
         }
     }
 
+    toMymoney = async () => {
+        const userNetwork = UserStore.network.split("-");
+        let balance = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=balance&address=${UserStore.address}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'get'
+        }).then(response => response.json());
+
+        if(balance.result ===  '0') {
+            this.refs.toast.show('您在当前区块链网络没有任何资产!');
+            return ;
+        }
+        this.props.navigation.navigate('MyMoney');
+    }
+
     render() {
-        const {hasPrivateKey} = this.state;
-        const {address, username, telephone}  = userStore.getAllData;
+        const {address, username, telephone,hasPrivate}  = UserStore.getAllData;
         let showaddress  = address ? address.slice(0,15 ): '';
    
         return (
             <Screen >
-            {   address ?
+            {   hasPrivate?
                 <Screen >                
                     <View style={styles.usercard} >
                         <TouchableOpacity 
@@ -184,7 +199,7 @@ export default class HomeScreen extends React.Component {
                             </Button>
                         </Row>
                             {
-                                !hasPrivateKey &&
+                                !hasPrivate &&
                                 <TouchableOpacity
                                 style={styles.bindingMnemonic}
                                 onPress={() => {
@@ -214,13 +229,11 @@ export default class HomeScreen extends React.Component {
                         }} 
                     >
                         <Button 
-
                             style={{
                                 width:85,
                                 height:40,
                                 margin:5,
                             }} 
-
                             onPress={() => {
                                 this.toTransaction();
                             }} 
@@ -234,7 +247,7 @@ export default class HomeScreen extends React.Component {
                                 margin:5,
                             }} 
                             onPress={() => {
-                                this.props.navigation.navigate('MyMoney');
+                                this.toMymoney();
                             }}
                         >
                             <Text>我的资产</Text>

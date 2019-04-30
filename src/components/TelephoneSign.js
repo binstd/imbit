@@ -10,11 +10,9 @@ import {
     Caption,
     Divider,
 } from '@shoutem/ui';
-// import timerModel from '../model/timerModel';
-// import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
-// import { hasTelephone } from '../helpers/userFetch';
-// import { goHome, goUserInfo } from '../initNavigation';
-// import { USER_KEY,SERVER_URL } from '../config';
+
+
+import { hasTelephone } from '../helper/UserFetch';
 import timerModel from '../model/timerModel';
 import UserStore from '../model/UserStore';
 import validator from 'validator';
@@ -34,39 +32,34 @@ const TelephoneSign = observer( class TelephoneSign extends React.Component {
             isSending: false
         };
     }
-
-
-    componentDidMount() {
-       
-    }
-
+    
     onChangeText = (key, value) => {
-        // this.setState({ [key]: value })
+        this.setState({ [key]: value })
     }
 
     async getMassegeCode() {
-        // const { telephone, code } = this.state;
-        // if (!validator.isMobilePhone(telephone, ['zh-CN', 'zh-HK', 'zh-TW'])) {
-        //     this.refs.toast.show('请输入正确的电话号码');
-        // } else {
-        //     // this.setState({ isSending: true });
-        //     fetch(`https://api.binstd.com/api/virify/massegecode?telephone=${telephone}`, {
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         }
-        //     }).then(response => response.json()).then( data => {
-        //         timerModel.reset();
-        //         this.setState({
-        //             realCode:data.code,
-        //             isSending:true
-        //         });
-        //     });   
-        // }
+        const { telephone, code } = this.state;
+        if (!validator.isMobilePhone(telephone, ['zh-CN', 'zh-HK', 'zh-TW'])) {
+            this.refs.toast.show('请输入正确的电话号码');
+        } else {
+            // this.setState({ isSending: true });
+            fetch(`https://api.binstd.com/api/virify/massegecode?telephone=${telephone}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json()).then( data => {
+                timerModel.reset();
+                this.setState({
+                    realCode:data.code,
+                    isSending:true
+                });
+            });   
+        }
     }
 
     virifyMassegeCode() {
         const { telephone, code, realCode} = this.state;
-        // console.log(telephone);
+
         if (!validator.isMobilePhone(telephone, ['zh-CN', 'zh-HK', 'zh-TW'])) {
             this.refs.toast.show('请输入正确的电话号码!');
         }
@@ -76,7 +69,6 @@ const TelephoneSign = observer( class TelephoneSign extends React.Component {
         }
 
         if(realCode == code) {  
-            // this.setState({ isLoading: true }); 
             this.props.setLoading(true);
             setTimeout(() => {
                 this.toPage();
@@ -87,24 +79,26 @@ const TelephoneSign = observer( class TelephoneSign extends React.Component {
     }
 
     async toPage() {
-        // const { telephone } = this.state;
-        // let user = await asyncStorageLoad(USER_KEY)?await asyncStorageLoad(USER_KEY):{};
-        // user.telephone = telephone;
-        // await asyncStorageSave(USER_KEY, user);
-     
-        // //判断是新用户还是老用户,登录验证
-        // if(await hasTelephone(telephone) == 1) {
-        //     if(user['address']) {
-        //         this.refs.toast.show('该手机号已被使用，请更换新手机号重试！');
-        //         return;
-        //     } else {
-        //         this.props.setLoading(false);
-        //         goHome();
-        //     }  
-        // } else {
-        //     this.props.setLoading(false);
-        //     goUserInfo();
-        // }
+        const { telephone } = this.state;
+      
+        let user =  UserStore.getAllData;
+        user.telephone = telephone;
+        UserStore.login(user);
+
+        //判断是新用户还是老用户,登录验证
+        if(await hasTelephone(telephone) == 1) { 
+            if(user['address']) { 
+                this.refs.toast.show('该手机号已被使用，请更换新手机号重试！');
+                return;
+            } else { //登陆
+                this.props.setLoading(false);
+                // goHome();
+                this.props.navigation.navigate('Home');
+            }  
+        } else { //注册
+            this.props.setLoading(false);
+            this.props.navigation.navigate('RegisterUserInfo');
+        }
 
     }
 

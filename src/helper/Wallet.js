@@ -6,16 +6,17 @@ import {
     AUTHENTICATION_TYPE,
     canImplyAuthentication,
 } from 'react-native-keychain';
+// import { getConsoleOutput } from '@jest/console';
+
 const seedPhraseKey = 'openWalletSeedPhrase';
 const privateKeyKey = 'openWalletPrivateKey';
 const addressKey = 'openWalletAddressKey';
 
-// 
+
 export const walletInit = async (seedPhrase = null) => {
     let walletAddress = null;
     let isWalletBrandNew = false;
     if (seedPhrase) {
-        console.log('seedPhrase:', seedPhrase);
         walletAddress = await createWallet(seedPhrase);
     }
     if (!walletAddress) {
@@ -23,8 +24,12 @@ export const walletInit = async (seedPhrase = null) => {
     }
     if (!walletAddress) {
         walletAddress = await createWallet();
+        // console.log('walletAddress:',walletAddress);
         isWalletBrandNew = true;
     }
+    console.log('\n wallet-Address:',walletAddress);
+    console.log('\n typeof-wallet:', typeof walletAddress);
+    
     return { isWalletBrandNew, walletAddress };
 };
 
@@ -85,8 +90,10 @@ const saveAddress = async (address) => {
 export  const loadPrivateKey = async (authenticationPrompt) => {
     try {
         const privateKey = await keychain.loadString(privateKeyKey, { authenticationPrompt });
+        console.log(privateKey);
         return privateKey;
     } catch (error) {
+        console.log('meiyou!');
         return null;
     }
 };
@@ -95,7 +102,9 @@ export  const loadPrivateKey = async (authenticationPrompt) => {
 export const loadAddress = async () => {
     try {
         return await keychain.loadString(addressKey);
+        console.log('eychain.loadString(addressKey)');
     } catch (error) {
+        console.log(" } catch (error) {");
         return null;
     }
 };
@@ -106,3 +115,8 @@ export const loadSeedPhrase = async (authenticationPrompt) => {
     return seedPhrase;
 };
 
+export const removeWallet = async () => {
+    await keychain.remove(seedPhraseKey);
+    await keychain.remove(privateKeyKey);
+    await keychain.remove(addressKey);
+}

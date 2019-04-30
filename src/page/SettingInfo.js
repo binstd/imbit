@@ -25,7 +25,7 @@ import {
     Spinner,
     Switch
 } from '@shoutem/ui';
-import {loadAddress,loadPrivateKey } from '../helper/Wallet';
+import {loadAddress,loadPrivateKey,removeWallet } from '../helper/Wallet';
 
 @observer
 export default class SettingInfoScreen extends React.Component {
@@ -70,6 +70,7 @@ export default class SettingInfoScreen extends React.Component {
             return false;
         }
         UserStore.logout();
+        await removeWallet();
         this.props.navigation.navigate('Auth');
     }
 

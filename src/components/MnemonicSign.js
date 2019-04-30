@@ -11,7 +11,6 @@ import {
 } from '@shoutem/ui';
 
 
-// import { hasAddress } from '../helpers/userFetch';
 import { hasAddress } from '../helper/UserFetch';
 // import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
@@ -55,20 +54,17 @@ class MnemonicSign extends React.Component {
     }
     //marine egg thunder risk method absorb kitchen bird assist legend clarify approve
      saveWallet = async (mnemonic) => {
-        // userModel.clearAll();
         let { walletAddress } = await walletInit(mnemonic);
         if (!walletAddress) {
             this.props.setLoading(false);
         }
-
         let userdata = await hasAddress(walletAddress);
-        console.log(userdata);
         if (userdata) {
-            console.log('1');
+            console.log(userdata);
+            userdata['hasPrivate'] = true;
             await UserStore.login(userdata);
-            console.log('2');
+            console.log('-----mmmmm-------');
             await this.props.navigation.navigate('Home');
-            // this.props.setLoading(false);
         } else {
             this.props.setLoading(false);
         }
