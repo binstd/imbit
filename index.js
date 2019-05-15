@@ -1,9 +1,14 @@
 /** @format */
 console.disableYellowBox = true;
 console.warn('YellowBox is disabled.');
+
 import './global';
 import './shim';
-import {AppRegistry} from 'react-native';
+// import { asyncRandomBytes } from 'react-native-secure-randombytes'
+// import safeCrypto from 'react-native-safe-crypto'
+// window.randomBytes = asyncRandomBytes;
+// window.scryptsy = safeCrypto.scrypt;
+import { AppRegistry } from 'react-native';
 
 
 import App from './App';

@@ -22,7 +22,8 @@ export default observer(class MnemonicConfirmScreen extends React.Component {
             headerTitle: '助记词备份确认',
             headerStyle:{
                 elevation:0,
-                shadowOpacity: 0
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
             },
             headerTitleStyle:{
                 fontSize:19,

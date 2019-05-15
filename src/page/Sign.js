@@ -18,7 +18,8 @@ export default class SignInScreen extends React.Component {
         headerTitle: '登录',
         headerStyle:{
             elevation:0,
-            shadowOpacity: 0
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
         },
         headerTitleStyle:{
             fontSize:18,

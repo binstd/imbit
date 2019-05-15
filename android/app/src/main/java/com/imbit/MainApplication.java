@@ -3,8 +3,9 @@ package com.imbit;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.oblador.keychain.KeychainPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
+import com.reactlibrary.RNUportSignerPackage;
+import com.oblador.keychain.KeychainPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -32,8 +33,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new KeychainPackage(),
             new RandomBytesPackage(),
+            new RNUportSignerPackage(),
+            new KeychainPackage(),
             new RNCameraPackage(),
             new RNGestureHandlerPackage(),
             new SplashScreenReactPackage(),

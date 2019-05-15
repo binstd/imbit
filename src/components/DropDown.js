@@ -17,13 +17,10 @@ export default class DropDown extends React.Component {
         super(props);
         this.state = {
             network:ALLOW_NETWORK,
-            // userInfo:[]
         }
     }
 
     settingLan(selectedNetwork) {
-     
-   
         this.setState({ 
             selectedNetwork: selectedNetwork,
             network:ALLOW_NETWORK,

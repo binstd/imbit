@@ -4,10 +4,6 @@ import {
   AsyncStorage
 } from 'react-native'
 
-// import { goHome } from '../initNavigation'
-// import { USER_KEY } from '../config'
-
-// import { Navigation } from 'react-native-navigation';
 
 import { observer } from 'mobx-react/native';
 import {loadSeedPhrase} from '../../helper/Wallet';
@@ -21,7 +17,8 @@ export default observer(class MnemonicBackupScreen extends React.Component {
             headerTitle: '备份',
             headerStyle:{
                 elevation:0,
-                shadowOpacity: 0
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
             },
             headerTitleStyle:{
                 fontSize:19,

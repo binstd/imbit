@@ -8,7 +8,9 @@ import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 
 import android.os.Bundle;  //add  启动图
 import org.devio.rn.splashscreen.SplashScreen; //add 启动图
+
 public class MainActivity extends ReactActivity {
+
     //启动图 start 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

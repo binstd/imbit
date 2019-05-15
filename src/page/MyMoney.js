@@ -26,7 +26,8 @@ export default class MyMoneyScreen extends React.Component {
             headerTitle: '我的资产',
             headerStyle:{
                 elevation:0,
-                shadowOpacity: 0
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
             },
             headerTitleStyle:{
                 fontSize:19,

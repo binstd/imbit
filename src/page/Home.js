@@ -39,8 +39,10 @@ export default class HomeScreen extends React.Component {
         return {
             headerTitle: 'ImBit',
             headerStyle:{
+                // borderBottomWidth:0,
                 elevation:0,
-                shadowOpacity: 0
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
             },
             headerTitleStyle:{
                 fontSize:19,

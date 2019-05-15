@@ -9,6 +9,23 @@ import {SERVER_URL} from '../../helper/Config';
 
 @observer
 export default class SettingUsernameScreen extends React.Component {
+    static navigationOptions = ({ navigation }) => {
+        return {
+            headerTitle: '修改用户昵称',
+            headerStyle:{
+                elevation:0,
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
+            },
+            headerTitleStyle:{
+                fontSize:19,
+                alignSelf:'center',
+                flex:1, 
+                textAlign: 'center'
+            }, 
+          
+        }
+    };
     state = {
         username: '', email: '',
     }

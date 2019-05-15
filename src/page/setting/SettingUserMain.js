@@ -29,7 +29,8 @@ export default observer( class SettingUserMainScreen extends React.Component {
             headerTitle: '个人信息',
             headerStyle:{
                 elevation:0,
-                shadowOpacity: 0
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
             },
             headerTitleStyle:{
                 fontSize:19,

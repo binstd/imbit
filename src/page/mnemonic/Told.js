@@ -17,7 +17,8 @@ export default observer( class MnemonicToldScreen extends React.Component {
             headerTitle: '提示',
             headerStyle:{
                 elevation:0,
-                shadowOpacity: 0
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
             },
             headerTitleStyle:{
                 fontSize:19,
@@ -88,14 +89,8 @@ export default observer( class MnemonicToldScreen extends React.Component {
                         backgroundColor:'#308EFF',
                         borderColor:'#308EFF'
                     }}
-                    // onPress={this.signIn}
                     onPress={() => {
                         this.props.navigation.navigate('MnemonicBackup');
-                        // Navigation.push(this.props.componentId, {
-                        //     component: {
-                        //         name: 'MnemonicBackup',
-                        //     }
-                        // });
                     }}
             >
                     <Text>备份身份</Text>
@@ -106,11 +101,14 @@ export default observer( class MnemonicToldScreen extends React.Component {
                     width: '90%',
                     margin: 'auto',
                     marginTop: 5,
-                    marginBottom:80,
+                    marginBottom:180,
                     backgroundColor:'#308EFF',
                     borderColor:'#308EFF'
                 }}
-                // onPress={goHome}
+
+                onPress={() => {
+                    this.props.navigation.navigate('MnemonicBackup');
+                }}
             >
                 <Text>稍后备份</Text>
             </Button>

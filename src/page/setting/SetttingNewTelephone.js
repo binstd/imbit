@@ -19,7 +19,8 @@ export default SetttingNewTelephoneScreen = observer( class SetttingNewTelephone
             headerTitle: '重置手机号',
             headerStyle:{
                 elevation:0,
-                shadowOpacity: 0
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
             },
             headerTitleStyle:{
                 fontSize:19,

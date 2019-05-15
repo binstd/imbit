@@ -6,7 +6,6 @@ import createRootNavigator from './src/Initialising';
 import { createAppContainer } from 'react-navigation';
 import SplashScreen from 'react-native-splash-screen';
 
-
 // @observer
 export default class App extends React.Component {
 
@@ -16,9 +15,9 @@ export default class App extends React.Component {
           signedIn: false,
           checkedSignIn: false
         };
-      }
+    }
     
-      componentDidMount() {
+    componentDidMount() {
         AsyncStorage.getItem('userinfo').then( (data) => {
             this.setState({
                 signedIn:data ? true : false,
@@ -26,12 +25,11 @@ export default class App extends React.Component {
             });
             SplashScreen.hide();
         });
-
     }
 
      render() {
         const {signedIn} = this.state; 
-        console.log('signedIn:',signedIn);
+        // console.log('signedIn:',signedIn);
 
         const AppContainer = createAppContainer(createRootNavigator(signedIn));
         

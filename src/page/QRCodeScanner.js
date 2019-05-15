@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
 
 import {
-    AppRegistry,
     StyleSheet,
-    Text,
-    TouchableOpacity,
-    Linking,
     View
 } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
-
-
-
 
 // 扫码
 class QRCodeScannerScreen extends Component {
