@@ -30,6 +30,7 @@ import { authTouchID } from '../helper/Common';
 import SplashScreen from 'react-native-splash-screen';
 import UserStore from '../model/UserStore';
 import tokenStore from '../model/tokenStore';
+import {ALLOW_NETWORK} from '../helper/Config';
 
 @observer
 export default class HomeScreen extends React.Component {
@@ -78,18 +79,8 @@ export default class HomeScreen extends React.Component {
         };
     }
 
-
-
-    async UNSAFE_componentWillMount() {
-    
-    }
-
     async componentDidMount() {
         user = UserStore.getAllData;
-
-        // console.log(UserStore.getAllData);
-
-      
         if(!user.address) {
             // start 完全为中心化准备
             if (!user.telephone ) {  
@@ -98,15 +89,17 @@ export default class HomeScreen extends React.Component {
                 this.props.navigation.navigate('RegisterUserInfo');
             }
            // end 完全为中心化准备
-        } else { //获取以太币
+        } else {  //获取以太币
             const userNetwork = user.network.split("-");
+            let network = ALLOW_NETWORK.filter(item => item.code === UserStore.network)[0];
+            
             let balance = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=balance&address=${UserStore.address}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 method: 'get'
             }).then(response => response.json());
-            console.log('balance =>',balance);
+            console.log('network-balance =>',balance,network);
             if(await tokenStore.balanceSet(balance.result)){
                 SplashScreen.hide(); 
             }

@@ -1,5 +1,5 @@
 import * as keychain from './Keychain';
-// import ethers from 'ethers';
+import ethers from 'ethers';
 // import { RNUportHDSigner } from 'react-native-uport-signer';
 import {
     ACCESS_CONTROL,
@@ -8,18 +8,16 @@ import {
     canImplyAuthentication,
 } from 'react-native-keychain';
 
-// import bip39 from 'react-native-bip39';
-
-// import hdKey from 'hdkey'
 
 import HDWallet from './hdwallet/HDWallet';
 import walletUtils from './hdwallet/walletUtils';
-// var ethUtil = require('ethereumjs-util');
 
 const seedPhraseKey = 'openWalletSeedPhrase';
 const privateKeyKey = 'openWalletPrivateKey';
 const addressKey = 'openWalletAddressKey';
 
+import UserStore from '../model/UserStore';
+import {ALLOW_NETWORK} from './Config';
 export const walletInit = async (seedPhrase = null) => {
     let walletAddress = null;
     let isWalletBrandNew = false;
@@ -40,64 +38,19 @@ export const walletInit = async (seedPhrase = null) => {
     return { isWalletBrandNew, walletAddress };
 };
 
-// // 生成助记词
-// export function generateSeedPhrase() {
-//     return bip39.generateMnemonic(); //ethers.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16));
-// }
 
 // //通过 助记词 创建钱包 
 const createWallet = async (seedPhrase) => {
-    // console.log('创建钱包start:',seedPhrase);
-    const walletSeedPhrase = seedPhrase || await walletUtils.generateMnemonic();
-    // console.log('创建钱包walletSeedPhrase:',walletSeedPhrase);
- 
+    const walletSeedPhrase = seedPhrase || await walletUtils.generateMnemonic(); 
     const seed = walletUtils.mnemonicToSeed(walletSeedPhrase);
-    // const seedHex = seed.toString('hex');
     var hdwallet = HDWallet.fromMasterSeed(seed);
     hdwallet.setDerivePath("m/44'/60'/0'/0/0");
     const address = hdwallet.getChecksumAddressString();
     const privateKey = hdwallet.getPrivateKeyString();
-
-
-
-    // //建立种子
-    // let hexSeed = await bip39.mnemonicToSeed(walletSeedPhrase);
-    
-    // var hdkey = hdKey.fromMasterSeed(hexSeed);
-
-    // var addrNode = hdkey.derive("m/44'/60'/0'/0/0");
-    // console.log('addrNode => \n', addrNode);  
-    // const pubKey = ethUtil.privateToPublic(addrNode._privateKey);
-    // const privateKey =  ethUtil.bufferToHex(addrNode._privateKey)
-    // // const privateKey =  ethUtil.bufferToHex(addrNode._privateKey)
-    // const addr = ethUtil.publicToAddress(pubKey).toString('hex');
-    // const address = ethUtil.toChecksumAddress(addr);
-    // //保存钱包信息
- 
-   
-
-    // const addressObj = await RNUportHDSigner.importSeed(walletSeedPhrase, 'simple');
-    // console.log('addressObj',addressObj);
-    // const addressObj2  = await  RNUportHDSigner.addressForPath(addressObj.address, `m/44'/60'/0'/0/0`, 'Create a new address');
-    // console.log('addressObj2',addressObj2);
-   
     saveWalletDetails(walletSeedPhrase, privateKey, address);
     return address;
 };
 
-
-// //通过 助记词 创建钱包 
-// const createWallet = async (seedPhrase) => {
-//     console.log('创建钱包start');
-//     const walletSeedPhrase = seedPhrase || generateSeedPhrase();
-//     console.log('创建钱包walletSeedPhrase');
-//     const wallet = ethers.Wallet.fromMnemonic(walletSeedPhrase);
-//     console.log('创建钱包ethers.Wallet.fromMnemonic');
-//     //保存钱包信息
-//     saveWalletDetails(walletSeedPhrase, wallet.privateKey, wallet.address);
-//     console.log('wallet.address',wallet.address);
-//     return wallet.address;
-// };
 
 // 保存   
 const saveWalletDetails = async (seedPhrase, privateKey, address) => {
@@ -167,4 +120,68 @@ export const removeWallet = async () => {
     await keychain.remove(seedPhraseKey);
     await keychain.remove(privateKeyKey);
     await keychain.remove(addressKey);
+}
+
+// export async function loadWallet(mnemonic) {
+//     let wallet = ethers.Wallet.fromMnemonic(mnemonic);
+//     let user = {};
+//     user['mnemonic'] = mnemonic.split(" ");
+//     user['address'] = wallet.address.toLowerCase();
+//     user['privateKey'] = wallet.privateKey;
+//     userModel.allSet(user);
+//     await asyncStorageSave(USER_KEY, user);
+//     return wallet;
+// }
+
+// 载入钱包
+export const loadWallet = async () => {
+    const privateKey = await loadPrivateKey();   
+    if (privateKey) {
+      console.log('privateKey-network', privateKey, UserStore.network);
+      let network = ALLOW_NETWORK.filter(item => item.code === UserStore.network);
+      const provider = new ethers.providers.JsonRpcProvider(network.rpc_url);
+      wallet = new ethers.Wallet(privateKey, provider);
+      return wallet;
+    }
+    return null;
+};
+
+//发送一笔交易
+export async function sendTransaction(transaction) {
+
+    const user = await asyncStorageLoad(USER_KEY);
+    console.log(transaction);
+    let activeAccount = new ethers.Wallet(user.privateKey);
+    activeAccount.provider = PROVIDER;
+    console.log('activeAccount', activeAccount.address);
+    if (activeAccount) {
+        if (transaction.from && transaction.from.toLowerCase() !== activeAccount.address.toLowerCase()) {
+            console.error("Transaction request From doesn't match active account"); // tslint:disable-line
+        }
+
+        if (transaction.from) {
+            delete transaction.from;
+        }
+        
+        const result = await activeAccount.sendTransaction(transaction);
+        return result.hash;
+    } else {
+        console.error("No Active Account"); // tslint:disable-line
+    }
+    return null;
+}
+
+//签名消息
+export async function signMessage(message) {
+    const user = await asyncStorageLoad(USER_KEY);
+    console.log(user);
+    let activeAccount = new ethers.Wallet(user.privateKey);
+    activeAccount.provider = PROVIDER;
+    if (activeAccount) {
+        const result = await activeAccount.signMessage(message);
+        return result;
+    } else {
+        console.error("No Active Account"); // tslint:disable-line
+    }
+    return null;
 }
