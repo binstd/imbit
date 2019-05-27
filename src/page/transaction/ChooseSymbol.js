@@ -29,6 +29,7 @@ export default observer(class ChooseSymbolScreen extends React.Component {
                 flex:1, 
                 textAlign: 'center'
             }, 
+            headerRight: (<View></View>)
         }
     };
 

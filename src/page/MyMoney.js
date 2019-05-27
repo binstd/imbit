@@ -35,6 +35,7 @@ export default class MyMoneyScreen extends React.Component {
                 flex:1, 
                 textAlign: 'center'
             }, 
+            headerRight: (<View></View>)
         }
     };
 

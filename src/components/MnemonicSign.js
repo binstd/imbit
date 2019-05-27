@@ -60,13 +60,12 @@ class MnemonicSign extends React.Component {
         }
         let userdata = await hasAddress(walletAddress);
         if (userdata) {
-            console.log(userdata);
             userdata['hasPrivate'] = true;
             await UserStore.login(userdata);
-            console.log('-----mmmmm-------');
             await this.props.navigation.navigate('Home');
         } else {
             this.props.setLoading(false);
+            //设置手机号页面
         }
     }
 

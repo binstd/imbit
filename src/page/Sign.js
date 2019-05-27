@@ -10,6 +10,7 @@ import { Screen, Text, Spinner, View, TouchableOpacity, Divider } from '@shoutem
 import MnemonicSign from '../components/MnemonicSign';
 import TelephoneSign from '../components/TelephoneSign';
 
+import SplashScreen from 'react-native-splash-screen';
 
 //登陆页面
 export default class SignInScreen extends React.Component {
@@ -41,6 +42,9 @@ export default class SignInScreen extends React.Component {
    setLoading(isLoading) {
        this.setState({isLoading:isLoading});
    }
+   componentDidMount() {
+        SplashScreen.hide(); 
+    }
 
     render() {
         const { tabIsMnemonic } = this.state;

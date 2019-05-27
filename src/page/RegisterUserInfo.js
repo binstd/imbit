@@ -6,8 +6,7 @@ import {
 
 import { Screen, TextInput, Button, Text, Spinner } from '@shoutem/ui';
 import { RegisterInfo, CreateUser } from '../helper/UserFetch';
-// import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
-// import { USER_KEY, SERVER_URL } from '../config';
+
 import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import UserStore from '../model/UserStore';

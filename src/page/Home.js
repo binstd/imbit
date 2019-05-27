@@ -4,14 +4,10 @@ import {
     Clipboard,
     Alert,
     StyleSheet,
-    AsyncStorage
-} from 'react-native'
-
-
+} from 'react-native';
 
 import { observer } from 'mobx-react/native';
 
-import UserStore from '../model/UserStore';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import {
     Icon,
@@ -29,8 +25,11 @@ import {
 } from '@shoutem/ui';
 
 import Blockies from 'react-native-blockies';
-import {authTouchID} from '../helper/Common';
-import {loadAddress,loadPrivateKey} from '../helper/Wallet';
+import { authTouchID } from '../helper/Common';
+
+import SplashScreen from 'react-native-splash-screen';
+import UserStore from '../model/UserStore';
+import tokenStore from '../model/tokenStore';
 
 @observer
 export default class HomeScreen extends React.Component {
@@ -82,24 +81,36 @@ export default class HomeScreen extends React.Component {
 
 
     async UNSAFE_componentWillMount() {
-        
-        // const user = await asyncStorageLoad(USER_KEY);
-        // UserStore.allSet(user);
-        // console.log('user',user);
-        // this.setState({
-        //     address:user.address,
-        //     username:user.username,
-        //     telephone:user.telephone
-        // });
-    }
     
+    }
+
     async componentDidMount() {
+        user = UserStore.getAllData;
+
         // console.log(UserStore.getAllData);
-        // let privateKey  = await loadPrivateKey();
-        // this.setState({
-        //     hasPrivateKey:privateKey?true:false,
-        //     loading:privateKey?false:true
-        // }); 
+
+      
+        if(!user.address) {
+            // start 完全为中心化准备
+            if (!user.telephone ) {  
+                console.log('没有手机号');
+            } else if (!user.username) {
+                this.props.navigation.navigate('RegisterUserInfo');
+            }
+           // end 完全为中心化准备
+        } else { //获取以太币
+            const userNetwork = user.network.split("-");
+            let balance = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=balance&address=${UserStore.address}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'get'
+            }).then(response => response.json());
+            console.log('balance =>',balance);
+            if(await tokenStore.balanceSet(balance.result)){
+                SplashScreen.hide(); 
+            }
+        }
     }
 
     copyAddress = async () => {
@@ -111,15 +122,16 @@ export default class HomeScreen extends React.Component {
     }
 
     toTransaction = async () => {
-        const userNetwork = UserStore.network.split("-");
-        let balance = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=balance&address=${UserStore.address}`, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: 'get'
-        }).then(response => response.json());
-
-        if(balance.result ===  '0') {
+        // const userNetwork = UserStore.network.split("-");
+        // let balance = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=balance&address=${UserStore.address}`, {
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     method: 'get'
+        // }).then(response => response.json());
+  
+        console.log('tokenStore.balance; =>',tokenStore.balance);
+        if(tokenStore.balance ===  '0') {
             this.refs.toast.show('没有足够的ETH,支付转账费!');
             return ;
         }
@@ -130,15 +142,8 @@ export default class HomeScreen extends React.Component {
     }
 
     toMymoney = async () => {
-        const userNetwork = UserStore.network.split("-");
-        let balance = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=balance&address=${UserStore.address}`, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: 'get'
-        }).then(response => response.json());
-
-        if(balance.result ===  '0') {
+       
+        if(tokenStore.balance ===  '0') {
             this.refs.toast.show('您在当前区块链网络没有任何资产!');
             return ;
         }
@@ -148,10 +153,10 @@ export default class HomeScreen extends React.Component {
     render() {
         const {address, username, telephone,hasPrivate}  = UserStore.getAllData;
         let showaddress  = address ? address.slice(0,15 ): '';
-   
+        console.log(' UserStore.getAllData', UserStore.getAllData);
         return (
             <Screen >
-            {   hasPrivate?
+            {   address?
                 <Screen >                
                     <View style={styles.usercard} >
                         <TouchableOpacity 
@@ -205,11 +210,7 @@ export default class HomeScreen extends React.Component {
                                 <TouchableOpacity
                                 style={styles.bindingMnemonic}
                                 onPress={() => {
-                                    Navigation.push(this.props.componentId, {
-                                        component: {
-                                            name: 'BindingMnemonic',
-                                        }
-                                    });
+                                    this.props.navigation.navigate('MnemonicTold');
                                 }}
                             >
                                 <Text
@@ -230,6 +231,7 @@ export default class HomeScreen extends React.Component {
                             justifyContent: 'center',
                         }} 
                     >
+                     {hasPrivate &&
                         <Button 
                             style={{
                                 width:85,
@@ -242,6 +244,7 @@ export default class HomeScreen extends React.Component {
                         >
                             <Text>转账</Text>
                         </Button>
+                     }
                         <Button 
                             style={{
                                 width:85,

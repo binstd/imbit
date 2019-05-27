@@ -105,7 +105,7 @@ export async function hasTelephone(telephone) {
         },
         method: 'get'
     }).then(response => response.json());
-
+    console.log('api/users?telephone?', data);
     if(data.length != 0) {
         if (!address) {
             let user = {};
@@ -116,8 +116,10 @@ export async function hasTelephone(telephone) {
             user['email']  = data[0].email;
             await UserStore.login(user);
         }
+        console.log(' return 1;');
         return 1;
     } else {
+        console.log(' return 0;');
         return 0;
     }
 }

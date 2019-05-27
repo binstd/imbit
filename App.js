@@ -18,6 +18,7 @@ export default class App extends React.Component {
     }
     
     componentDidMount() {
+       
         AsyncStorage.getItem('userinfo').then( (data) => {
             this.setState({
                 signedIn:data ? true : false,
@@ -30,7 +31,6 @@ export default class App extends React.Component {
      render() {
         const {signedIn} = this.state; 
         // console.log('signedIn:',signedIn);
-
         const AppContainer = createAppContainer(createRootNavigator(signedIn));
         
         return <AppContainer />;

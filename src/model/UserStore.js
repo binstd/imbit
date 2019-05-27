@@ -50,7 +50,7 @@ class UserStore {
     //操作
     @action.bound
     async login( userInfo ) {
-        // console.log(" async login( userInfo ) { => ",userInfo);
+        console.log(" async login( userInfo ) { => ",userInfo);
         await this.allSet(userInfo);
         this.isAuth = true;
         await AsyncStorage.setItem('userinfo', JSON.stringify(this.getAllData));
@@ -88,8 +88,6 @@ class UserStore {
         if(jsonData['hasPrivate']) {
             this.hasPrivate = jsonData['hasPrivate'];
         }
-        
-
     }
 
     //操作

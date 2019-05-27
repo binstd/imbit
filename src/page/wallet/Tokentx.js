@@ -31,6 +31,7 @@ export default class WalletTokentxScreen extends React.Component {
                 flex:1, 
                 textAlign: 'center'
             }, 
+            headerRight: (<View></View>)
         }
     };
 

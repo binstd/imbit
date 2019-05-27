@@ -1,8 +1,5 @@
 import React from 'react'
 import {
-  View,
-  Text,
-  Button,
   StyleSheet,
 } from 'react-native'
 // import { goToAuth } from '../initNavigation'
@@ -39,18 +36,17 @@ export default class AboutScreen extends React.Component {
             flex:1, 
             textAlign: 'center'
         }, 
+        headerRight: (<View></View>)
     }
 };
 
   render() {
     return (
       <ScrollView style={styles.container}>
-        {/* <Text>Screen 2</Text> */}
         <Html
             body={htmlcontent}
             style={{width:'85%',margin:'auto', marginTop: 30,}}
         />
-      
       </ScrollView>
     )
   }
@@ -60,7 +56,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    // justifyContent: 'center',
-    // alignItems: 'center'
   }
 })

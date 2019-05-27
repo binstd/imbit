@@ -40,42 +40,17 @@ export const walletInit = async (seedPhrase = null) => {
     return { isWalletBrandNew, walletAddress };
 };
 
-// 生成助记词
-export function generateSeedPhrase() {
-    return bip39.generateMnemonic(); //ethers.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16));
-}
-
-
-
-// createAddress = () => {
-
-   
-//     walletUtils.generateMnemonic().then((data) => {
-//       const seed = walletUtils.mnemonicToSeed(data)
-//       const seedHex = seed.toString('hex')
-//       var hdwallet = HDWallet.fromMasterSeed(seed)
-//       hdwallet.setDerivePath("m/44'/60'/0'/0/0")
-//       const checksumAddress = hdwallet.getChecksumAddressString();
-//       this.setState({
-//         mnemonic: data,
-//         seed: seedHex,
-//         path: derivePath,
-//         address: checksumAddress
-//       })
-//     }, (error) => {
-//       Alert.alert(
-//         'error',
-//         'mnemonic' + error.toString
-//       )
-//     })
+// // 生成助记词
+// export function generateSeedPhrase() {
+//     return bip39.generateMnemonic(); //ethers.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16));
 // }
 
 // //通过 助记词 创建钱包 
 const createWallet = async (seedPhrase) => {
     // console.log('创建钱包start:',seedPhrase);
-    const walletSeedPhrase = seedPhrase || generateSeedPhrase();
+    const walletSeedPhrase = seedPhrase || await walletUtils.generateMnemonic();
     // console.log('创建钱包walletSeedPhrase:',walletSeedPhrase);
-
+ 
     const seed = walletUtils.mnemonicToSeed(walletSeedPhrase);
     // const seedHex = seed.toString('hex');
     var hdwallet = HDWallet.fromMasterSeed(seed);

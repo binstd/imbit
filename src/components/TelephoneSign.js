@@ -19,6 +19,7 @@ import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { observer } from 'mobx-react/native';
 
+
 const TelephoneSign = observer( class TelephoneSign extends React.Component {
 
     constructor(props) {
@@ -48,6 +49,7 @@ const TelephoneSign = observer( class TelephoneSign extends React.Component {
                     'Content-Type': 'application/json'
                 }
             }).then(response => response.json()).then( data => {
+                console.log('ajax:',data);
                 timerModel.reset();
                 this.setState({
                     realCode:data.code,
@@ -88,14 +90,17 @@ const TelephoneSign = observer( class TelephoneSign extends React.Component {
         //判断是新用户还是老用户,登录验证
         if(await hasTelephone(telephone) == 1) { 
             if(user['address']) { 
+                console.log('???==');
                 this.refs.toast.show('该手机号已被使用，请更换新手机号重试！');
                 return;
             } else { //登陆
+         
                 this.props.setLoading(false);
                 // goHome();
                 this.props.navigation.navigate('Home');
             }  
         } else { //注册
+            console.log('nonono');
             this.props.setLoading(false);
             this.props.navigation.navigate('RegisterUserInfo');
         }

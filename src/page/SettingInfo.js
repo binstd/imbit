@@ -22,6 +22,7 @@ import {
     Text,
     Icon,
     ScrollView,
+    View,
     Spinner,
     Switch
 } from '@shoutem/ui';
@@ -44,6 +45,7 @@ export default class SettingInfoScreen extends React.Component {
                 flex:1, 
                 textAlign: 'center'
             }, 
+            headerRight: (<View></View>)
         }
     };
     
