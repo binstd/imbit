@@ -30,6 +30,7 @@ import RegisterUserInfoScreen from './page/RegisterUserInfo';
 import ChooseSymbolScreen from './page/transaction/ChooseSymbol';
 import TransactionInputScreen from './page/transaction/TransactionInput';
 
+import ConnectScreen from './page/Connect';
 
 const Home = createStackNavigator({  
     Home: HomeScreen, 
@@ -52,6 +53,7 @@ const Home = createStackNavigator({
     ChooseSymbol:ChooseSymbolScreen,
     TransactionInput:TransactionInputScreen,
     RegisterUserInfo:RegisterUserInfoScreen,
+    Connect:ConnectScreen,
 });
 const Auth = createStackNavigator({ SignIn: SignInScreen });
 

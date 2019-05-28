@@ -1,4 +1,5 @@
 import { observable, action, computed } from "mobx";
+
 // import { AsyncStorage } from 'react-native';
 
 class tokenStore {
@@ -22,13 +23,14 @@ class tokenStore {
 
     // token设定
     @action
-    async tokenSet(tokens) {
+    tokenSet(tokens) {
         this.tokens = tokens;
         return 1;
     }
     
     @action
-    async balanceSet(balance) {
+    balanceSet(balance) {
+        console.log('balance:',balance);
         this.balance = balance;
         return 1;
     }

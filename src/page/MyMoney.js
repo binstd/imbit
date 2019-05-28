@@ -19,7 +19,10 @@ import {
 } from '@shoutem/ui';
 import UserStore from '../model/UserStore';
 import {ALLOW_NETWORK} from '../helper/Config';
+import tokenStore from '../model/tokenStore';
+import { observer } from 'mobx-react/native';
 
+@observer
 export default class MyMoneyScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
@@ -58,14 +61,14 @@ export default class MyMoneyScreen extends React.Component {
             },
             method: 'get'
         }).then(response => response.json());
-        let balance = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=balance&address=${UserStore.address}`, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: 'get'
-        }).then(response => response.json());
+        // let balance = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=balance&address=${UserStore.address}`, {
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     method: 'get'
+        // }).then(response => response.json());
         this.setState({
-             tokenList:[{symbol:'eth',balance:balance.result},...data.result]
+             tokenList:[{symbol:'eth',balance:tokenStore.balance},...data.result]
         });
         
     }

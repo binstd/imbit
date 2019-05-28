@@ -1,5 +1,6 @@
 import * as keychain from './Keychain';
-import ethers from 'ethers';
+import 'ethers/dist/shims.js';
+import { ethers } from 'ethers';
 // import { RNUportHDSigner } from 'react-native-uport-signer';
 import {
     ACCESS_CONTROL,
@@ -18,6 +19,7 @@ const addressKey = 'openWalletAddressKey';
 
 import UserStore from '../model/UserStore';
 import {ALLOW_NETWORK} from './Config';
+
 export const walletInit = async (seedPhrase = null) => {
     let walletAddress = null;
     let isWalletBrandNew = false;
@@ -138,8 +140,13 @@ export const loadWallet = async () => {
     const privateKey = await loadPrivateKey();   
     if (privateKey) {
       console.log('privateKey-network', privateKey, UserStore.network);
-      let network = ALLOW_NETWORK.filter(item => item.code === UserStore.network);
-      const provider = new ethers.providers.JsonRpcProvider(network.rpc_url);
+      let network = ALLOW_NETWORK.filter(item => item.code === UserStore.network)[0];
+      console.log('loadWallet:',network);
+    //   const provider = ethers.getDefaultProvider(network.code.split("-")[1]);
+    //   if(network.chain !== 'ETH'){
+    //     provider = new ethers.providers.JsonRpcProvider(network.rpc_url);
+    //   }
+      provider = new ethers.providers.JsonRpcProvider(network.rpc_url);
       wallet = new ethers.Wallet(privateKey, provider);
       return wallet;
     }
@@ -148,12 +155,13 @@ export const loadWallet = async () => {
 
 //发送一笔交易
 export async function sendTransaction(transaction) {
-
-    const user = await asyncStorageLoad(USER_KEY);
+    console.log('platform:', ethers.platform)
+    // const user = await asyncStorageLoad(USER_KEY);
     console.log(transaction);
-    let activeAccount = new ethers.Wallet(user.privateKey);
-    activeAccount.provider = PROVIDER;
-    console.log('activeAccount', activeAccount.address);
+    // let activeAccount = new ethers.Wallet(user.privateKey);
+    let activeAccount = await loadWallet();
+    // activeAccount.provider = PROVIDER;
+    console.log('activeAccount-transaction', activeAccount.address,transaction);
     if (activeAccount) {
         if (transaction.from && transaction.from.toLowerCase() !== activeAccount.address.toLowerCase()) {
             console.error("Transaction request From doesn't match active account"); // tslint:disable-line
@@ -164,6 +172,7 @@ export async function sendTransaction(transaction) {
         }
         
         const result = await activeAccount.sendTransaction(transaction);
+        console.log('交易被拒绝',result);
         return result.hash;
     } else {
         console.error("No Active Account"); // tslint:disable-line
@@ -173,10 +182,11 @@ export async function sendTransaction(transaction) {
 
 //签名消息
 export async function signMessage(message) {
-    const user = await asyncStorageLoad(USER_KEY);
-    console.log(user);
-    let activeAccount = new ethers.Wallet(user.privateKey);
-    activeAccount.provider = PROVIDER;
+    // const user = await asyncStorageLoad(USER_KEY);
+    // console.log(user);
+    // let activeAccount = new ethers.Wallet(user.privateKey);
+    let activeAccount = await loadWallet();
+    // activeAccount.provider = PROVIDER;
     if (activeAccount) {
         const result = await activeAccount.signMessage(message);
         return result;
@@ -185,3 +195,44 @@ export async function signMessage(message) {
     }
     return null;
 }
+
+
+// export async function sendTransaction(transaction) {
+
+//     const user = await asyncStorageLoad(USER_KEY);
+//     console.log(transaction);
+//     let activeAccount = new ethers.Wallet(user.privateKey);
+//     activeAccount.provider = PROVIDER;
+//     console.log('activeAccount', activeAccount.address);
+//     if (activeAccount) {
+//         if (transaction.from && transaction.from.toLowerCase() !== activeAccount.address.toLowerCase()) {
+//             console.error("Transaction request From doesn't match active account"); // tslint:disable-line
+//         }
+
+//         if (transaction.from) {
+//             delete transaction.from;
+//         }
+        
+//         const result = await activeAccount.sendTransaction(transaction);
+//         return result.hash;
+//     } else {
+//         console.error("No Active Account"); // tslint:disable-line
+//     }
+//     return null;
+// }
+
+// export async function signMessage(message) {
+//     const user = await asyncStorageLoad(USER_KEY);
+//     console.log(user);
+//     let activeAccount = new ethers.Wallet(user.privateKey);
+//     activeAccount.provider = PROVIDER;
+//     if (activeAccount) {
+//         const result = await activeAccount.signMessage(message);
+//         return result;
+//     } else {
+//         console.error("No Active Account"); // tslint:disable-line
+//     }
+//     return null;
+// }
+
+

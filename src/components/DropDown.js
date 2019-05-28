@@ -10,7 +10,9 @@ import {
     Html, Screen, DropDownMenu, Title, Image, Text
 } from '@shoutem/ui';
 import UserStore from '../model/UserStore';
+
 import {ALLOW_NETWORK} from '../helper/Config';
+import tokenStore from '../model/tokenStore';
 export default class DropDown extends React.Component {
   
     constructor(props) {
@@ -20,13 +22,27 @@ export default class DropDown extends React.Component {
         }
     }
 
-    settingLan(selectedNetwork) {
+    async settingLan(selectedNetwork) {
         this.setState({ 
             selectedNetwork: selectedNetwork,
             network:ALLOW_NETWORK,
         });
       
         UserStore.login({network:selectedNetwork.code});
+        const userNetwork = selectedNetwork.code.split("-");
+        // let network = ALLOW_NETWORK.filter(item => item.code === UserStore.network)[0];
+        console.log(userNetwork);
+        let balance = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=balance&address=${UserStore.address}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'get'
+        }).then(response => response.json());
+        // console.log('userNetworkuserNetworkuserNetworkuserNetwork:',balance);
+        await tokenStore.balanceSet(balance.result);
+        // if(await tokenStore.balanceSet(balance.result)) {
+        //     SplashScreen.hide(); 
+        // }
     }
 
     async componentDidMount() {

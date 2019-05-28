@@ -51,9 +51,7 @@ export default class HomeScreen extends React.Component {
                 textAlign: 'center'
             }, 
             headerLeft: (
-                <Button 
-            
-                >
+                <Button >
                     <Text style={{color:'#999999'}}></Text>
                 </Button>
             ),
@@ -91,19 +89,25 @@ export default class HomeScreen extends React.Component {
            // end 完全为中心化准备
         } else {  //获取以太币
             const userNetwork = user.network.split("-");
-            let network = ALLOW_NETWORK.filter(item => item.code === UserStore.network)[0];
-            
+            // let network = ALLOW_NETWORK.filter(item => item.code === UserStore.network)[0];
+            console.log( 'userNetwork:' ,userNetwork);
             let balance = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=balance&address=${UserStore.address}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 method: 'get'
             }).then(response => response.json());
-            console.log('network-balance =>',balance,network);
-            if(await tokenStore.balanceSet(balance.result)){
-                SplashScreen.hide(); 
-            }
+            console.log('homebalance-:',balance);
+            // if(await tokenStore.balanceSet(balance.result)) {
+            //     SplashScreen.hide(); 
+            // }
         }
+      
+    }
+   // https://blockscout.com/eth/ropsten/api?module=account&action=balance&address=0xded8f0646c28678510f6cc98a948e5927cb616af
+
+    componentWillReceiveProps() {
+        console.log('返回了！');
     }
 
     copyAddress = async () => {
@@ -135,7 +139,7 @@ export default class HomeScreen extends React.Component {
     }
 
     toMymoney = async () => {
-       
+        console.log('tokenStore.balance:',tokenStore.balance);
         if(tokenStore.balance ===  '0') {
             this.refs.toast.show('您在当前区块链网络没有任何资产!');
             return ;

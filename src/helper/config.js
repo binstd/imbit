@@ -8,24 +8,28 @@ export const ALLOW_NETWORK = [
         chain: "ETH",
         rpc_url:`https://mainnet.infura.io/v3/${keyId}`,
         code:`eth-mainnet`,
+        chain_id: 1,
     },
     {
         title: "ropsten网络",
         rpc_url:`https://ropsten.infura.io/v3/${keyId}`,
         chain: "ETH",
         code:"eth-ropsten",
+        chain_id: 3,
     },
     {
         title: "kovan网络",
         code:"eth-kovan",
         chain: "ETH",
         rpc_url:`https://kovan.infura.io/v3/${keyId}`,
+        chain_id: 42,
     },
     {
         title: "rinkeby网络",
         code:"eth-rinkeby",
         chain: "ETH",
         rpc_url:`https://rinkeby.infura.io/v3/${keyId}`,
+        chain_id: 4,
     },
     {
         title: "以太坊经典",
@@ -42,11 +46,13 @@ export const ALLOW_NETWORK = [
         code:"poa-care",
         chain: "POA",
         rpc_url:'https://core.poa.network',
+        chain_id: 99,
     },
     {
         title: "xdai",
         code:"poa-dai",
         chain: "POA",
         rpc_url:'https://dai.poa.network',
+        chain_id: 100,
     }  
 ];

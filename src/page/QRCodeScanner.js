@@ -9,29 +9,45 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 // 扫码
 class QRCodeScannerScreen extends Component {
 
-    static get options() {
-        return {
-            topBar: {
-                hideShadow: true,
-                noBorder: true,
-                elevation: 0,
-                title: {
-                    text: '扫一扫',
-                    alignment: "center",
-                    color: 'white'
-                },
-                backButton: {
-                    color: 'white'
-                },
-                background: {
-                    translucent: true,
-                    color: '#000000',
-                    // translucent: true,
-                    blur: false
-                },
-            }
-        };
-    }
+    // static get options() {
+    //     return {
+    //         topBar: {
+    //             hideShadow: true,
+    //             noBorder: true,
+    //             elevation: 0,
+    //             title: {
+    //                 text: '扫一扫',
+    //                 alignment: "center",
+    //                 color: 'white'
+    //             },
+    //             backButton: {
+    //                 color: 'white'
+    //             },
+    //             background: {
+    //                 translucent: true,
+    //                 color: '#000000',
+    //                 // translucent: true,
+    //                 blur: false
+    //             },
+    //         }
+    //     };
+    // }
+    static navigationOptions = {
+        title: '扫一扫',
+        headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+        },
+        headerTitleStyle: {
+            fontSize: 19,
+            alignSelf: 'center',
+            flex: 1,
+            textAlign: 'center'
+        },
+        headerRight: (<View></View>)
+    };
+
 
     onRead = async event => {
         const uri = event.data;
@@ -53,6 +69,10 @@ class QRCodeScannerScreen extends Component {
             // } else 
             if(uri.indexOf("wc:") !=-1 ) {
                 console.log('包含');
+                this.props.navigation.navigate('Connect',{
+                    URI: uri,
+                  });
+                
                 //  Navigation.push(this.props.componentId, {
                 //     component: {
                 //         name: 'Connect',

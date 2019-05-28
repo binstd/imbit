@@ -1,5 +1,6 @@
 // import 'ethers/dist/shims.js';
-import ethers  from 'ethers';
+// import ethers  from 'ethers';
+import * as ethers from "ethers";
 import { SERVER_URL } from './Config'
 import UserStore from '../model/UserStore';
 import {walletInit,loadPrivateKey} from './Wallet'

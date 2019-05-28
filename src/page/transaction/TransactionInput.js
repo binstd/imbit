@@ -9,6 +9,11 @@ import { observer } from 'mobx-react/native';
 import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import transactionModel from '../../model/transactionModel';
+import ethers from 'ethers';
+
+import {sendTransaction} from '../../helper/Wallet';
+
+
 export default observer( class TransactionInputScreen extends React.Component {
  
     static navigationOptions = ({ navigation }) => {
@@ -68,6 +73,29 @@ export default observer( class TransactionInputScreen extends React.Component {
         }
     }
 
+    doSendTransaction() {
+        console.log('transactionModel.tokenInfo:',transactionModel.tokenInfo.symbol);
+        if(transactionModel.tokenInfo.symbol === 'eth') { //eth
+
+        } else { //contract token
+
+        }
+        // const transaction = {
+        //     nonce: 0,
+        //     gasLimit: config.gasLimit,
+        //     gasPrice: gasPrice,
+        //     to: to,
+        //     value: ethers.utils.parseEther(amount),
+        // };
+        // sendTransaction(transaction)
+    } 
+
+    async sendERC20transaction() {
+        var contract = new ethers.Contract(address, abi, provider);
+        var transaction = contract.transfer(newAddress, 10);
+        sendTransaction(transaction)
+    }
+
     async componentDidMount () {
         this.setState({
             address:transactionModel.toaddress,
@@ -109,7 +137,7 @@ export default observer( class TransactionInputScreen extends React.Component {
                                 backgroundColor: '#308EFF',
                                 borderColor: '#308EFF',
                             }}
-                            // onPress={this.register}
+                            onPress={()=> this.doSendTransaction() }
                         >
                             <Text>确认</Text>
                         </Button>
