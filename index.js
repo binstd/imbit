@@ -9,7 +9,7 @@ import './shim';
 // window.randomBytes = asyncRandomBytes;
 // window.scryptsy = safeCrypto.scrypt;
 import { AppRegistry } from 'react-native';
-
+// import SplashScreen from 'react-native-splash-screen';
 
 import App from './App';
 import {name as appName} from './app.json';
@@ -17,5 +17,5 @@ import {name as appName} from './app.json';
 if(__DEV__) {
     import('./ReactotronConfig').then(() => console.log('Reactotron Configured'))
 }
-// SplashScreen.hide();
+// SplashScreen.show();
 AppRegistry.registerComponent(appName, () => App);

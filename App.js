@@ -18,14 +18,20 @@ export default class App extends React.Component {
     }
     
     componentDidMount() {
-       
+       console.log('lllllll');
         AsyncStorage.getItem('userinfo').then( (data) => {
+            // SplashScreen.show(); 
             this.setState({
                 signedIn:data ? true : false,
                 checkedSignIn: true
             });
-            SplashScreen.hide();
+      
+            // setTimeout( () => {
+            //     SplashScreen.hide(); 
+            // }, 500);
         });
+        SplashScreen.hide(); 
+       
     }
 
      render() {

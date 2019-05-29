@@ -26,6 +26,7 @@ import MnemonicConfirmScreen from './page/mnemonic/Confirm';
 
 import UserInfoScreen from './page/UserInfo';
 import RegisterUserInfoScreen from './page/RegisterUserInfo';
+import BindingMnemonicScreen from './page/BindingMnemonic';
 
 import ChooseSymbolScreen from './page/transaction/ChooseSymbol';
 import TransactionInputScreen from './page/transaction/TransactionInput';
@@ -53,7 +54,10 @@ const Home = createStackNavigator({
     ChooseSymbol:ChooseSymbolScreen,
     TransactionInput:TransactionInputScreen,
     RegisterUserInfo:RegisterUserInfoScreen,
+    BindingMnemonic:BindingMnemonicScreen,
     Connect:ConnectScreen,
+
+
 });
 const Auth = createStackNavigator({ SignIn: SignInScreen });
 

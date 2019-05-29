@@ -21,7 +21,8 @@ export default observer( class TransactionInputScreen extends React.Component {
             headerTitle: '转账',
             headerStyle:{
                 elevation:0,
-                shadowOpacity: 0
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
             },
             headerTitleStyle:{
                 fontSize:19,
@@ -29,6 +30,7 @@ export default observer( class TransactionInputScreen extends React.Component {
                 flex:1, 
                 textAlign: 'center'
             }, 
+            headerRight: (<View></View>)
         }
     };
 
@@ -36,7 +38,10 @@ export default observer( class TransactionInputScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '', password: '', address: '', isLoading: false,amount:null
+            address: '', 
+            isLoading: false,
+            amount:null,
+            transactionend:false
         }
     }
 
@@ -73,27 +78,34 @@ export default observer( class TransactionInputScreen extends React.Component {
     }
 
     async doSendTransaction() {
-
-        if(transactionModel.tokenInfo.symbol === 'eth') { //eth
-            console.log('transactionModel.tokenInfo:',transactionModel.tokenInfo.symbol);
-            const transaction = {
-                to: this.state.address,
-                value: ethers.utils.parseEther(this.state.amount),
-            };
-            let result = await sendTransaction(transaction);
-            if(result) {
-                this.refs.toast.show('转账成功!', 5000, () => {
-                    this.props.navigation.navigate('Home');  
-                });
-            } else {
-                this.refs.toast.show('转账失败！');
+        this.setState({ isLoading: true });
+        setTimeout( async () => {
+            if(transactionModel.tokenInfo.symbol === 'eth') { //eth
+                // console.log('transactionModel.tokenInfo:',transactionModel.tokenInfo.symbol);
+                const transaction = {
+                    to: this.state.address,
+                    value: ethers.utils.parseEther(this.state.amount),
+                };
+                let result = await sendTransaction(transaction);
+                if(result) {
+                    this.refs.toast.show('转账成功!', 2000, () => {
+                        
+                        this.setState({
+                            transactionend:true,
+                            isLoading:false
+                        });
+                        this.props.navigation.navigate('Home');  
+                    });
+                } else {
+                    this.refs.toast.show('转账失败！');
+                }
+             
+                console.log(result);
+            } else { //contract token
+    
             }
-         
-            console.log(result);
-        } else { //contract token
-
-        }
-        
+        }, 500);
+       
     } 
 
     async sendERC20transaction() {
@@ -114,7 +126,10 @@ export default observer( class TransactionInputScreen extends React.Component {
             <Screen style={styles.container}>
                 {this.state.isLoading ?
                     <Screen style={styles.container2} >
-                        <Spinner />
+                        {
+                            !this.state.transactionend && 
+                           <Spinner />
+                        }
                     </Screen>
                     :
                     <Screen style={styles.container2} >

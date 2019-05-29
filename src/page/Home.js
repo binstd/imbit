@@ -27,7 +27,6 @@ import {
 import Blockies from 'react-native-blockies';
 import { authTouchID } from '../helper/Common';
 
-import SplashScreen from 'react-native-splash-screen';
 import UserStore from '../model/UserStore';
 import tokenStore from '../model/tokenStore';
 import {ALLOW_NETWORK} from '../helper/Config';
@@ -195,7 +194,7 @@ export default class HomeScreen extends React.Component {
                                 <TouchableOpacity
                                 style={styles.bindingMnemonic}
                                 onPress={() => {
-                                    this.props.navigation.navigate('MnemonicTold');
+                                    this.props.navigation.navigate('BindingMnemonic');
                                 }}
                             >
                                 <Text

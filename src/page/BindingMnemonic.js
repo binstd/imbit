@@ -14,22 +14,23 @@ import {
     Spinner
 } from '@shoutem/ui';
 
-import userModel from '../model/userModel';
-import { loadWallet } from '../helpers/wallet';
-import { hasAddress } from '../helpers/userFetch';
+
+import UserStore from '../model/UserStore';
+import { walletInit } from '../helper/Wallet';
+import { hasAddress } from '../helper/UserFetch';
 
 import Toast, { DURATION } from 'react-native-easy-toast';
 
-import { goHome } from '../initNavigation';
 
-class BindingMnemonic extends React.Component {
+class BindingMnemonicScreen extends React.Component {
    
     static navigationOptions = ({ navigation }) => {
         return {
             headerTitle: '绑定区块链身份',
             headerStyle:{
                 elevation:0,
-                shadowOpacity: 0
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
             },
             headerTitleStyle:{
                 fontSize:19,
@@ -37,6 +38,7 @@ class BindingMnemonic extends React.Component {
                 flex:1, 
                 textAlign: 'center'
             }, 
+            headerRight: (<View></View>)
         }
     };
     constructor(props) {
@@ -60,7 +62,7 @@ class BindingMnemonic extends React.Component {
         let mnemonicList = mnemonic.split(" ");
         console.log(mnemonicList.length);
         if (mnemonicList.length != 12) {
-            this.refs.toast.show('助记词仅支持用空格隔开的12个单词!');
+            this.refs.toast.show('助记词仅支持用空格隔开的12个单词!', 2000);
             return;
         } else {
             this.setState({ isLoading: true });
@@ -71,15 +73,23 @@ class BindingMnemonic extends React.Component {
     }
 
     async saveWallet(mnemonic) {
-        userModel.clearAll();
-        let wallet = await loadWallet(mnemonic);
-        if (!wallet) {
+        let { walletAddress } = await walletInit(mnemonic);
+   
+        if (!walletAddress) {
             this.setState({ isLoading: false });
-            this.refs.toast.show('无法创建区块链身份,请检测助记词是否正确!');
+            this.refs.toast.show( '无法创建区块链身份,请检测助记词是否正确!', 2000 );
+            return;
+        } else {
+            console.log(walletAddress,':walletAddress');
+            let userInfo = await hasAddress(walletAddress);
+            userInfo.hasPrivate = true;
+            console.log('UserStore.login(userInfo)', userInfo);
+            await UserStore.login(userInfo);
+            this.setState({ isLoading: false});
+        // goHome();
+            this.props.navigation.navigate('Home');
         }
-        let result = await hasAddress(wallet.address);
-        this.setState({ isLoading: false });
-        goHome();
+        
     }
 
     render() {
@@ -96,7 +106,6 @@ class BindingMnemonic extends React.Component {
                     <Screen style={styles.container2} >
                         <Spinner />
                     </Screen>
-
                     :
                     <Screen style={styles.container2} >
                         <TextInput
@@ -121,6 +130,7 @@ class BindingMnemonic extends React.Component {
                             <Caption
                                 styleName="bold"
                                 style={styles.footerSign}
+                                onPress={() => this.props.navigation.navigate('Home')}
                             >
                             暂不绑定
                             </Caption>
@@ -137,7 +147,7 @@ class BindingMnemonic extends React.Component {
     }
 }
 
-export default BindingMnemonic;
+export default BindingMnemonicScreen;
 
 const styles = StyleSheet.create({
     container2: {

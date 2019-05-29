@@ -129,6 +129,7 @@ export default class SettingInfoScreen extends React.Component {
                         !hasPrivateKey &&
                         <Button
                             onPress={() => {
+                                this.props.navigation.navigate('BindingMnemonic');
                                 
                             }}
                         >

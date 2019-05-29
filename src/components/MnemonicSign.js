@@ -64,7 +64,9 @@ class MnemonicSign extends React.Component {
             await UserStore.login(userdata);
             await this.props.navigation.navigate('Home');
         } else {
+            this.refs.toast.show('暂不支持外部助记词导入!');
             this.props.setLoading(false);
+          
             //设置手机号页面
         }
     }

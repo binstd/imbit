@@ -80,7 +80,7 @@ export async function hasAddress(address) {
         },
         method: 'get'
     }).then(response => response.json());
-
+    console.log(`${SERVER_URL}api/users?publicAddress=${postData['address']} ====>\n `,data);
     if(data.length != 0) {
         let user = {};
         user['uid'] = data[0].id;
