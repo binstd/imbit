@@ -14,6 +14,7 @@ import UserStore from '../../model/UserStore';
 import transactionModel from '../../model/transactionModel';
 import { observer } from 'mobx-react/native';
 
+
 export default observer(class ChooseSymbolScreen extends React.Component {
   
     static navigationOptions = ({ navigation }) => {
@@ -49,6 +50,9 @@ export default observer(class ChooseSymbolScreen extends React.Component {
     } 
 
     async componentDidMount () {
+        const toaddress = this.props.navigation.getParam('toaddress');
+        console.log('toaddress=>',toaddress);
+        transactionModel.toaddressSet(toaddress);
         const userNetwork = UserStore.network.split("-");
         let data = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=tokenlist&address=${UserStore.address}`, {
             headers: {

@@ -5,7 +5,8 @@ import {
     View
 } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
-
+// const Eth = require('ethjs');
+import Eth from 'ethjs';
 // 扫码
 class QRCodeScannerScreen extends Component {
 
@@ -53,25 +54,27 @@ class QRCodeScannerScreen extends Component {
         const uri = event.data;
         console.log('uri => \n', uri);
         if (uri && typeof uri === 'string') {
-            // console.log('isAddress!');
-            // if(Eth.isAddress(uri)) {
-            //     console.log('isAddress!');
-            //     // transactionModel.toaddressSet(uri);
-            //     // Navigation.push(this.props.componentId, {
-            //     //     component: {
-            //     //         name: 'ChooseSymbol',
-            //     //         passProps: {
-            //     //             toaddress: uri
-            //     //         },
-            //     //     }
-            //     // });
-                
-            // } else 
+           console.log('111isAddress!');
+            if(Eth.isAddress(uri)) {
+                console.log('2isAddress!');
+                this.props.navigation.navigate('ChooseSymbol',{
+                    toaddress: uri,
+                });
+                // transactionModel.toaddressSet(uri);
+                // Navigation.push(this.props.componentId, {
+                //     component: {
+                //         name: 'ChooseSymbol',
+                //         passProps: {
+                //             toaddress: uri
+                //         },
+                //     }
+                // });
+            } 
             if(uri.indexOf("wc:") !=-1 ) {
                 console.log('包含');
                 this.props.navigation.navigate('Connect',{
                     URI: uri,
-                  });
+                });
                 
                 //  Navigation.push(this.props.componentId, {
                 //     component: {

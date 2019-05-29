@@ -9,8 +9,8 @@ import { observer } from 'mobx-react/native';
 import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import transactionModel from '../../model/transactionModel';
-import ethers from 'ethers';
-
+// import ethers from 'ethers';
+import * as ethers from "ethers";
 import {sendTransaction} from '../../helper/Wallet';
 
 
@@ -36,7 +36,7 @@ export default observer( class TransactionInputScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '', password: '', address: '', isLoading: false,
+            username: '', password: '', address: '', isLoading: false,amount:null
         }
     }
 
@@ -51,7 +51,6 @@ export default observer( class TransactionInputScreen extends React.Component {
             this.refs.toast.show('用户名不能为空.');
             return;
         }
-        // console.log('register,address', address);
         this.setState({ isLoading: true });
         if (username != '' && email != '') {
             setTimeout( async () => {
@@ -73,21 +72,28 @@ export default observer( class TransactionInputScreen extends React.Component {
         }
     }
 
-    doSendTransaction() {
-        console.log('transactionModel.tokenInfo:',transactionModel.tokenInfo.symbol);
-        if(transactionModel.tokenInfo.symbol === 'eth') { //eth
+    async doSendTransaction() {
 
+        if(transactionModel.tokenInfo.symbol === 'eth') { //eth
+            console.log('transactionModel.tokenInfo:',transactionModel.tokenInfo.symbol);
+            const transaction = {
+                to: this.state.address,
+                value: ethers.utils.parseEther(this.state.amount),
+            };
+            let result = await sendTransaction(transaction);
+            if(result) {
+                this.refs.toast.show('转账成功!', 5000, () => {
+                    this.props.navigation.navigate('Home');  
+                });
+            } else {
+                this.refs.toast.show('转账失败！');
+            }
+         
+            console.log(result);
         } else { //contract token
 
         }
-        // const transaction = {
-        //     nonce: 0,
-        //     gasLimit: config.gasLimit,
-        //     gasPrice: gasPrice,
-        //     to: to,
-        //     value: ethers.utils.parseEther(amount),
-        // };
-        // sendTransaction(transaction)
+        
     } 
 
     async sendERC20transaction() {

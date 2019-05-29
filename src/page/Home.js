@@ -90,17 +90,13 @@ export default class HomeScreen extends React.Component {
         } else {  //获取以太币
             const userNetwork = user.network.split("-");
             // let network = ALLOW_NETWORK.filter(item => item.code === UserStore.network)[0];
-            console.log( 'userNetwork:' ,userNetwork);
+            // console.log( 'userNetwork:' ,userNetwork);
             let balance = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=balance&address=${UserStore.address}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 method: 'get'
             }).then(response => response.json());
-            console.log('homebalance-:',balance);
-            // if(await tokenStore.balanceSet(balance.result)) {
-            //     SplashScreen.hide(); 
-            // }
         }
       
     }
@@ -119,14 +115,6 @@ export default class HomeScreen extends React.Component {
     }
 
     toTransaction = async () => {
-        // const userNetwork = UserStore.network.split("-");
-        // let balance = await fetch(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=balance&address=${UserStore.address}`, {
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     method: 'get'
-        // }).then(response => response.json());
-  
         console.log('tokenStore.balance; =>',tokenStore.balance);
         if(tokenStore.balance ===  '0') {
             this.refs.toast.show('没有足够的ETH,支付转账费!');
