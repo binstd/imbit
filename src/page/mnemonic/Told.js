@@ -11,7 +11,7 @@ import { Screen, View, TextInput, Button, Text, Divider } from '@shoutem/ui';
 
 // @observer
 export default observer( class MnemonicToldScreen extends React.Component {
-  
+
     static navigationOptions = ({ navigation }) => {
         return {
             headerTitle: '提示',
@@ -23,12 +23,12 @@ export default observer( class MnemonicToldScreen extends React.Component {
             headerTitleStyle:{
                 fontSize:19,
                 alignSelf:'center',
-                flex:1, 
+                flex:1,
                 textAlign: 'center'
-            }, 
+            },
         }
     };
-    
+
 
 
   render() {
@@ -36,12 +36,12 @@ export default observer( class MnemonicToldScreen extends React.Component {
       <Screen style={styles.container}>
         <Screen styleName="paper"
             style={{
-                flex: 1,  
+                flex: 1,
                 // justifyContent: 'center',
                 marginTop: 100,
                 height: 80,
                 // marginBottom: 10,
-                
+
             }}
         >
             <Text styleName="md-gutter multiline"
@@ -60,7 +60,7 @@ export default observer( class MnemonicToldScreen extends React.Component {
             >
                因为如果他人获取您的助记词，将会对您的身份下的全部数据和资产造成损害。
             </Text>
-            <Text styleName="md-gutter multiline" 
+            <Text styleName="md-gutter multiline"
              style={{
                 marginTop: 1,
                 marginBottom: 1,
@@ -72,16 +72,16 @@ export default observer( class MnemonicToldScreen extends React.Component {
         <Divider styleName="line" />
         <View
           style={{
-                flex: 1,  
+                flex: 1,
                 justifyContent: 'center',
                 marginBottom: 10,
                 // height:90,
                 width:'100%',
                 padding: 'auto',
             }}
-        >  
-            <Button 
-                    styleName="secondary" 
+        >
+            <Button
+                    styleName="secondary"
                     style={{
                         width: '90%',
                         margin: 'auto',
@@ -95,25 +95,28 @@ export default observer( class MnemonicToldScreen extends React.Component {
             >
                     <Text>备份身份</Text>
             </Button>
-            <Button 
-                styleName="secondary" 
-                style={{
-                    width: '90%',
-                    margin: 'auto',
-                    marginTop: 5,
-                    marginBottom:180,
-                    backgroundColor:'#308EFF',
-                    borderColor:'#308EFF'
-                }}
+            {/*
+                <Button
+                    styleName="secondary"
+                    style={{
+                        width: '90%',
+                        margin: 'auto',
+                        marginTop: 5,
+                        marginBottom:180,
+                        backgroundColor:'#308EFF',
+                        borderColor:'#308EFF'
+                    }}
 
-                onPress={() => {
-                    this.props.navigation.navigate('MnemonicBackup');
-                }}
-            >
+                    onPress={() => {
+                        this.props.navigation.navigate('MnemonicBackup');
+                    }}
+                 >
                 <Text>稍后备份</Text>
-            </Button>
+                </Button>
+                */
+            }
         </View>
-       
+
       </Screen>
     )
   }

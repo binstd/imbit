@@ -3,7 +3,7 @@ import {
     StyleSheet
 } from 'react-native';
 
-import { Screen, TextInput, Button, Text, Spinner } from '@shoutem/ui';
+import { Screen, TextInput, Button, Text, Spinner,View } from '@shoutem/ui';
 
 import { observer } from 'mobx-react/native';
 import validator from 'validator';

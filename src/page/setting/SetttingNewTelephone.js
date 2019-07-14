@@ -25,13 +25,13 @@ export default SetttingNewTelephoneScreen = observer( class SetttingNewTelephone
             headerTitleStyle:{
                 fontSize:19,
                 alignSelf:'center',
-                flex:1, 
+                flex:1,
                 textAlign: 'center'
-            }, 
-          
+            },
+            headerRight: (<View></View>)
         }
     };
-   
+
     constructor(props) {
         super(props);
         this.state = {
@@ -49,29 +49,28 @@ export default SetttingNewTelephoneScreen = observer( class SetttingNewTelephone
     }
 
     async getMassegeCode() {
-        // console.log('拒绝呀!');
         const { telephone, code } = this.state;
         if (!validator.isMobilePhone(telephone, ['zh-CN', 'zh-HK', 'zh-TW'])) {
             this.refs.toast.show('请输入正确的电话号码');
         } else {
-            // this.setState({ isSending: true });
-            fetch(`https://api.binstd.com/api/virify/massegecode?telephone=${telephone}`, {
+            fetch(`${SERVER_URL}/api/virify/massegecode?telephone=${telephone}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }).then(response => response.json()).then( data => {
                 console.log(data);
                 timerModel.reset();
+
                 this.setState({
                     realCode:data.code,
                     isSending:true
                 });
-            }); 
+            });
         }
     }
 
     virifyMassegeCode() {
-        
+
         const { telephone, code, realCode } = this.state;
         // console.log(telephone);
         if (!validator.isMobilePhone(telephone, ['zh-CN', 'zh-HK', 'zh-TW'])) {
@@ -82,8 +81,8 @@ export default SetttingNewTelephoneScreen = observer( class SetttingNewTelephone
             this.refs.toast.show('请输入您接收到的验证码!');
         }
 
-        if(realCode == code) {  
-            this.setState({ isLoading: true }); 
+        if(realCode == code) {
+            this.setState({ isLoading: true });
             setTimeout(() => {
                 this.commit();
             }, 500);
@@ -94,19 +93,20 @@ export default SetttingNewTelephoneScreen = observer( class SetttingNewTelephone
 
     commit = async () => {
         let postData = {};
-        postData['telephone'] = this.state.telephone;  
+        postData['telephone'] = this.state.telephone;
         fetch(`${SERVER_URL}api/users/${UserStore.uid}`, {
             body: JSON.stringify(postData),
             headers: {
                 'Content-Type': 'application/json'
             },
-            method: 'patch'
+            method: 'PATCH'
         }).then(response => response.json()).then( data => {
             let user = {};
             if (this.state.telephone != '') {
                 user['telephone'] = this.state.telephone;
             }
             UserStore.login(user);
+            this.refs.toast.show('修改成功!');
             this.props.navigation.goBack();
         });
     }
@@ -115,7 +115,7 @@ export default SetttingNewTelephoneScreen = observer( class SetttingNewTelephone
         const { isLoading,isSending } = this.state;
         let  virifyView;
         if (timerModel.timer > 0 && isSending) {
-            virifyView  =  <Caption 
+            virifyView  =  <Caption
                                 styleName="bold"
                                 style={{
                                     margin:'auto',
@@ -139,7 +139,7 @@ export default SetttingNewTelephoneScreen = observer( class SetttingNewTelephone
                                 onPress={() => this.getMassegeCode()}
                             >
                                 <Text
-                                    style={{ 
+                                    style={{
                                         color: '#333333',
                                         fontSize: 15,
                                     }}
@@ -157,7 +157,7 @@ export default SetttingNewTelephoneScreen = observer( class SetttingNewTelephone
                     </Screen>
                     :
                     <Screen >
-                        
+
                         <Screen style={styles.container2} >
                             <TextInput
                                 style={styles.input}
@@ -178,7 +178,7 @@ export default SetttingNewTelephoneScreen = observer( class SetttingNewTelephone
                                     style={styles.inputLine}
                                 />
                             </View>
-                           
+
                             <View style={styles.virify} >
                                 <TextInput
                                     style={styles.code}
@@ -198,7 +198,7 @@ export default SetttingNewTelephoneScreen = observer( class SetttingNewTelephone
                                 <Text style={styles.buttonText} >确认</Text>
                             </Button>
 
-                        </Screen> 
+                        </Screen>
                     </Screen>}
                 <Toast
                     ref="toast"

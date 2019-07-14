@@ -12,7 +12,8 @@ import { hasTelephone } from '../helpers/userFetch';
 
 import { goHome, goUserInfo } from '../initNavigation';
 
-import { USER_KEY,SERVER_URL } from '../config';
+// import { USER_KEY,SERVER_URL } from '../config';
+import {USER_KEY,SERVER_URL} from '../helper/Config';
 import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
 
@@ -23,11 +24,11 @@ export default SettingTelephone = observer( class SettingTelephone extends React
     static get options() {
         return {
             topBar: {
-              
+
                 elevation: 0,
-               
+
                 translucent:true,
-                blur:false, 
+                blur:false,
                 borderColor: 'white',
                 borderHeight: 0,
                 title: {
@@ -45,7 +46,7 @@ export default SettingTelephone = observer( class SettingTelephone extends React
         };
     }
 
-   
+
     constructor(props) {
         super(props);
         this.state = {
@@ -81,7 +82,7 @@ export default SettingTelephone = observer( class SettingTelephone extends React
             this.refs.toast.show('请输入正确的电话号码');
         } else {
             // this.setState({ isSending: true });
-            fetch(`https://api.binstd.com/api/virify/massegecode?telephone=${telephone}`, {
+            fetch(`${SERVER_URL}/api/virify/massegecode?telephone=${telephone}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -93,13 +94,13 @@ export default SettingTelephone = observer( class SettingTelephone extends React
                     isSending:true
                 });
             });
-            
+
         }
 
     }
 
     virifyMassegeCode() {
-        
+
         const { telephone, code, realCode} = this.state;
         // console.log(telephone);
         if (!validator.isMobilePhone(telephone, ['zh-CN', 'zh-HK', 'zh-TW'])) {
@@ -110,8 +111,8 @@ export default SettingTelephone = observer( class SettingTelephone extends React
             this.refs.toast.show('请输入您接收到的验证码!');
         }
 
-        if(realCode == code) {  
-            this.setState({ isLoading: true }); 
+        if(realCode == code) {
+            this.setState({ isLoading: true });
             setTimeout(() => {
                 this.toPage();
             }, 500);
@@ -125,7 +126,7 @@ export default SettingTelephone = observer( class SettingTelephone extends React
         let user = await asyncStorageLoad(USER_KEY)?await asyncStorageLoad(USER_KEY):{};
         user.telephone = telephone;
         await asyncStorageSave(USER_KEY, user);
-     
+
         // 判断是新用户还是老用户,登录验证
         if(await hasTelephone(telephone) == 1) {
             this.setState({
@@ -136,9 +137,9 @@ export default SettingTelephone = observer( class SettingTelephone extends React
                 timerModel.reset();
                 this.refs.toast.show('该手机号已被使用，请更换新手机号重试!');
                 return;
-            } else { 
+            } else {
                 goHome();
-            }  
+            }
 
         } else {
             this.setState({
@@ -153,7 +154,7 @@ export default SettingTelephone = observer( class SettingTelephone extends React
         const { isLoading,isSending } = this.state;
         let  virifyView;
         if (timerModel.timer > 0 && isSending) {
-            virifyView  =  <Caption 
+            virifyView  =  <Caption
                                 styleName="bold"
                                 style={{
                                     margin:'auto',
@@ -177,7 +178,7 @@ export default SettingTelephone = observer( class SettingTelephone extends React
                                 onPress={() => this.getMassegeCode()}
                             >
                                 <Text
-                                    style={{ 
+                                    style={{
                                         color: '#333333',
                                         fontSize: 15,
                                     }}
@@ -195,7 +196,7 @@ export default SettingTelephone = observer( class SettingTelephone extends React
                     </Screen>
                     :
                     <Screen >
-                        
+
                         <Screen style={styles.container2} >
                             <TextInput
                                 style={styles.input}
@@ -216,7 +217,7 @@ export default SettingTelephone = observer( class SettingTelephone extends React
                                     style={styles.inputLine}
                                 />
                             </View>
-                           
+
                             <View style={styles.virify} >
                                 <TextInput
                                     style={styles.code}
@@ -236,9 +237,9 @@ export default SettingTelephone = observer( class SettingTelephone extends React
                                 <Text style={styles.buttonText} >下一步</Text>
                             </Button>
 
-                          
-                            
-                        </Screen> 
+
+
+                        </Screen>
                     </Screen> }
                 <Toast
                     ref="toast"

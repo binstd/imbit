@@ -41,7 +41,7 @@ export const walletInit = async (seedPhrase = null) => {
 };
 
 
-// //通过 助记词 创建钱包 
+// //通过 助记词 创建钱包
 const createWallet = async (seedPhrase) => {
     const walletSeedPhrase = seedPhrase || await walletUtils.generateMnemonic();
     const seed = walletUtils.mnemonicToSeed(walletSeedPhrase);
@@ -54,7 +54,7 @@ const createWallet = async (seedPhrase) => {
 };
 
 
-// 保存   
+// 保存
 const saveWalletDetails = async (seedPhrase, privateKey, address) => {
     console.log('seedPhrase, privateKey, address:', seedPhrase, privateKey, address);
     const canAuthenticate = await canImplyAuthentication({ authenticationType: AUTHENTICATION_TYPE.DEVICE_PASSCODE_OR_BIOMETRICS });
@@ -163,7 +163,7 @@ export const sendTransaction = async (transaction) => {
         if (transaction.from) {
             delete transaction.from;
         }
-        //获取gas-price    
+        //获取gas-price
         if (!transaction.gasPrice) {
             transaction.gasPrice = await provider.getGasPrice();
             transaction.gasLimit = 21000;

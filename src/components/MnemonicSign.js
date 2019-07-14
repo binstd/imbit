@@ -29,7 +29,7 @@ class MnemonicSign extends React.Component {
             mnemonic:'',
         };
     }
-    
+
     componentDidMount() {
 
     }
@@ -59,14 +59,15 @@ class MnemonicSign extends React.Component {
             this.props.setLoading(false);
         }
         let userdata = await hasAddress(walletAddress);
+
         if (userdata) {
             userdata['hasPrivate'] = true;
             await UserStore.login(userdata);
             await this.props.navigation.navigate('Home');
         } else {
-            this.refs.toast.show('暂不支持外部助记词导入!');
             this.props.setLoading(false);
-          
+            console.log('新助记词！');
+            this.refs.toast.show('暂不支持外部助记词导入!');
             //设置手机号页面
         }
     }
@@ -78,7 +79,7 @@ class MnemonicSign extends React.Component {
             peerMeta,
             approveRequest,
             rejectRequest
-        } = this.props;    
+        } = this.props;
 
     return (
         <Screen style={styles.container2} >
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 18,
     }
- 
+
 });
 
 

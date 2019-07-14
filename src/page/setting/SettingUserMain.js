@@ -17,13 +17,14 @@ import {
     Text,
     Icon,
     ScrollView,
-    Spinner
+    Spinner,
+    View
 } from '@shoutem/ui';
 
 
 // @observer
 export default observer( class SettingUserMainScreen extends React.Component {
-    
+
     static navigationOptions = ({ navigation }) => {
         return {
             headerTitle: '个人信息',
@@ -35,10 +36,11 @@ export default observer( class SettingUserMainScreen extends React.Component {
             headerTitleStyle:{
                 fontSize:19,
                 alignSelf:'center',
-                flex:1, 
+                flex:1,
                 textAlign: 'center'
-            }, 
-          
+            },
+            headerRight: (<View></View>)
+
         }
     };
 

@@ -6,6 +6,7 @@ import { Screen, View, TextInput, Button, Text } from '@shoutem/ui';
 import { observer } from 'mobx-react/native';
 import UserStore from '../../model/UserStore';
 import {SERVER_URL} from '../../helper/Config';
+import Toast, { DURATION } from 'react-native-easy-toast';
 
 @observer
 export default class SettingEmailScreen extends React.Component {
@@ -21,12 +22,13 @@ export default class SettingEmailScreen extends React.Component {
             headerTitleStyle:{
                 fontSize:19,
                 alignSelf:'center',
-                flex:1, 
+                flex:1,
                 textAlign: 'center'
-            },  
+            },
+            headerRight: (<View></View>)
         }
     };
-    
+
     state = {
         username: '', email: '',
     }
@@ -48,17 +50,18 @@ export default class SettingEmailScreen extends React.Component {
         // postData['username'] = this.state.username;
         postData['email'] = this.state.email;
         UserStore.login(postData);
-        fetch(`${SERVER_URL}api/users/${UserStore.uid}`, {
+        fetch(`${SERVER_URL}/api/users/${UserStore.uid}`, {
             body: JSON.stringify(postData),
             headers: {
                 'Content-Type': 'application/json'
             },
-            method: 'patch'
+            method: 'PATCH'
         }).then(response => response.json()).then( data => {
             let user = {};
             user['username'] = this.state.username;
             if (this.state.email != '') {
                 user['email'] = this.state.email;
+                this.refs.toast.show('修改成功!');
             }
 
             if (this.state.telephone != '') {
@@ -95,6 +98,11 @@ export default class SettingEmailScreen extends React.Component {
                     >
                         <Text>保存</Text>
                     </Button>
+                    <Toast
+                        ref="toast"
+                        position='top'
+                        positionValue={150}
+                    />
                 </Screen>
             </Screen>
         )

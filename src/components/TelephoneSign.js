@@ -19,7 +19,7 @@ import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { observer } from 'mobx-react/native';
 
-
+import {USER_KEY,SERVER_URL} from '../helper/Config';
 const TelephoneSign = observer( class TelephoneSign extends React.Component {
 
     constructor(props) {
@@ -33,7 +33,7 @@ const TelephoneSign = observer( class TelephoneSign extends React.Component {
             isSending: false
         };
     }
-    
+
     onChangeText = (key, value) => {
         this.setState({ [key]: value })
     }
@@ -44,7 +44,8 @@ const TelephoneSign = observer( class TelephoneSign extends React.Component {
             this.refs.toast.show('请输入正确的电话号码');
         } else {
             // this.setState({ isSending: true });
-            fetch(`https://api.binstd.com/api/virify/massegecode?telephone=${telephone}`, {
+            console.log(`${SERVER_URL}/api/virify/massegecode?telephone=${telephone}`)
+            fetch(`${SERVER_URL}/api/virify/massegecode?telephone=${telephone}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -55,7 +56,7 @@ const TelephoneSign = observer( class TelephoneSign extends React.Component {
                     realCode:data.code,
                     isSending:true
                 });
-            });   
+            });
         }
     }
 
@@ -70,7 +71,7 @@ const TelephoneSign = observer( class TelephoneSign extends React.Component {
             this.refs.toast.show('请输入您接收到的验证码!');
         }
 
-        if(realCode == code) {  
+        if(realCode == code) {
             this.props.setLoading(true);
             setTimeout(() => {
                 this.toPage();
@@ -82,23 +83,24 @@ const TelephoneSign = observer( class TelephoneSign extends React.Component {
 
     async toPage() {
         const { telephone } = this.state;
-      
+
         let user =  UserStore.getAllData;
         user.telephone = telephone;
+        console.log('user:',user);
         UserStore.login(user);
-
+        console.log('安卓你处理吗？');
         //判断是新用户还是老用户,登录验证
-        if(await hasTelephone(telephone) == 1) { 
-            if(user['address']) { 
+        if(await hasTelephone(telephone) == 1) {
+            if(user['address']) {
                 console.log('???==');
                 this.refs.toast.show('该手机号已被使用，请更换新手机号重试！');
                 return;
             } else { //登陆
-         
+                console.log('li333!');
                 this.props.setLoading(false);
                 // goHome();
                 this.props.navigation.navigate('Home');
-            }  
+            }
         } else { //注册
             console.log('nonono');
             this.props.setLoading(false);
@@ -108,12 +110,12 @@ const TelephoneSign = observer( class TelephoneSign extends React.Component {
     }
 
     render() {
-       
+
         const { isSending } = this.state;
 
         let  virifyView;
         if (timerModel.timer > 0 && isSending) {
-            virifyView  =  <Caption 
+            virifyView  =  <Caption
                                 styleName="bold"
                                 style={{
                                     margin:'auto',
@@ -140,7 +142,7 @@ const TelephoneSign = observer( class TelephoneSign extends React.Component {
                                 onPress={() => this.getMassegeCode()}
                             >
                                 <Text
-                                    style={{ 
+                                    style={{
                                         color: '#333333',
                                         fontSize: 15,
                                     }}
@@ -224,7 +226,7 @@ const styles = StyleSheet.create({
     },
     input: {
         width: '100%',
- 
+
         backgroundColor: 'white',
     },
     virify: {

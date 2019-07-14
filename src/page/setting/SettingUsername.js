@@ -6,6 +6,7 @@ import { Screen, View, TextInput, Button, Text } from '@shoutem/ui';
 import { observer } from 'mobx-react/native';
 import UserStore from '../../model/UserStore';
 import {SERVER_URL} from '../../helper/Config';
+import Toast, { DURATION } from 'react-native-easy-toast';
 
 @observer
 export default class SettingUsernameScreen extends React.Component {
@@ -20,10 +21,11 @@ export default class SettingUsernameScreen extends React.Component {
             headerTitleStyle:{
                 fontSize:19,
                 alignSelf:'center',
-                flex:1, 
+                flex:1,
                 textAlign: 'center'
-            }, 
-          
+            },
+            headerRight: (<View></View>)
+
         }
     };
     state = {
@@ -47,18 +49,19 @@ export default class SettingUsernameScreen extends React.Component {
        let postData = {};
         postData['username'] = this.state.username;
         UserStore.login(postData);
-
+        console.log('`${SERVER_URL}/api/users/${UserStore.uid}`',`${SERVER_URL}/api/users/${UserStore.uid}`);
         //中心化操作
-        fetch(`${SERVER_URL}api/users/${UserStore.uid}`, {
+        fetch(`${SERVER_URL}/api/users/${UserStore.uid}`, {
             body: JSON.stringify(postData),
             headers: {
                 'Content-Type': 'application/json'
             },
-            method: 'patch'
+            method: 'PATCH'
         }).then(response => response.json()).then( data => {
+            console.log('response',data);
             let user = {};
             user['username'] = this.state.username;
-
+            this.refs.toast.show('修改成功!');
             if (this.state.email != '') {
                 user['email'] = this.state.email;
             }
@@ -84,7 +87,7 @@ export default class SettingUsernameScreen extends React.Component {
                         onChangeText={val => this.onChangeText('username', val)}
                     />
 
-                  
+
                     <Button
                         styleName="secondary"
                         style={{
@@ -97,6 +100,11 @@ export default class SettingUsernameScreen extends React.Component {
                     >
                         <Text>保存</Text>
                     </Button>
+                    <Toast
+                        ref="toast"
+                        position='top'
+                        positionValue={150}
+                    />
                 </Screen>
             </Screen>
         )

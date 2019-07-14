@@ -17,14 +17,14 @@ class UserStore {
     @observable network = 'eth-mainnet';
 
     constructor() {
-        AsyncStorage.getItem('userinfo').then( (data) => { 
+        AsyncStorage.getItem('userinfo').then( (data) => {
             if(data) {
                 this.allSet(JSON.parse(data));
             }
         });
     }
-     
-    @computed 
+
+    @computed
     get getAllData() {
         const data = {
             uid: this.uid,
@@ -39,10 +39,8 @@ class UserStore {
         };
         return data;
     }
-
-
     //获取结果
-    @computed 
+    @computed
     get isLogin() {
         return this.isAuth ? true : false;
     }
@@ -53,9 +51,10 @@ class UserStore {
         console.log(" async login( userInfo ) { => ",userInfo);
         await this.allSet(userInfo);
         this.isAuth = true;
+        console.log('断在这里');
         await AsyncStorage.setItem('userinfo', JSON.stringify(this.getAllData));
     }
-  
+
     @action.bound
     async allSet( jsonData ) {
         if (jsonData['uid']) {
@@ -77,7 +76,7 @@ class UserStore {
         if(jsonData['email']) {
             this.email = jsonData['email'];
         }
-        
+
         if(jsonData['openTouchId']) {
              this.openTouchId = jsonData['openTouchId'];
         }
@@ -88,7 +87,9 @@ class UserStore {
         if(jsonData['hasPrivate']) {
             this.hasPrivate = jsonData['hasPrivate'];
         }
+        console.log('插入了');
     }
+
 
     //操作
     @action.bound

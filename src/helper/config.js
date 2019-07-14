@@ -1,6 +1,6 @@
 // export const USER_KEY = 'TOKEN_USER';
 
-export const SERVER_URL = 'https://imbit.herokuapp.com/';
+export const SERVER_URL = 'http://10.10.30.62:8000';//'https://imbit.herokuapp.com/';
 const keyId = '0045c2ce288a4e649a8f39f3d19446b4';
 export const ALLOW_NETWORK = [
     {
@@ -54,5 +54,5 @@ export const ALLOW_NETWORK = [
         chain: "POA",
         rpc_url:'https://dai.poa.network',
         chain_id: 100,
-    }  
+    }
 ];

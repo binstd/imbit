@@ -38,7 +38,8 @@ export default class DropDown extends React.Component {
             },
             method: 'get'
         }).then(response => response.json());
-        // console.log('userNetworkuserNetworkuserNetworkuserNetwork:',balance);
+
+        console.log(`https://blockscout.com/${userNetwork[0]}/${userNetwork[1]}/api?module=account&action=balance&address=${UserStore.address}`);
         await tokenStore.balanceSet(balance.result);
         // if(await tokenStore.balanceSet(balance.result)) {
         //     SplashScreen.hide(); 

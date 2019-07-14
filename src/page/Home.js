@@ -29,7 +29,7 @@ import { authTouchID } from '../helper/Common';
 
 import UserStore from '../model/UserStore';
 import tokenStore from '../model/tokenStore';
-import {ALLOW_NETWORK} from '../helper/Config';
+
 
 @observer
 export default class HomeScreen extends React.Component {
@@ -46,16 +46,16 @@ export default class HomeScreen extends React.Component {
             headerTitleStyle:{
                 fontSize:19,
                 alignSelf:'center',
-                flex:1, 
+                flex:1,
                 textAlign: 'center'
-            }, 
+            },
             headerLeft: (
                 <Button >
                     <Text style={{color:'#999999'}}></Text>
                 </Button>
             ),
             headerRight: (
-                <Button 
+                <Button
                     onPress={() => { navigation.navigate('Setting')}}
                 >
                     <Text style={{color:'#999999'}}>设置</Text>
@@ -63,7 +63,7 @@ export default class HomeScreen extends React.Component {
             ),
         }
     };
-    
+
 
     constructor(props) {
         super(props);
@@ -80,7 +80,7 @@ export default class HomeScreen extends React.Component {
         user = UserStore.getAllData;
         if(!user.address) {
             // start 完全为中心化准备
-            if (!user.telephone ) {  
+            if (!user.telephone ) {
                 console.log('没有手机号');
             } else if (!user.username) {
                 this.props.navigation.navigate('RegisterUserInfo');
@@ -97,7 +97,7 @@ export default class HomeScreen extends React.Component {
                 method: 'get'
             }).then(response => response.json());
         }
-      
+
     }
    // https://blockscout.com/eth/ropsten/api?module=account&action=balance&address=0xded8f0646c28678510f6cc98a948e5927cb616af
 
@@ -141,25 +141,25 @@ export default class HomeScreen extends React.Component {
         return (
             <Screen >
             {   address?
-                <Screen >                
+                <Screen >
                     <View style={styles.usercard} >
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             onPress={() => {
                                 this.props.navigation.navigate('UserInfo');
                             }}
                         >
-                            <Row styleName="small"  
-                                style={styles.userinfo} 
+                            <Row styleName="small"
+                                style={styles.userinfo}
                             >
                                 <Blockies
-                                    blockies={address} 
-                                    size={60} 
-                                    style={{ width: 60, height: 60, marginRight: 20, }} 
-                                    color="#dfe" 
-                                    bgColor="#ffe" 
-                                    spotColor="#abc"   
+                                    blockies={address}
+                                    size={60}
+                                    style={{ width: 60, height: 60, marginRight: 20, }}
+                                    color="#dfe"
+                                    bgColor="#ffe"
+                                    spotColor="#abc"
                                 />
-                                <View 
+                                <View
                                     styleName="vertical"
                                 >
                                     <Subtitle>{username}</Subtitle>
@@ -172,17 +172,17 @@ export default class HomeScreen extends React.Component {
                             styleName="line"
                             style={styles.inputLine}
                         />
-                        <Row styleName="small" 
+                        <Row styleName="small"
                             style={{
                                 width:'95%',
                                 height:30,
-                            }} 
+                            }}
                         >
                             <View styleName="horizontal">
                                 <Subtitle styleName="md-gutter-right">地址:</Subtitle>
                                 <Caption >{showaddress}......</Caption>
                             </View>
-                            <Button 
+                            <Button
                                 onPress={this.copyAddress}
                                 name="right-arrow"
                             >
@@ -197,66 +197,66 @@ export default class HomeScreen extends React.Component {
                                     this.props.navigation.navigate('BindingMnemonic');
                                 }}
                             >
-                                <Text
-                                    style={{ color: '#308EFF', fontSize: 16,}}
-                                >
-                                    绑定区块链身份
-                                </Text>
-                            </TouchableOpacity>
+                                    <Text
+                                        style={{ color: '#308EFF', fontSize: 16,}}
+                                    >
+                                        绑定区块链身份
+                                    </Text>
+                                </TouchableOpacity>
                             }
-                            
+
                     </View>
-                    <View 
+                    <View
                         style={{
                             width:'100%',
                             marginTop:0,
                             height:50,
                             flexDirection: 'row',
                             justifyContent: 'center',
-                        }} 
+                        }}
                     >
                      {hasPrivate &&
-                        <Button 
+                        <Button
                             style={{
                                 width:85,
                                 height:40,
                                 margin:5,
-                            }} 
+                            }}
                             onPress={() => {
                                 this.toTransaction();
-                            }} 
+                            }}
                         >
                             <Text>转账</Text>
                         </Button>
                      }
-                        <Button 
+                        <Button
                             style={{
                                 width:85,
                                 height:40,
                                 margin:5,
-                            }} 
+                            }}
                             onPress={() => {
                                 this.toMymoney();
                             }}
                         >
                             <Text>我的资产</Text>
-                        </Button> 
-                        <Button 
+                        </Button>
+                        {/* <Button
                             style={{
                                 width:85,
                                 height:40,
                                 margin:5,
-                            }} 
+                            }}
                             onPress={() => {
                                 this.props.navigation.navigate('TwoFactorList');
                             }}
                         >
                             <Text>双层验证</Text>
-                        </Button> 
+                        </Button> */}
                     </View>
 
                     <View style={styles.scancontainer}>
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             style={{ alignItems: 'center'}}
                             onPress={() => {
                                 this.props.navigation.navigate('QRCodeScanner');
@@ -264,11 +264,11 @@ export default class HomeScreen extends React.Component {
                             >
                             <Image
                                 styleName="medium-square"
-                                style={styles.scanicon} 
+                                style={styles.scanicon}
                                 source={{ uri: 'https://blockluz-1253389096.cos.ap-beijing.myqcloud.com/blockman/scanicon3-1.png'}}
                             />
                             <Text style={styles.scantext}> 扫一扫 </Text>
-                        </TouchableOpacity>  
+                        </TouchableOpacity>
 
                         <Caption
                             styleName="bold"
@@ -287,7 +287,7 @@ export default class HomeScreen extends React.Component {
                 <Spinner />
                 }
             </Screen>
-            
+
         )
     }
 
@@ -299,7 +299,7 @@ export default class HomeScreen extends React.Component {
         // await AsyncStorage.clear();
         this.props.navigation.navigate('Auth');
     };
-    
+
     _mymoney = () => {
         this.props.navigation.navigate('TwoFactorList');
     };
@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
         marginTop:'55%',
         height: '100%',
         padding: 'auto',
-        alignItems: 'center',   
+        alignItems: 'center',
     },
     scanicon:{
         width:90,
@@ -360,6 +360,6 @@ const styles = StyleSheet.create({
         height:30,
         padding:'auto',
         color: '#308EFF',
-    
+
     }
 })
