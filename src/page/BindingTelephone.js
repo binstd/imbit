@@ -46,7 +46,6 @@ export default SettingTelephone = observer( class SettingTelephone extends React
         };
     }
 
-
     constructor(props) {
         super(props);
         this.state = {

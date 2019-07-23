@@ -77,13 +77,15 @@ export async function RegisterInfo({ username, email, telephone}) {
 export async function hasAddress(address) {
     let postData = {};
     postData['address'] = address.toLowerCase();
+    console.log('postData[address]', postData['address']);
+    console.log(`${SERVER_URL}/api/users?identity_id=${postData['address']} ====>\n `,data);
     let data = await fetch(`${SERVER_URL}/api/users?identity_id=${postData['address']}`, {
         headers: {
             'Content-Type': 'application/json'
         },
         method: 'get'
     }).then(response => response.json());
-    console.log(`${SERVER_URL}/api/users?identity_id=${postData['address']} ====>\n `,data);
+
     if(data.length != 0) {
         let user = {};
         user['uid'] = data[0].id;

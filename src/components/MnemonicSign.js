@@ -10,14 +10,11 @@ import {
     Caption
 } from '@shoutem/ui';
 
-
 import { hasAddress } from '../helper/UserFetch';
-// import validator from 'validator';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import UserStore from '../model/UserStore';
 import { observer } from 'mobx-react/native';
 import {walletInit} from '../helper/Wallet';
-
 
 @observer
 class MnemonicSign extends React.Component {
@@ -38,51 +35,55 @@ class MnemonicSign extends React.Component {
         this.setState({ [key]: value })
     }
 
-     signIn =() => {
+    signIn = async() => {
         let { mnemonic } = this.state;
         let mnemonicList = mnemonic.split(" ");
-        console.log(mnemonicList.length);
+        // console.log(mnemonicList.length);
         if (mnemonicList.length != 12) {
             this.refs.toast.show('助记词仅支持用空格隔开的12个单词!');
             return;
         } else {
-            this.props.setLoading(true);
-            setTimeout( () => {
-                this.saveWallet(mnemonic);
-            }, 500);
+            await this.props.setLoading(true);
+            await this.saveWallet(mnemonic);
+
         }
     }
     //marine egg thunder risk method absorb kitchen bird assist legend clarify approve
      saveWallet = async (mnemonic) => {
         let { walletAddress } = await walletInit(mnemonic);
+        // console.log('调出来了');
         if (!walletAddress) {
+            console.log(' this.props.setLoading(false);');
             this.props.setLoading(false);
         }
         let userdata = await hasAddress(walletAddress);
-
+        console.log('userdata');
+        this.props.setLoading(false);
         if (userdata) {
+            console.log('存在');
             userdata['hasPrivate'] = true;
             await UserStore.login(userdata);
             await this.props.navigation.navigate('Home');
         } else {
-            this.props.setLoading(false);
-            console.log('新助记词！');
-            this.refs.toast.show('暂不支持外部助记词导入!');
-            //设置手机号页面
+            await this.refs.toast.show('暂不支持外部助记词导入,请先用手机号注册!');
+            return;
         }
     }
 
 
+    toastShow = (message) => {
+        this.refs.toast.show(message);
+    }
+
     render() {
-        const {
-            displayRequest,
-            peerMeta,
-            approveRequest,
-            rejectRequest
-        } = this.props;
 
     return (
         <Screen style={styles.container2} >
+            <Toast
+                ref="toast"
+                position='top'
+                positionValue={150}
+            />
             <TextInput
                 style={styles.input}
                 placeholder='请输入12个助记词,词词之间用空格'
@@ -109,11 +110,7 @@ class MnemonicSign extends React.Component {
                     首次登录会自动创建新账户
                 </Caption>
             </View>
-            <Toast
-                ref="toast"
-                position='top'
-                positionValue={150}
-            />
+
         </Screen>
     );
   }

@@ -21,9 +21,8 @@ import { hasAddress } from '../helper/UserFetch';
 
 import Toast, { DURATION } from 'react-native-easy-toast';
 
-
 class BindingMnemonicScreen extends React.Component {
-   
+
     static navigationOptions = ({ navigation }) => {
         return {
             headerTitle: '绑定区块链身份',
@@ -35,9 +34,9 @@ class BindingMnemonicScreen extends React.Component {
             headerTitleStyle:{
                 fontSize:19,
                 alignSelf:'center',
-                flex:1, 
+                flex:1,
                 textAlign: 'center'
-            }, 
+            },
             headerRight: (<View></View>)
         }
     };
@@ -74,7 +73,7 @@ class BindingMnemonicScreen extends React.Component {
 
     async saveWallet(mnemonic) {
         let { walletAddress } = await walletInit(mnemonic);
-   
+
         if (!walletAddress) {
             this.setState({ isLoading: false });
             this.refs.toast.show( '无法创建区块链身份,请检测助记词是否正确!', 2000 );
@@ -89,7 +88,7 @@ class BindingMnemonicScreen extends React.Component {
         // goHome();
             this.props.navigation.navigate('Home');
         }
-        
+
     }
 
     render() {

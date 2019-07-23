@@ -14,23 +14,15 @@ import {
 // import { asyncStorageSave, asyncStorageLoad } from '../helpers/asyncStorage';
 // import { USER_KEY } from '../config';
 
-
 export default class DropDown extends React.Component {
-  
+
     constructor(props) {
         super(props);
-       
     }
-
-    async componentDidMount() {
-       
-    }
-
     render() {
         const selectedNetwork = this.state.selectedNetwork;ddc
         return (
             <DropDownMenu
-                //   styleName="horizontal"
                 options={this.state.network}
                 selectedOption={selectedNetwork ? selectedNetwork : this.state.network[0]}
                 onOptionSelected={(Lang) => this.settingLan(Lang)}
@@ -47,7 +39,5 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         justifyContent: 'center',
-        // alignItems: 'center'
-        // alignItems: 'center'
     }
 });

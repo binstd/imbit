@@ -14,7 +14,7 @@ import TelephoneSign from '../components/TelephoneSign';
 
 //登陆页面
 export default class SignInScreen extends React.Component {
-    
+
     static navigationOptions = {
         headerTitle: '登录',
         headerStyle:{
@@ -25,11 +25,11 @@ export default class SignInScreen extends React.Component {
         headerTitleStyle:{
             fontSize:18,
             alignSelf:'center',
-            flex:1, 
+            flex:1,
             textAlign: 'center'
-        }, 
+        },
     };
-  
+
     constructor(props) {
         super(props);
         this.state = {
@@ -42,9 +42,10 @@ export default class SignInScreen extends React.Component {
    setLoading(isLoading) {
        this.setState({isLoading:isLoading});
    }
+
    componentDidMount() {
-        // SplashScreen.hide(); 
-    }
+        // SplashScreen.hide();
+   }
 
     render() {
         const { tabIsMnemonic } = this.state;
@@ -94,32 +95,32 @@ export default class SignInScreen extends React.Component {
                         </View>
                         {   tabIsMnemonic
                             ?
-                                <MnemonicSign 
+                                <MnemonicSign
                                     navigation = {this.props.navigation}
                                     setLoading={
-                                        (isLoading)=>this.setLoading(isLoading) 
+                                        (isLoading)=>this.setLoading(isLoading)
                                     }
-                                />  
+                                />
                             :
-                            <TelephoneSign 
+                            <TelephoneSign
                                 navigation = {this.props.navigation}
                                 setLoading={
-                                    (isLoading)=>this.setLoading(isLoading) 
+                                    (isLoading)=>this.setLoading(isLoading)
                                 }
                             />
                         }
                     </Screen>}
-                
+
             </Screen>
         )
     }
-  
+
     signInAsync = () => {
         AsyncStorage.setItem('userToken', 'abc');
         this.props.navigation.navigate('Home');
     };
   }
-  
+
   const styles = StyleSheet.create({
     header: {
         height: 45,
